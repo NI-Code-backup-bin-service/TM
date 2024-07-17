@@ -1,0 +1,1 @@
+UPDATE data_element SET tooltip = 'The TIP Configurations defining the configuration of tip details.' WHERE name = 'gratuityConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

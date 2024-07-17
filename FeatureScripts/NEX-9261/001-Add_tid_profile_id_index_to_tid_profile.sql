@@ -1,0 +1,1 @@
+CREATE INDEX `idx_tid_profile_id`  ON `tid_site` (tid_profile_id) ALGORITHM DEFAULT LOCK DEFAULT;

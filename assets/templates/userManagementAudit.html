@@ -1,0 +1,91 @@
+        <!--
+        Template that displays the audit history for user management
+        Parent template: userManagement
+        Child templates: none
+        -->
+{{ define "userManagementAudit" }}
+    {{ $u := .CurrentUser }}
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.datetimepicker.min.css"/>
+    <script src="/assets/js/jquery.datetimepicker.full.js"></script>
+    <script src="/assets/js/profileFields.js"></script>
+    {{ $resultCount := len $.PageModel.History }}
+    <div class="container tiny-gutter full-resize">
+        <div class="row no-padding">
+            <label for="after-input" class="col-md-2 col-sm-5 mt-2">After: </label>
+            <input id="after-input" type="text" readonly class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+
+            <label for="acquirer-input" class="col-md-2 col-sm-5 mt-2">Filter By Acquirer: </label>
+            <input id="acquirer-input" type="text" class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+
+            <label for="user-input" class="col-md-2 col-sm-5 mt-2">Filter By User: </label>
+            <input id="user-input" type="text" class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+
+        </div>
+
+        <div class="row no-padding">
+
+            <label for="before-input" class="col-md-2 col-sm-5 mt-2">Before:</label>
+            <input id="before-input" type="text" readonly class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+
+            <label for="name-input" class="col-md-2 col-sm-5 mt-2" >Filter By Name: </label>
+            <input id="name-input" type="text" class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+
+            <label for="module-input" class="col-md-2 col-sm-5 mt-2" >Filter By Module: </label>
+            <input id="module-input" type="text" class="form-control changes-history sm-text" onkeydown="checkAuditKeyPress()"/>
+        </div>
+
+        <div class="row no-padding">
+            <div class=" no-padding float-end">
+                <button id="export" type="button" onClick="exportAuditHistory()" class="btn btn-secondary float-end left-spaced">Export</button>
+                <button id="clear-filters" type="button" class="btn btn-secondary float-end left-spaced">Clear Filters</button>
+                <button id="filter" type="button" onClick="filterAuditHistory({{ .PageModel.IdentifierColumn }}, 0)" class="btn btn-primary float-end" data-type='filter-cah-details'>Filter</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <span id="prev-results-{{.PageModel.IdentifierColumn}}" class="fas fa-angle-left fa-2x fa-pull-left opacity" onclick="userAuditPageResults(-50, {{.PageModel.IdentifierColumn}})"></span>
+        <label id="shown-results-{{.PageModel.IdentifierColumn}}">Showing Results 0 to 50</label>
+        <span id="next-results-{{.PageModel.IdentifierColumn}}"
+              class='fas fa-angle-right fa-2x fa-pull-right {{if eq $resultCount 50}}clickable{{else}} opacity {{end}}'
+              {{if eq $resultCount 50}} onclick="userAuditPageResults(50, {{.PageModel.IdentifierColumn}})" {{end}}>
+        </span>
+    </div>
+    <div class="container no-padding tiny-gutter full-resize">
+        <table class="changeApprovalTable table table-striped table-sm col-wrap mt-3">
+            <thead>
+            <tr class="d-flex">
+                <th scope="col" class="col">Acquirer Name(s)</th>
+                <th scope="col" class="col">Name</th>
+                <th scope="col" class="col">Module</th>
+                <th scope="col" class="col-3">Original Value</th>
+                <th scope="col" class="col-3">Updated Value</th>
+                <th scope="col" class="col">Updated By</th>
+                <th scope="col" class="col">Updated At</th>
+            </tr>
+            </thead>
+            <tbody id="history-table">
+            {{ range $key, $t := $.PageModel.History }}
+                <tr class="d-flex">
+                    <td id="acquirer-name-{{ $key }}" name="acquirer-name-{{ $key }}" class="col">{{ .Acquirer }}</td>
+                    <td id="name-{{ $key }}" name="name-{{ $key }}" class="col">{{ .Name }}</td>
+                    <td id="level-{{ $key }}" name="level-{{ $key }}" class="col">{{ .Module }}</td>
+                    <td id="original-value-{{ $key }}" name="original-value-{{ $key }}" class="col-3">{{ range $ov := .OriginalValue }}{{ $ov }}<br/>{{ end }}</td>
+                    <td id="updated-value-{{ $key }}" name="updated-value-{{ $key }}" class="col-3">{{ range $uv := .UpdatedValue }}{{ $uv }}<br/>{{ end }}</td>
+                    <td id="updated-by-{{ $key }}" name="updated-by-{{ $key }}" class="col">{{ .UpdatedBy }}</td>
+                    <td id="updated-at-{{ $key }}" name="updated-at-{{ $key }}" class="col">{{ .UpdatedAt.Format "2006-01-02 15:04:05"}}</td>
+                </tr>
+            {{ end }}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="preparing-file-modal" title="Preparing report..." style="display: none;">
+        We are preparing your report, please wait...
+        <div class="ui-progressbar-value ui-corner-left ui-corner-right" style="width: 100%; height:22px; margin-top: 20px;"></div>
+    </div>
+
+    <div id="error-modal" title="Error" style="display: none;">
+        There was a problem generating your report, please try again.
+    </div>
+
+{{ end }}

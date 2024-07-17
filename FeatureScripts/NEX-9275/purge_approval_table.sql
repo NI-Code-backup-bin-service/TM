@@ -1,0 +1,1 @@
+DELETE FROM approvals a WHERE a.created_at <= date_sub(now(), interval 6 month)

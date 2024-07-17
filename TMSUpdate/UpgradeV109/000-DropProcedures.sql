@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_card_schemes_from_profile_id;

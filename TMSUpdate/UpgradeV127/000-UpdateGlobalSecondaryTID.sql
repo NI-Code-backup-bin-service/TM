@@ -1,0 +1,1 @@
+UPDATE profile_data SET datavalue='' where profile_id = 1 and data_element_id = (SELECT data_element_id FROM data_element where name="secondaryTid");

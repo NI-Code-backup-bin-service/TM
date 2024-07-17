@@ -1,0 +1,1 @@
+UPDATE profile_data SET datavalue=REPLACE(datavalue,'DF130101','DF130100') WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE `name`='ctlsApplicationConfigShared');

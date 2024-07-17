@@ -1,0 +1,5 @@
+UPDATE data_element SET sort_order_in_group=1 WHERE name = 'allowFallbackToStandalone' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty') LIMIT 1;
+UPDATE data_element SET sort_order_in_group=2 WHERE name  ='partialPackageName' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty') LIMIT 1;
+UPDATE data_element SET sort_order_in_group=3 WHERE name = 'thirdPartyPackageList' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty') LIMIT 1;
+UPDATE data_element SET sort_order_in_group=4 WHERE name = 'triggerFromStandalone' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty') LIMIT 1;
+UPDATE data_element SET sort_order_in_group=5 WHERE name = 'freeSpace' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty') LIMIT 1;

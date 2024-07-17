@@ -1,0 +1,1 @@
+UPDATE profile SET name = "NI" WHERE profile_id = 2;

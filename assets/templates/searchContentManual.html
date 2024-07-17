@@ -1,0 +1,48 @@
+{{ define "searchContentManual" }}
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="search-manual-tabs">
+            <div class="tabbable">
+                <ul class="nav nav-tabs d-print-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="#searchTabContent" href="#searchTabContent" data-bs-toggle="tab">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#configurationTabContent" href="#configurationTabContent" data-bs-toggle="tab">Configuration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#tidConfigurationTabContent" href="#tidConfigurationTabContent" data-bs-toggle="tab">TID Configuration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#usersTabContent" href="#usersTabContent" data-bs-toggle="tab">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#fraudTabContent" href="#fraudTabContent" data-bs-toggle="tab">Fraud</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#historyTabContent" href="#historyTabContent" data-bs-toggle="tab">Change History</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="searchContent">
+                    <div id="searchTabContent" class="tab-pane active">
+                        <embed src="/assets/manual/search.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                    <div id="configurationTabContent" class="tab-pane fade">
+                        <embed src="/assets/manual/configuration.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                    <div id="tidConfigurationTabContent" class="tab-pane fade">
+                        <embed src="/assets/manual/tidConfiguration.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                    <div id="usersTabContent" class="tab-pane fade">
+                        <embed src="/assets/manual/siteUserManagement.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                    <div id="fraudTabContent" class="tab-pane fade">
+                        <embed src="/assets/manual/fraud.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                    <div id="historyTabContent" class="tab-pane fade">
+                        <embed src="/assets/manual/siteChangeHistory.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}

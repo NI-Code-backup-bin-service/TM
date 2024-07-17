@@ -1,0 +1,24 @@
+{{ define "bulkSiteDeletePartial" }}
+<script src="/assets/js/bulkSiteTidDelete.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/confirmation.js"></script>
+
+<div>
+    <div>
+        <h4>Bulk Site Delete</h4>
+        <form id="site-delete-upload">
+            <div class="row spaced-bottom indent">
+                <input id="site-delete-upload-file" name="file" type="file" class="form-control-file"/>
+            </div>
+            <div class="mt-2 spaced-bottom indent">
+                <button type="button" id="site-delete-upload-file-button" class="btn btn-danger my-2 my-sm-0" onclick="bulkDeleteSite()">Delete</button>
+            </div>
+            {{ .CSRFField }}
+        </form>
+    </div>
+    <div id="site-delete-results">
+
+    </div>
+</div>
+
+{{ end }}

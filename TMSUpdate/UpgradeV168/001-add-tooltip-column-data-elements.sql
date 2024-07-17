@@ -1,0 +1,1 @@
+ALTER TABLE data_element ADD COLUMN tooltip TEXT;

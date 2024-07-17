@@ -1,0 +1,1 @@
+drop procedure if exists enable_Visa_MC_QR_on_profile;

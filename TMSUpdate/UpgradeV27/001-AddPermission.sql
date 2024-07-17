@@ -1,0 +1,1 @@
+insert into permission (permission_id, name) values (12, 'Change History View');

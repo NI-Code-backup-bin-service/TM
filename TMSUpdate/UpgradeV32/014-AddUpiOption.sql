@@ -1,0 +1,1 @@
+UPDATE data_element SET options = "sale|refund|void|preAuth|gratuitySale|gratuityCompletion|alipay|upi" WHERE data_element_id = 22;

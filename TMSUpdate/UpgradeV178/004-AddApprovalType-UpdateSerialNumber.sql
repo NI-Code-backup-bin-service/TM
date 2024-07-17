@@ -1,0 +1,1 @@
+INSERT IGNORE INTO approval_type (approval_type_id, approval_type_name) value (6, 'Update Serial Number');

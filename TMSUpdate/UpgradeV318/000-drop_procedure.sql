@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS delete_site_update_serial_number;

@@ -1,0 +1,1 @@
+ALTER TABLE `velocity_limits` ADD COLUMN (cumulative_daily INT NULL, cumulative_batch INT NULL);

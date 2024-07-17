@@ -1,0 +1,69 @@
+{{define "profileUserManagement"}}
+    {{ $u := .CurrentUser }}
+    {{template "warning"}}
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="button-bar">
+                    {{ if and (eq .PageModel.ProfileTypeName "site") (eq .PageModel.NewProfile false) }}
+                    <button id="site-download-rpi" type="button" class="btn btn-secondary float-end" onclick="downloadRpiCertificate()">Download RPI Certificate</button>
+                    {{ end }}
+                    {{ if (eq .PageModel.NewProfile false) }}
+                    <input type="hidden" id="hidden_userFlagStatusOption" name="hidden_userFlagStatusOption">
+                    <div class="float-end m-1" id="userFlagStatusOption"></div>
+                    <select id="flagStatus" name="flagStatus" class="rounded float-end m-1 p-1 text-center" onchange="flagStatusSelect(this, 'userFlagStatusOption')">
+                        <option disabled selected value> -- Select Flag Status -- </option>
+                        <option value="all" >Flag all</option>
+                        {{ if (eq .PageModel.ProfileTypeName "site")}}
+                        <option value="specific">Flag specific</option>
+                        {{ end }}
+                        <option value="file">Upload file</option>
+                    </select>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        <h4 class="tms-header">User Management</h4>
+        <div id="siteUserTable"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="uploadResultModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Results</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                    </button>
+                </div>
+                <div class="modal-body" id="update-summary">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-placement="top" title="Export the results as a csv" onclick="ExportUserUploadReportAsCSV()">Export</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="export-user-csv" class="btn btn-primary" onclick="exportCsv()">Export</button>
+
+    <div class="csv-upload-section">
+        <h3 class="tms-header">Upload Users</h3>
+
+        <form id="upload-csv" action="UploadUserCSV" method="POST">
+            <div class="spaced-bottom">
+                <input id="upload-user-csv-file" name="file" type="file"/>
+            </div>
+            <div class="spaced-bottom">
+                <button id="upload-user-csv-button" class="btn btn-primary my-2 my-sm-0">Upload</button>
+            </div>
+            {{.CSRFField}}
+        </form>
+    </div>
+    <div id="users_tid_data_for_flagging"></div>
+    <script src="/assets/js/UserTable.js"></script>
+    <script src="/assets/js/SiteUsers.js"></script>
+{{end}}

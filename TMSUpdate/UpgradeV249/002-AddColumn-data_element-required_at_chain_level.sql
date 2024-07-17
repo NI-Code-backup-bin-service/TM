@@ -1,0 +1,1 @@
+CALL AddColumn('data_element', 'required_at_chain_level', 'tinyint(1)', 'NOT NULL DEFAULT 0 COMMENT \'Determines if the field is required at chain level specifically\'');

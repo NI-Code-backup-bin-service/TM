@@ -1,0 +1,51 @@
+{{define "addTid"}}
+<tr>
+    <td colspan="7">
+        <div class="container row">
+            <div class="col">
+                {{ $tid := .PageModel.TID }}
+                {{ $IsNew := .PageModel.IsNew }}
+                {{ $IsDuplicate := .PageModel.IsDuplicate }}
+                <form id="addTidProfile_{{ $tid }}">
+                    <input hidden="hidden" id="tidID" name="tidID" value="{{ $tid }}"/>
+                    <input hidden="hidden" id="profileID" name="profileID" value="{{ .PageModel.ProfileId }}"/>
+                    <input hidden="hidden" id="siteID" name="siteID" value="{{ .PageModel.SiteId }}"/>
+                    {{ if $IsNew }}
+                        <input hidden="hidden" id="isNew" name="isNew" value="true"/>
+                    {{ end }}
+
+                    {{ if $IsDuplicate }}
+                        <input hidden="hidden" id="DuplicatedFrom" name="DuplicatedFrom" value="{{.PageModel.DuplicatedFrom}}"/>
+                        <input hidden="hidden" id="IsDuplicate" name="IsDuplicate" value="true"/>
+                            {{ range $group :=  .PageModel.DefaultTidGroups}}
+                                {{range $de := $group.DataElements}}
+                                    <input hidden="hidden" id="{{$de.ElementId}}" name="hidden.{{$de.ElementId}}" value="{{$de.DataValue}}"/>
+                                {{end}}
+                             {{end}}
+                    {{ end }}
+                    {{ .CSRFField }}
+
+                            <div class="row button-bar">
+                                <div class="col">
+                                    <label>TID:</label>
+                                    <input id="newTidInput{{ $tid }}" name="newTidInput{{ $tid }}" type="text" class="col-md-2"/>
+
+                                    <label>Serial:</label>
+                                    <input id="newSerialInput{{ $tid }}" name="newSerialInput{{ $tid }}" type="text" class="col-md-3"/>
+
+                                    <button id="cancel-{{ $tid }}" type="button" class="btn btn-primary btn-sm float-end mt-1" onClick=CancelAddTid({{ $tid }}) style="margin-left: 1%">Cancel</button>
+                                    <button id="apply-duplicate-{{ $tid }}" type="button" class="btn btn-primary btn-sm float-end mt-1" onClick=ApplyDuplicateNewTidOverride({{ $tid }}) style="margin-left: 1%">Apply and Duplicate</button>
+                                    <button id="apply-{{ $tid }}" type="button" class="btn btn-primary btn-sm float-end mt-1" onClick=ApplyNewTID({{ $tid }}) style="margin-left: 1%">Apply</button>
+                                </div>
+                            </div>
+
+
+                        {{ template "tidGroupTable" dict "tid" $tid "pg" .PageModel.DefaultTidGroups "checkDirty" false "currentUser" $.CurrentUser "IsNew" $IsNew "SiteId" .PageModel.SiteId}}
+
+                    {{ .CSRFField }}
+                </form>
+            </div>
+        </div>
+    </td>
+</tr>
+{{ end }}

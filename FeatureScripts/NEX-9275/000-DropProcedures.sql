@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_pending_site_change_approvals;

@@ -1,0 +1,3 @@
+UPDATE `data_element` SET `validation_expression`='^[0-2]$', `validation_message`='Must be either 0 or 1 or 2', `options`='0,1,2' WHERE `data_element_id`='68';
+UPDATE `data_element` SET `validation_expression`='^\\d+$', `validation_message`='Must not be left blank' WHERE `data_element_id`='70';
+UPDATE `data_element` SET `validation_expression`='^\\d+$', `validation_message`='Must not be left blank', `options`='' WHERE `data_element_id`='69';

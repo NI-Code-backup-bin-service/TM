@@ -1,0 +1,1 @@
+ALTER TABLE tid_updates ADD third_party_apk INT;

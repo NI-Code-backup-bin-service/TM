@@ -1,0 +1,71 @@
+{{define "gratuity"}}
+<div id="gratuity">
+    <form id="gratuityDetails">
+        <div class="form-group">
+            <label data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="Select TIP PRO Type" data-delay='{"show":"1000"}' for="tipProType" class="col-form-label">Select TIP PRO Type<span class="mandatory-element"></span></label>
+            <select class="form-select" id="tipProType" name="tipProType" onchange="changeTIPConfiguration(this)">
+                <option selected disabled hidden></option>
+                <option value="1">FIXED AMOUNT FEE</option>
+                <option value="2">FIXED PERCENTAGE FEE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="Text Character Limit for English/French/Arabic max allow upto 100" data-delay='{"show":"1000"}' for="textCharacterLimit" class="col-form-label">Text Character Limit<span class="mandatory-element"></span></label>
+            <input type="number" class="form-control" id="textCharacterLimit" name="textCharacterLimit">
+        </div>
+        <div class="form-group">
+            <label data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="English display text max based on Text Character Limit" for="english" class="col-form-label">English<span class="mandatory-element"></span></label>
+            <input type="text" class="form-control" id="english" name="english" required autofocus>
+        </div>
+        <div class="form-group">
+            <label data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="French display text max based on Text Character Limit" for="french" class="col-form-label">French</label>
+            <input type="text" class="form-control" id="french" name="french">
+        </div>
+        <div class="form-group">
+            <label data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="Arabic display text max based on Text Character Limit" for="arabic" class="col-form-label">Arabic</label>
+            <input type="text" class="form-control" id="arabic" name="arabic">
+        </div>
+        <br/>
+        <fieldset id="preDefineTip">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="PreDefine Tip provided by Merchant" class="input-group-text">PreDefine Tip</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip1" name="preDefineTip1" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip2" name="preDefineTip2" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip3" name="preDefineTip3" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip4" name="preDefineTip4" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip5" name="preDefineTip5" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip6" name="preDefineTip6" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip7" name="preDefineTip7" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip8" name="preDefineTip8" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip9" name="preDefineTip9" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip" id="preDefineTip10" name="preDefineTip10" value="0">
+            </div>
+        </fieldset>
+        <br/>
+        <fieldset id="preDefineTipPercentage">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="PreDefine Tip provided by Merchant" class="input-group-text">PreDefine Tip Percentage</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage1" name="preDefineTipPercentage1" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage2" name="preDefineTipPercentage2" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage3" name="preDefineTipPercentage3" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage4" name="preDefineTipPercentage4" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage5" name="preDefineTipPercentage5" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage6" name="preDefineTipPercentage6" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage7" name="preDefineTipPercentage7" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage8" name="preDefineTipPercentage8" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage9" name="preDefineTipPercentage9" value="0">
+                <input type="text" class="form-control" aria-label="Pre Define Tip Percentage" id="preDefineTipPercentage10" name="preDefineTipPercentage10" value="0">
+            </div>
+        </fieldset>
+        {{.CSRFField}}
+    </form>
+    <div class="modal-footer">
+        <button id="save" onclick="updateGratuity()" class="btn btn-outline-primary" type="button" name="save-details">Save</button>
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,2 @@
+UPDATE data_element SET displayname_en = 'Transaction Currency Code' WHERE name = 'transactionCurrencyCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET displayname_en = 'DCC Local Bins' WHERE name = 'dccLocalBins' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

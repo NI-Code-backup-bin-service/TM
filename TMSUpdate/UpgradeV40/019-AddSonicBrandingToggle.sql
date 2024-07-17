@@ -1,0 +1,1 @@
+INSERT INTO data_element (data_group_id, name, datatype, is_allow_empty, version, updated_at, updated_by, created_at,created_by, front_end_validate,options, displayname_en) VALUES ((SELECT data_group_id FROM data_group WHERE data_group.name = 'Store'), 'sonicBranding','BOOLEAN',0,1,NOW(),'system',NOW(),'system',0,'','Sonic Branding');

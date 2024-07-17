@@ -1,0 +1,70 @@
+{{define "addSite"}}
+<script src="/assets/js/DOMPurify/purify.min.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/sanitization.js"></script>
+<script src="/assets/js/addSite.js"></script>
+<script src="/assets/js/profileFields.js"></script>
+<script src="/assets/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-multiselect.css"/>
+<div>
+    {{template "warning"}}
+
+    <div class="m-2">
+        <form id="get-fields" action="getAddSiteFields" method="POST">
+            <div class="row filter-bar no-margin">
+               <div id="type" class="add-site-type col-sm-2">
+                    <label for="type" class="col-form-label add-site-type-label">Type: </label>          
+                        <select id="type" name="type" class="form-select mr-sm-0" onchange="typeSelect(this)">
+                            <option value="site">Site</option>
+                            <option value="chain">Chain</option>
+                            {{if (eq .CurrentUser.RoleID 3) }}
+                                <option value="acquirer">Acquirer</option>
+                            {{end}}
+                        </select>
+                </div>
+                <div id="chain_select" class="add-site-type col-sm-2">
+                    <label for="chain_dropdown" selectedIndex="0" class="col-form-label add-site-type-label">Chain: </label>
+                    <div>
+                        <select id="chain_dropdown" name="chainId" class="form-select mr-sm-0" onchange="getDataGroups()">
+                            {{range .PageModel.Chains}}
+                                <option value="{{ .ID }}">{{.Name}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                </div>
+            <div id="acquirer_select" class="add-site-type col-sm-3">
+                <label for="acquirer_dropdown" class="col-form-label add-site-type-label">Acquirer: </label>
+                    <select id="acquirer_dropdown" name="acquirerId" selectedIndex="0" class="form-select mr-sm-0" onchange="getDataGroups()">
+                    {{range .PageModel.Acquirers}}
+                        <option value="{{ .ID }}">{{.Name}}</option>
+                    {{end}}
+                    </select>
+            </div>
+            <div class="add-site-type col-sm-3" id="addProfileOptions">
+                <label for="name" class="col-form-label add-site-type-label">Name: </label>
+                <input type="text" name="name" id="name" class="form-control"/>
+            </div>
+            <div class="add-site-type col-sm-3" id="addSiteOptions">
+                <label for="mid" class="col-form-label add-site-type-label">MID: </label>
+                <input type="text" name="mid" id="mid" class="form-control"/>
+            </div>
+            <div class="add-site-type col-sm-2">
+                <button id="get-site-fields" class="btn btn-primary" type="submit"> Get Fields </button>
+            </div>
+        </div>
+            {{.CSRFField}}
+        </form>
+        <form id="save-new-site" action="saveNewProfile" onkeydown="return event.key != 'Enter'" method="POST">
+            <label class="add-site-type-label">Data Groups</label> <a id="dgToggle" href="#" onclick="toggleDataGroups()" class="float-end">hide</a>
+            <div id="data-groups">
+                    {{template  "dataGroups" .}}
+            </div>
+            <div id="addSiteFields">
+
+            </div>
+            {{.CSRFField}}
+        </form>
+</div>
+</div>
+{{template "confirm" .}}
+{{template "footer" .}} {{end}}

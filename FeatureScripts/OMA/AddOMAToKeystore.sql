@@ -1,0 +1,2 @@
+INSERT INTO `keystore` (`identifier`, `lkey`, `rkey`) VALUES ('OM-A880bdk', 'bHiiYS4vzqpki1m_CdlvYcXHZgc-NExokCObBRtckQCIfrbO6lJbHdkApThMI2yqUtQ=', 'nHH1dsux5X1yuJbk8CwAddL3K60MSdUTyukjj0PqC789sE415zGy-BlVHZqUlCOq6lo=');
+INSERT INTO `keystore` (`identifier`, `lkey`, `rkey`) VALUES ('OM-A880dklk', '27Lpm_T7PBf68pJhbewKS4-rv6D4iPX3VE59azz1WZ7ycyZv8vAuCvGl9qVwS-BusRM=', 'Fzaibzw4dCtDeCZvXtHhIxx_EO3IKImP3aeCSyr8cUXgXAhZsFGZNBHx94hokMezwQM=');

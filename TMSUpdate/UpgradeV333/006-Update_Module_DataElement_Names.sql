@@ -1,0 +1,2 @@
+UPDATE data_element SET displayname_en = 'TIP PRO', tooltip = 'Enable/Disable tips with fixed or percentage values.' WHERE name = 'isPrefixGratuity' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET displayname_en = 'Tip Pro Configs', tooltip = 'Setup tips with fixed or percentage values.' WHERE name = 'gratuityConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

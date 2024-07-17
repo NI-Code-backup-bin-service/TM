@@ -1,0 +1,1 @@
+drop procedure if exists Enable_IPP_DG_Update_DE_on_profile;

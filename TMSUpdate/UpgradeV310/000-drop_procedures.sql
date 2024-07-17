@@ -1,0 +1,3 @@
+DROP PROCEDURE IF EXISTS save_pending_element_change;
+DROP PROCEDURE IF EXISTS get_users_value_by_site_id;
+DROP PROCEDURE IF EXISTS delete_velocity_and_txn_velocity_limit;

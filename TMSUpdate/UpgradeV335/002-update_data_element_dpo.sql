@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|dpoSale|dpoRefund') WHERE name = 'PINRestrictedModules' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules') AND options NOT LIKE '%dpo%' LIMIT 1;

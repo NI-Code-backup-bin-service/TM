@@ -1,0 +1,147 @@
+{{define "tidVelocityLimits"}}
+
+
+    {{ $u := .CurrentUser }}
+    <input hidden="hidden" id="tidFraudID" name="tidFraudID" value="{{ .Tid }}"/>
+
+    <input id="save-site-velocity-limits" class="btn btn-primary" type="button" value="Save" onclick="saveTidSiteLimits()"/>
+    <input id="delete-tid-velocity-limits" class="btn btn-danger" type="button" value="Delete" onclick="deleteTidFraudLimits()"/>
+    {{ template "warning" "tidFraudModalBody"}}
+    <h3>Velocity Limits Configuration</h3>
+    <table id="tid-fraud-group-table" class="table table-sm">
+        {{ range $g := .FraudGroups }}
+        <thead id="header-group-{{ $g.DataGroup }}" class="table-active">
+        <tr>
+            <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }} {{ $g.DataGroup }} {{end}}</th>
+        </tr>
+        </thead>
+        <tbody id="group-{{ $g.DataGroup }}">
+        {{ range $de := .DataElements }}
+            {{ template "dataElementRow" dict "de" $de "group" $g.DataGroup "currentUser" $u }}
+        {{ end }}{{ end }}
+        </tbody>
+    </table>
+    <h3>TID Velocity Limits</h3>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col" hidden>Daily Cleanse Time</th>
+            <th scope="col">Number of Transactions (Daily)</th>
+            <th scope="col">Cumulative Limit (Daily)</th>
+            <th scope="col">Number of Transactions (Batch)</th>
+            <th scope="col">Cumulative Limit (Batch)</th>
+            <th scope="col">Single Transaction Amount</th>
+            <th scope="col">Transaction Limits</th>
+            <th></th> <!--a blank column header for the delete button-->
+        </tr>
+        </thead>
+        <tbody id="{{ .Tid }}-tidSiteVelocityLimitBody">
+        <tr id="site-velocity-limit-row">
+            <td hidden>
+                <input rv-i="daily-cleanse-time" class="col-sm-8" type="number" min="0" rv-value="SiteLimits.CleanseTime"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="col-sm-8  numbersOnly" type="number" min="0" rv-value="SiteLimits.DailyCount"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="col-sm-8" type="number" min="0" rv-value="SiteLimits.DailyLimit"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="col-sm-8  numbersOnly" type="number" min="0" rv-value="SiteLimits.BatchCount"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="col-sm-8" type="number" min="0" rv-value="SiteLimits.BatchLimit"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="col-sm-8  numbersOnly" type="number" min="0" rv-value="SiteLimits.SingleTransLimit"/>
+            </td>
+            <td>
+                <input rv-tid="SiteLimits.prefix" class="btn btn-secondary btn-sm" value="Transaction Limits" type="button" rv-on-click="SiteLimits.showSiteTxnLimitModal"/>
+            </td>
+            <td>
+                <input id="delete-overall-tid-velocity-limits" class="btn btn-danger" type="button" value="Delete" onclick="deleteTidSiteLimits()"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Scheme Velocity Limits</h3>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Scheme Name</th>
+            <th scope="col">Number of Transactions (Daily)</th>
+            <th scope="col">Cumulative Limit (Daily)</th>
+            <th scope="col">Number of Transactions (Batch)</th>
+            <th scope="col">Cumulative Limit (Batch)</th>
+            <th scope="col">Single Transaction Amount</th>
+            <th scope="col">Transaction Limits</th>
+            <th></th> <!--a blank column header for the delete button-->
+        </tr>
+        </thead>
+        <tbody id="{{ .Tid }}-tidVelocityLimitBody">
+        <tr rv-each-limit="limits" rv-value="limit.ID">
+            <td>
+                <select rv-i="limit.prefix" class="form-select col-sm-10 schemeSelector" rv-value="limit.Scheme">
+                    <option value="" disabled selected hidden>Select</option>
+                    {{ range $key, $value := .AvailableSchemes }}
+                        <option class="schemeOption" value="{{ $value }}" id="{{ $key }}">{{ $value }}</option>
+                    {{ end }}
+                </select>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="col-sm-8 numbersOnly" type="number" min="0" rv-value="limit.DailyCount"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="col-sm-8" type="number" min="0" rv-value="limit.DailyLimit"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="col-sm-8 numbersOnly" type="number" min="0" rv-value="limit.BatchCount"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="col-sm-8" type="number" min="0" rv-value="limit.BatchLimit"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="col-sm-8 numbersOnly" type="number" min="0" rv-value="limit.SingleTransLimit"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="btn btn-secondary btn-sm" value="Transaction Limits" type="button" rv-on-click="limit.showTxnLimitModal"/>
+            </td>
+            <td>
+                <input rv-tid="limit.prefix" class="btn btn-danger btn-sm" value="Delete" type="button" rv-on-click="limit.removeLimit"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <input id="add-velocity-limit-row" class="btn btn-success" type="button" value="Add Row" onclick="addTIDSchemeRows({{ .Tid }})"/>
+    <!--<input id="save-velocity-limits" class="btn badge-primary" type="button" value="Save" onclick="saveTidLimits()"/>-->
+
+    <div class="modal bd-example-modal-lg" id="TIDlimitModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered alert-filter-modal transaction-limit-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Transaction Limits</h5>
+                    <button id="filters-close" type="button" class="btn-close" aria-label="Close" onclick="closeTIDTxnModal()">
+
+                    </button>
+                </div>
+                <div class="modal-body" id="TIDlimitModal">
+                    <div class="row transaction-details-row alert-filter-header-row transaction-limit-selector">
+                        <label for="txnSelectField" class="col-sm-4">Transaction Type:</label>
+                        <select id="txnSelectField" class="col-sm-8 mb-1">
+                            <option  rv-each-transaction="availableTransactions" rv-i="transaction.TxnType" rv-value="transaction.TxnType">{ transaction.TxnTypeReadable }</option>
+                        </select>
+                        <label for="limitSelectField" class="col-sm-4">Limit Type:</label>
+                        <select id="limitSelectField" class="col-sm-8 mb-1">
+                            <option rv-each-limittype="availableLimits" rv-i="limittype.Identifier" rv-value="limittype.Limittype">{ limittype.Limittype }</option>
+                        </select>
+                        <label for="limitValueField" class="col-sm-4">Value:</label>
+                        <input id="limitValueField" class="col-sm-8  mb-1 numbersOnly" type="number" min="0"/>
+                    </div>
+                    <div id="TIDtxnLimitContainer" class="col-sm-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}

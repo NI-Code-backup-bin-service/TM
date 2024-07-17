@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS search_report_data;

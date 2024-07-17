@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS txn_types (txn_type_id INT NOT NULL, txn_type VARCHAR(255) NOT NULL, display_name VARCHAR(255), PRIMARY KEY (txn_type_id));

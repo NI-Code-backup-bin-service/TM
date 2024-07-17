@@ -1,0 +1,1 @@
+ALTER TABLE data_element ADD COLUMN export_display_index VARCHAR(50) DEFAULT NULL;

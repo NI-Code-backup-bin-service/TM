@@ -1,0 +1,1 @@
+UPDATE data_group SET name = 'IPP' WHERE name = 'ipp';

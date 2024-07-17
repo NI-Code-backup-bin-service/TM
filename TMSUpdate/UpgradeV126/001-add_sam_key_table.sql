@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS sam_card_keys (sam_uid VARCHAR(50), sam_key VARCHAR(2000));

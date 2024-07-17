@@ -1,0 +1,15 @@
+{{define "TidUserModal"}}
+<div>
+    {{template "warning" "tidUserOverride"}}
+    <input id="UserTid" type="text" class="hidden disabled" value="{{.Tid}}">
+    <div>
+        <div id="tidUserTable">
+
+        </div>
+
+        <button id="clear-tid-overrides" class="btn btn-danger hidden clear-override" onclick="clearUsers({{.Tid}})">Clear Overrides</button>
+
+    </div>
+</div>
+<script src="/assets/js/TidUsers.js?{{Now}}"></script>
+{{end}}

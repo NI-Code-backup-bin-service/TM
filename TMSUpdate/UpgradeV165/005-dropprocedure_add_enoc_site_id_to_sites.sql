@@ -1,0 +1,1 @@
+Drop procedure if exists add_enoc_site_id_to_sites;

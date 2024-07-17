@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS `get_chain_data`

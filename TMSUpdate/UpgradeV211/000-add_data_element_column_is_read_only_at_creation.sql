@@ -1,0 +1,1 @@
+ALTER TABLE data_element ADD COLUMN `is_read_only_at_creation` BOOLEAN NOT NULL DEFAULT 0;

@@ -1,0 +1,1 @@
+update data_element set options = "6,4|0,4|7,3" where name = "panMask";

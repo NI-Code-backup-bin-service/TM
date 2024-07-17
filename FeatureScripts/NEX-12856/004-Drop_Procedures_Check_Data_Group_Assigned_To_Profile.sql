@@ -1,0 +1,1 @@
+drop procedure if exists Check_Data_Group_Assigned_To_Profile;

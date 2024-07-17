@@ -1,0 +1,1 @@
+DELETE FROM profile_data where data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'nolDeviceId') and profile_id != (SELECT profile_type_id FROM profile_type WHERE name = 'global');

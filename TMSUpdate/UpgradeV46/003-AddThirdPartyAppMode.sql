@@ -1,0 +1,1 @@
+UPDATE data_element SET `options` = 'epos|standalone|opi|Third Party Application' WHERE `name` = 'mode';

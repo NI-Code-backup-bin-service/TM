@@ -1,0 +1,1 @@
+UPDATE data_element SET `options` = CONCAT(`options`, '|standalone+Transaction Retrieval') WHERE `name` = 'mode' AND `options` NOT LIKE '%standalone+Transaction Retrieval%' LIMIT 1;

@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_tid_default_data_group;

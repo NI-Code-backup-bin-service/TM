@@ -1,0 +1,1 @@
+UPDATE IGNORE `data_element` SET `unique` = '0' WHERE (`name` = 'totalLimit');

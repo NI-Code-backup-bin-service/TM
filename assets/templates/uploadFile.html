@@ -1,0 +1,96 @@
+{{define "fileUpload"}}
+    <script src="/assets/js/warningMessage.js"></script>
+    <script src="/assets/js/Export-Table.js"></script>
+    <script src="/assets/js/upload-file.js"></script>
+    <div class="container no-padding tiny-gutter full-resize">
+    <h2>File Management</h2>
+    {{template "warning"}}
+    <div>
+        <h4>Upload file</h4>
+        <form id="upload-file" action="uploadFile" method="POST">
+            <div class="row spaced-bottom indent">
+                <input id="upload" name="file" type="file" class="form-control-file"/>
+            </div>
+            <div class="spaced-bottom indent">
+                <button id="upload-file-button" class="btn btn-primary my-2 my-sm-0">Upload</button>
+            </div>
+            {{.CSRFField}}
+        </form>
+    </div>
+    <div>
+        <h4>Upload Transactions</h4>
+        <form id="upload-transactions" action="txnUpload" method="POST">
+            <div class="row spaced-bottom indent">
+                <input id="uploadTxns" name="file" type="file" class="form-control-file" multiple/>
+            </div>
+            <div class="spaced-bottom indent">
+                <button id="upload-txns-button" class="btn btn-primary my-2 my-sm-0">Upload</button>
+            </div>
+            {{.CSRFField}}
+        </form>
+    </div>
+    <div>
+        <h4>Delete file</h4>
+        <div class="spaced-bottom indent">
+            <button id="delete" class="btn btn-danger my-2 my-sm-0"onclick="openDeleteFile()">Choose File</button>
+        </div>
+    </div>
+    <div>
+        <h4>SoftUI File Upload</h4>
+        <form id="softui-file-upload">
+            <div id="softui-upload-type" class="row form-group spaced-bottom indent">
+                <label for="softui-type" class="d-inline-block">Type: </label>
+                <select id="softui-type" name="fileType" class="left-spaced form-select-sm d-inline-block" style="width: auto;">
+                    <option id="softui-type-menu" value="menuConfig">Menu Configuration</option>
+                    <option id="softui-type-softui-config" value="softUIConfig">SoftUI Configuration</option>
+                    <option id="softui-type-merchant-receipt" value="merchantReceipt">Merchant Receipt</option>
+                    <option id="softui-type-customer-receipt" value="customerReceipt">Customer Receipt</option>
+                    <option id="softui-type-icon" value="icon">Icon Image</option>
+                </select>
+            </div>
+            <div class="row spaced-bottom indent">
+                <input id="softui-upload-file-picker" name="file" type="file" class="form-control-file"/>
+            </div>
+            <div class="spaced-bottom indent">
+                <button id="softui-upload-file-button" class="btn btn-primary my-2 my-sm-0">Upload</button>
+            </div>
+            {{.CSRFField}}
+        </form>
+    </div>
+
+</div>
+
+    <div class="modal bd-example-modal-lg" id="txnResultsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Result</h5>
+                    <button id="upload-result-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                    </button>
+                </div>
+                <div id="txn-results"></div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal" id="chooseFileModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose File</h5>
+                <button id="choose-file-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                </button>
+            </div>
+            <div id="choose-file-body" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{template "confirm" .}}
+
+{{end}}

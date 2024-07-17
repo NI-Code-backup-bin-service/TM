@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS payment_service_group (group_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, PRIMARY KEY (group_id));
+CREATE TABLE IF NOT EXISTS payment_service (service_id INT NOT NULL AUTO_INCREMENT, group_id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (service_id), FOREIGN KEY (group_id) REFERENCES payment_service_group(group_id) ON DELETE CASCADE);

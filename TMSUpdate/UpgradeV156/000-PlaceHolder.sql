@@ -1,0 +1,1 @@
+ /* This is a placeholder script to resolve issues with production being ahead of Develop on DB versions see NEX-7888 */

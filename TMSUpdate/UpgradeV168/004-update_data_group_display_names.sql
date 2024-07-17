@@ -1,0 +1,15 @@
+UPDATE data_group SET displayname_en = 'Store' WHERE name = 'store';
+UPDATE data_group SET displayname_en = 'Logging' WHERE name = 'logging';
+UPDATE data_group SET displayname_en = 'Receipt' WHERE name = 'receipt';
+UPDATE data_group SET displayname_en = 'Reversal' WHERE name = 'reversal';
+UPDATE data_group SET displayname_en = 'End of Day' WHERE name = 'endOfDay';
+UPDATE data_group SET displayname_en = 'EMV' WHERE name = 'emv';
+UPDATE data_group SET displayname_en = 'Modules' WHERE name = 'modules';
+UPDATE data_group SET displayname_en = 'User Management' WHERE name = 'userMgmt';
+UPDATE data_group SET displayname_en = 'Core' WHERE name = 'core';
+UPDATE data_group SET displayname_en = 'Alipay' WHERE name = 'alipay';
+UPDATE data_group SET displayname_en = 'OPI' WHERE name = 'opi';
+UPDATE data_group SET displayname_en = 'PIN Set' WHERE name = 'pinset';
+UPDATE data_group SET displayname_en = 'UPI' WHERE name = 'upiQr';
+UPDATE data_group SET displayname_en = 'Offline' WHERE name = 'offline';
+UPDATE data_group SET displayname_en = 'Multi-device EMV' WHERE name = 'multiDeviceEmv';

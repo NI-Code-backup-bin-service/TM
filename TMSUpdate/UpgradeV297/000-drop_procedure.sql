@@ -1,0 +1,1 @@
+DROP procedure IF EXISTS `add_to_bulk_approvals`;

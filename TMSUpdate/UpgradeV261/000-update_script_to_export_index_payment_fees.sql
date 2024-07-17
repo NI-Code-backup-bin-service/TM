@@ -1,0 +1,2 @@
+UPDATE data_element de SET export_display_index = '54' WHERE de.name ='feeEnabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='paymentFees');
+UPDATE data_element de SET export_display_index = '55' WHERE de.name ='printFee' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='paymentFees');

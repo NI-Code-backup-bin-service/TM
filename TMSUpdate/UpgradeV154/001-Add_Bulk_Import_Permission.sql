@@ -1,0 +1,2 @@
+INSERT IGNORE INTO permission (name) VALUES ('Bulk Import');
+INSERT IGNORE INTO permissiongroup_permission (permissiongroup_id, permission_id) VALUE ((SELECT group_id FROM permissiongroup WHERE name = 'GlobalAdmin'), (SELECT permission_id FROM permission WHERE name = 'Bulk Import'));

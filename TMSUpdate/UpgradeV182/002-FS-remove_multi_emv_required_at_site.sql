@@ -1,0 +1,1 @@
+UPDATE data_element SET required_at_site_level = 0 WHERE data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');

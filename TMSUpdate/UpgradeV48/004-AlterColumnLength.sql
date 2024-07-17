@@ -1,0 +1,2 @@
+ALTER TABLE tid_user_override MODIFY PIN VARCHAR(66);
+ALTER TABLE site_level_users MODIFY PIN VARCHAR(66);

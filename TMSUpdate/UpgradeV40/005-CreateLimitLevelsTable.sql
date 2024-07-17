@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `limit_levels`(`limit_id` INT NOT NULL, `limit_level` VARCHAR(255) NOT NULL, PRIMARY KEY (`limit_id`));

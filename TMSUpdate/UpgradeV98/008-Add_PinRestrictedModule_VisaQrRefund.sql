@@ -1,0 +1,1 @@
+UPDATE data_element SET NextGen_TMS.data_element.options = REPLACE(options, '|visaQrSale|', '|visaQrSale|visaQrRefund|') WHERE NextGen_TMS.data_element.name = 'PINRestrictedModules';

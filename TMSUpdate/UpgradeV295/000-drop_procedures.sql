@@ -1,0 +1,4 @@
+DROP PROCEDURE IF EXISTS save_tid_to_site_and_pending_profile_change;
+DROP PROCEDURE IF EXISTS get_qr_schemes_from_site_id;
+DROP PROCEDURE IF EXISTS get_site_id_from_profile_id;
+DROP PROCEDURE IF EXISTS get_datagroup_with_profile;

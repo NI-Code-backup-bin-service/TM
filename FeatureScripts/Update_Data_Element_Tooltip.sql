@@ -1,0 +1,1 @@
+UPDATE data_element SET tooltip = '', updated_at = NOW(), updated_by = 'system'  WHERE name = '' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = '');

@@ -1,0 +1,11 @@
+DROP PROCEDURE IF EXISTS tid_list_fetch;
+DROP PROCEDURE IF EXISTS store_PIN;
+DROP PROCEDURE IF EXISTS approve_change;
+DROP PROCEDURE IF EXISTS get_site_tids;
+DROP PROCEDURE IF EXISTS save_tid;
+DROP PROCEDURE IF EXISTS profile_data_fetch;
+DROP PROCEDURE IF EXISTS get_data_elements_for_new_site;
+DROP PROCEDURE IF EXISTS get_chain_data;
+DROP PROCEDURE IF EXISTS tid_data_fetch;
+DROP VIEW IF EXISTS chain_data;
+DROP VIEW IF EXISTS approved_profile_data;

@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_element_id_by_name;

@@ -1,0 +1,1 @@
+drop procedure if exists add_tid_to_site;

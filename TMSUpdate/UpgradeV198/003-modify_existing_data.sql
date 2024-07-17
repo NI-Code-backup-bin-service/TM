@@ -1,0 +1,10 @@
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name ='modules' and de.name in ('active', 'manualEntryEnabled', 'gratuityMax', 'gratuityTier', 'mode', 'preAuthMax', 'thirdPartyPackageName', 'eppEnabled', 'referenceNumber');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='store' and de.name in ('name', 'addressLine1', 'addressLine2');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='userMgmt' and de.name in ('available', 'superPIN', 'wifiPIN', 'modeChangePIN');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='core' and de.name in ('language', 'receiptLanguages', 'wifiEnabled', 'fraudEnabled');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='opi' and de.name in ('workstationNumber');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='dualCurrency' and de.name in ('secondaryTid');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='nol' and de.name in ('nolDeviceId');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='connectivity' and de.name in ('enableXMPP');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='transactionRetrieval' and de.name in ('siteID');
+update data_element as de inner join data_group as dg on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where dg.name='receipt' and de.name in ('printClearPan');

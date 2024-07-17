@@ -1,0 +1,1 @@
+CREATE INDEX idx_tid_updates_tid_id ON tid_updates (tid_id);

@@ -1,0 +1,2 @@
+set @GlobalAdminId = (select group_id from permissiongroup pg where pg.name = "GlobalAdmin");
+insert ignore into permissiongroup_permission (permissiongroup_id, permission_id) select @GlobalAdminId, p.permission_id from permission p;

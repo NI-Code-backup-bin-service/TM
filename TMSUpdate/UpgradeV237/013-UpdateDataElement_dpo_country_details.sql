@@ -1,0 +1,1 @@
+UPDATE data_element set tid_overridable = 0 WHERE name = 'countryDetails' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dpoMomo');

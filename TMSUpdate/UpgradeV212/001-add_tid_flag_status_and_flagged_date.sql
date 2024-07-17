@@ -1,0 +1,1 @@
+ALTER TABLE tid ADD COLUMN flag_status boolean default false, ADD COLUMN flagged_date DATETIME NULL;

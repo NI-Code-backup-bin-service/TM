@@ -1,0 +1,1 @@
+delete from profile_data where data_element_id = (select data_element_id from data_element where name = 'autoCutOver');

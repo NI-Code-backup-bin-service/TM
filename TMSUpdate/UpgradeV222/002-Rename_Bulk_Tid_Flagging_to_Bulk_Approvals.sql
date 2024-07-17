@@ -1,0 +1,1 @@
+ALTER TABLE bulk_tid_flagging RENAME bulk_approvals;

@@ -1,0 +1,2 @@
+DROP PROCEDURE IF EXISTS profile_data_element_fetch_lower_level;
+DROP PROCEDURE IF EXISTS get_if_autocutover_disable;

@@ -1,0 +1,3 @@
+CALL SORTGROUPS();
+DROP PROCEDURE IF EXISTS SORTGROUPS;
+ALTER TABLE data_element CHANGE COLUMN `sort_order_in_group` `sort_order_in_group` INT(11) NOT NULL;

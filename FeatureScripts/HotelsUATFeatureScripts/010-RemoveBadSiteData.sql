@@ -1,0 +1,1 @@
+DELETE FROM site WHERE site_id NOT IN (SELECT site_id FROM site_profiles)

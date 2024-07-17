@@ -1,0 +1,291 @@
+{{define "profileEditPartial"}}
+{{ $u := .CurrentUser }}
+<ul class="nav nav-tabs">
+    {{if and (.PageModel.IsSite) (not .PageModel.NewProfile)}}
+    <li class="nav-item">
+        <a id="tid-tab" class="nav-link {{ if (eq .PageModel.DGUpdated false) }} active {{ end }}" data-bs-toggle="tab"
+            href="#tids" onclick="clearSiteHistory(this)">TID Configuration</a>
+    </li>
+    {{end}}
+    <li class="nav-item">
+        <a id="site-tab"
+            class="nav-link {{if or (eq .PageModel.IsSite false) (.PageModel.NewProfile) }} active {{end}} {{ if (eq .PageModel.DGUpdated true) }} active {{ end }}"
+            data-bs-toggle="tab" href="#site" onclick="clearSiteHistory(this)">
+            {{ .PageModel.ProfileTypeName | Capitalise }} Configuration
+        </a>
+    </li>
+    {{if not .PageModel.NewProfile}}
+    <li class="nav-item">
+        <a id="data-groups-tab" class="nav-link" data-bs-toggle="tab" href="#data-groups"
+            onclick="clearSiteHistory(this)">Data Groups</a>
+    </li>
+    {{end}}
+    {{if or (eq .PageModel.ProfileTypeName "site") (eq .PageModel.ProfileTypeName "chain") }}
+    <li class="nav-item">
+        <a id="defaults-tab" class="nav-link" data-bs-toggle="tab" href="#default"
+            onclick="clearSiteHistory(this)">Default Configuration</a>
+    </li>
+    {{end}}
+    {{if not .PageModel.NewProfile}}
+    <li class="nav-item">
+        <a id="change-history-tab"
+            class="nav-link {{ if (eq .CurrentUser.UserPermissions.ChangeHistoryView false) }} siteTabDisabled {{ end }}"
+            data-bs-toggle="tab" href="#history" onclick="changeSiteHistory()">Change History</a>
+    </li>
+    {{if .PageModel.IsSite}}
+    <li class="nav-item">
+        <a id="users-tab"
+            class="nav-link {{ if (eq $u.UserPermissions.EditPasswords false) }} siteTabDisabled {{ end }}"
+            data-bs-toggle="tab" href="#users" onclick="clearSiteHistory(this)">Users</a>
+    </li>
+    <li class="nav-item">
+        <a id="fraud-tab" class="nav-link {{ if (eq $u.UserPermissions.Fraud false) }} siteTabDisabled {{ end }}"
+            data-bs-toggle="tab" href="#fraud" onclick="clearSiteHistory(this)">Fraud</a>
+    </li>
+    {{end}}
+    {{end}}
+</ul>
+{{template "warning"}}
+<div class="tab-content">
+    <div id="site" class="tab-pane {{if  or (eq .PageModel.IsSite false) (.PageModel.NewProfile) }} active {{end}} {{ if (eq .PageModel.DGUpdated true) }} active {{ end }}">
+        {{template "profileSiteFieldsPartial" .}}
+    </div>
+    {{if and (.PageModel.IsSite) (not .PageModel.NewProfile)}}
+    <div id="tids"
+        class="tab-pane {{if and (eq .PageModel.IsSite true) (eq .PageModel.DGUpdated false) }} active {{ end }}">
+        {{ template "profileMaintenanceTIDs" .}}
+    </div>
+    {{end}}
+    {{if not .PageModel.NewProfile}}
+    <div id="data-groups" class="tab-pane ">
+        <form id="data-group-form" action="updateDataGroups" method="POST">
+            <input type="hidden" id="profileID" name="profileID" value="{{.PageModel.ProfileId}}" />
+            <input type="hidden" id="profileType" name="profileType" value="{{.PageModel.ProfileTypeName}}" />
+            {{ template "dataGroups" .}}
+            <button id="data-groups-update" class="btn btn-primary">Update</button>
+            {{.CSRFField}}
+        </form>
+    </div>
+    {{if and (eq .PageModel.IsSite true) (eq $u.UserPermissions.EditPasswords true) }}
+    <div id="users" class="tab-pane">
+        {{ template "profileUserManagement" .}}
+    </div>
+    {{end}}
+    {{if and (eq .PageModel.IsSite true) (eq $u.UserPermissions.Fraud true)}}
+    <div id="fraud" class="tab-pane">
+        {{ template "schemeVelocityLimits" .}}
+    </div>
+    {{ end }}
+    {{end}}
+
+    <div id="default" class="tab-pane">
+        <div class="container no-padding tiny-gutter full-resize">
+            <div class="row">
+                <div class="col-12 m-2">
+                    <ul class="nav nav-pills">
+                        {{if .PageModel.IsSite}}
+                        <li class="nav-item">
+                            <a id="chain-tab" class="nav-link active" data-bs-toggle="pill" href="#chain">Chain</a>
+                        </li>
+                        {{end}}
+                        <li class="nav-item">
+                            <a id="acquirer-tab" class="nav-link {{if not .PageModel.IsSite}}active{{end}}"
+                                data-bs-toggle="pill" href="#acquirer">Acquirer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="global-tab" class="nav-link" data-bs-toggle="pill" href="#global">Global</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content">
+                        {{if .PageModel.IsSite}}
+                        <div id="chain" class="tab-pane active">
+
+                            <table class="table table-sm defaults-table">
+                                <colgroup>
+                                    <col style="width:20%">
+                                    <col style="width:70%">
+                                    <col style="width:10%">
+                                </colgroup>
+
+                                {{ range $g := .PageModel.ChainGroups }}
+                                <thead class="table-active">
+                                    <tr>
+                                        <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }}
+                                            {{ $g.DataGroup }} {{end}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range $i, $t := .DataElements }}
+                                    <tr data-bs-toggle="tooltip" data-placement="top" title="{{ .Tooltip }}"
+                                        data-delay='{"show":"1000"}' id="tooltip-{{ $g.DataGroup }}-{{ .Name }}">
+                                        <td>
+                                            <div class="col-wrap {{ if ne .Type " BOOLEAN" }}{{ if not .IsAllowedEmpty
+                                                }}mandatory-element{{ end }}{{ end }}">{{ if (ne .DisplayName "") }}
+                                                {{.DisplayName}} {{else}} {{ .Name }} {{end}}</div>
+                                        <td>
+                                            {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true)
+                                            }}
+                                            <div class="nowrap">
+                                                <div class="col-wrap" id="chainGroup_{{ .ElementId }}_show" hidden>{{
+                                                    .DataValue }}</div>
+                                                <div class="col-wrap" id="chainGroup_{{ .ElementId }}_hidden">*******
+                                                </div>
+                                                <img id="ChainRow{{$i}}-showPwdBtn" name="-1"
+                                                    src="/assets/images/show-password-icon.png" class="togglePIN"
+                                                    onclick="togglePasswordDiv('chainGroup_{{ .ElementId }}_show','chainGroup_{{ .ElementId }}_hidden')">
+                                            </div>
+                                            {{ else if (eq .IsPassword true) }}
+                                            <div class="col-wrap">*******</div>
+                                            {{ else }}
+                                            <div id="elementval-{{ .Name }}" class="col-wrap">{{ .DataValue }}</div>
+                                            {{ end }}
+                                        </td>
+                                        <td>
+                                            {{ if not .IsNotOverrideable}}
+                                            <button id="chain-element-override-{{ $g.DataGroup }}-{{ .Name }}"
+                                                data-button="override-field" type="button"
+                                                class="btn btn-secondary btn-sm" data-element="{{ .ElementId }}"
+                                                data-element-name="{{ .Name }}" data-group-name="{{$g.DataGroup}}"
+                                                data-group-display-name="{{$g.DisplayName}}">Override
+                                            </button>
+                                            {{ end }}
+                                        </td>
+                                    </tr>
+                                    </tr>
+                                    {{ end }} {{ end }}
+                                </tbody>
+                            </table>
+                        </div>
+                        {{end}}
+
+                        <div id="acquirer" class="tab-pane {{if not .PageModel.IsSite}}active{{end}}">
+                            <table class="table table-sm defaults-table">
+                                <colgroup>
+                                    <col style="width:30%">
+                                    <col style="width:60%">
+                                    <col style="width:10%">
+                                </colgroup>
+                                {{ range $g := .PageModel.AcquirerGroups }}
+                                <thead class="table-active">
+                                    <tr>
+                                        <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }}
+                                            {{ $g.DataGroup }} {{end}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range $i, $e := .DataElements }}
+                                    <tr data-bs-toggle="tooltip" data-placement="top" title="{{ .Tooltip }}"
+                                        data-delay='{"show":"1000"}' id="tooltip-{{ $g.DataGroup }}-{{ .Name }}">
+                                        <td>
+                                            <div class="col-wrap {{ if ne .Type " BOOLEAN" }}{{ if not .IsAllowedEmpty
+                                                }}mandatory-element{{ end }}{{ end }}"
+                                                id="acquirerGroup_{{ .ElementId }}">{{ if (ne .DisplayName "") }}
+                                                {{.DisplayName}} {{else}} {{ .Name }} {{end}}</div>
+                                        </td>
+                                        <td>
+                                            {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true)
+                                            }}
+                                            <div class="nowrap">
+                                                <div class="col-wrap" id="acquirerGroup_{{ .ElementId }}_show" hidden>{{
+                                                    .DataValue }}</div>
+                                                <div class="col-wrap" id="acquirerGroup_{{ .ElementId }}_hidden">*******
+                                                </div>
+                                                <img id="AcquirerRow{{$i}}-showPwdBtn" name="-1"
+                                                    src="/assets/images/show-password-icon.png" class="togglePIN"
+                                                    onclick="togglePasswordDiv('acquirerGroup_{{ .ElementId }}_show','acquirerGroup_{{ .ElementId }}_hidden')">
+                                            </div>
+                                            {{ else if (eq .IsPassword true) }}
+                                            <div class="col-wrap">*******</div>
+                                            {{ else }}
+                                            <div id="elementval-{{ .Name }}" class="col-wrap">{{ .DataValue }}</div>
+                                            {{ end }}
+                                        </td>
+                                        <td>
+                                            {{ if not .IsNotOverrideable}}
+                                            <button id="acquirer-element-override-{{ $g.DataGroup }}-{{ .Name }}"
+                                                data-button="override-field" type="button"
+                                                class="btn btn-secondary btn-sm" data-element="{{ .ElementId }}"
+                                                data-element-name="{{ .Name }}" data-group-name="{{$g.DataGroup}}"
+                                                data-group-display-name="{{$g.DisplayName}}">Override
+                                            </button>
+                                            {{ end }}
+                                        </td>
+                                    </tr>
+                                    {{ end }} {{ end }}
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div id="global" class="tab-pane">
+                            <table class="table table-sm defaults-table">
+                                <colgroup>
+                                    <col style="width:20%">
+                                    <col style="width:70%">
+                                    <col style="width:10%">
+                                </colgroup>
+                                {{ range $g := .PageModel.GlobalGroups }}
+                                <thead class="table-active">
+                                    <tr>
+                                        <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }}
+                                            {{ $g.DataGroup }} {{end}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range $i, $e := .DataElements }}
+                                    <tr data-bs-toggle="tooltip" data-placement="top" title="{{ .Tooltip }}"
+                                        data-delay='{"show":"1000"}' id="tooltip-{{ $g.DataGroup }}-{{ .Name }}">
+                                        <td>
+                                            <div class="col-wrap {{ if ne .Type " BOOLEAN" }}{{ if not .IsAllowedEmpty
+                                                }}mandatory-element{{ end }}{{ end }}">{{ if (ne .DisplayName "") }}
+                                                {{.DisplayName}} {{else}} {{ .Name }} {{end}}</div>
+                                        </td>
+                                        <td>
+                                            {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true)
+                                            }}
+                                            <div class="nowrap">
+                                                <div class="col-wrap" id="dataGroup_{{ .ElementId }}_show" hidden>{{
+                                                    .DataValue }}</div>
+                                                <div class="col-wrap" id="dataGroup_{{ .ElementId }}_hidden">*******
+                                                </div>
+                                                <img id="GlobalRow{{$i}}-showPwdBtn" name="-1"
+                                                    src="/assets/images/show-password-icon.png" class="togglePIN"
+                                                    onclick="togglePasswordDiv('dataGroup_{{ .ElementId }}_show','dataGroup_{{ .ElementId }}_hidden')">
+                                            </div>
+                                            {{ else if (eq .IsPassword true) }}
+                                            <div class="col-wrap">*******</div>
+                                            {{ else }}
+                                            <div id="elementval-{{ .Name }}" class="col-wrap">{{ .DataValue }}</div>
+                                            {{ end }}
+                                        </td>
+                                        <td>
+                                            {{ if not .IsNotOverrideable }}
+                                            <button id="global-element-override-{{ $g.DataGroup }}-{{ .Name }}"
+                                                data-button="override-field" type="button"
+                                                class="btn btn-secondary btn-sm" data-element="{{ .ElementId }}"
+                                                data-element-name="{{ .Name }}" data-group-name="{{$g.DataGroup}}"
+                                                data-group-display-name="{{$g.DisplayName}}">Override
+                                            </button>
+                                            {{ end }}
+                                        </td>
+                                    </tr>
+                                    {{ end }} {{ end }}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{if (eq .CurrentUser.UserPermissions.ChangeHistoryView true)}}
+    <div id="history" class="tab-pane">
+        {{ template "profileChangeHistory" .}}
+    </div>
+    {{end}}
+</div>
+{{end}}

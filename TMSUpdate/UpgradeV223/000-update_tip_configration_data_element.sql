@@ -1,0 +1,1 @@
+INSERT IGNORE INTO profile_data(profile_id, data_element_id, datavalue, version, updated_at, updated_by, created_at, created_by, approved, overriden,is_encrypted,not_overridable) VALUES (1, (SELECT data_element_id FROM data_element WHERE `name` = 'gratuityConfigs' LIMIT 1), '', 1, NOW(), 'system', NOW(), 'system', 1, 1, 0, 0);

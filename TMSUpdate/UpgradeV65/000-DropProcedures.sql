@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_site_tid_ids;

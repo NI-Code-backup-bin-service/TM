@@ -1,0 +1,2 @@
+delete from profile_data where data_element_id=61;
+insert into profile_data(profile_data_id, profile_id, data_element_id, datavalue, version, updated_at, updated_by) values ('337', '1', '61', '9', '1', now(), 'system');

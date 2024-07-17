@@ -1,0 +1,1 @@
+drop procedure if exists get_tid_acquirer;

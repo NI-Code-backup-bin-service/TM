@@ -1,0 +1,1 @@
+UPDATE permission SET name = "Direct Query" where permission_id = 10

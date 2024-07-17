@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_pan_perm_from_merch_id;

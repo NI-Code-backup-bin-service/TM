@@ -1,0 +1,58 @@
+{{ define "bulkUpload" }}
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/confirmation.js"></script>
+    <h1>Bulk Import</h1>
+    {{template "warning"}}
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="tab-bulk-site-upload" data-bs-toggle="tab" href="#bulk-site-upload-partial" role="tab" aria-controls="bulk-site-upload-partial" aria-selected="true">Site Upload</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-bulk-tid-upload" data-bs-toggle="tab" href="#bulk-tid-upload-partial" role="tab" aria-controls="bulk-tid-upload-partial" aria-selected="false">TID Upload</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-bulk-ps-upload" data-bs-toggle="tab" href="#bulk-ps-upload-partial" role="tab" aria-controls="bulk-ps-upload-partial" aria-selected="false">Payment Services Upload</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-bulk-site-update" data-bs-toggle="tab" href="#bulk-site-update-partial" role="tab" aria-controls="bulk-site-update-partial" aria-selected="false">Site Update</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " id="tab-bulk-tid-update" data-bs-toggle="tab" href="#bulk-tid-update-partial" role="tab" aria-controls="bulk-tid-update-partial" aria-selected="false">TID Update</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-bulk-site-delete" data-bs-toggle="tab" href="#bulk-site-delete-partial" role="tab" aria-controls="bulk-site-delete-partial" aria-selected="false">Site Delete</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " id="tab-bulk-tid-delete" data-bs-toggle="tab" href="#bulk-tid-delete-partial" role="tab" aria-controls="bulk-tid-delete-partial" aria-selected="false">TID Delete</a>
+        </li>
+        <!-- Add further tabs as requirements demand -->
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="bulk-site-upload-partial" role="tabpanel" aria-labelledby="tab-bulk-site-upload" tabindex="0">
+            {{ template "bulkSiteUploadPartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-site-update-partial" role="tabpanel" aria-labelledby="tab-bulk-site-update">
+            {{ template "bulkSiteUpdatePartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-tid-update-partial" role="tabpanel" aria-labelledby="tab-bulk-tid-update">
+            {{ template "bulkTidUpdatePartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-ps-upload-partial" role="tabpanel" aria-labelledby="tab-bulk-ps-upload" tabindex="0">
+            {{ template "bulkPsUploadPartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-tid-upload-partial" role="tabpanel" aria-labelledby="tab-bulk-tid-upload" tabindex="0">
+            {{ template "bulkTidUploadPartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-site-delete-partial" role="tabpanel" aria-labelledby="tab-bulk-site-delete">
+            {{ template "bulkSiteDeletePartial" .}}
+        </div>
+        <div class="tab-pane fade" id="bulk-tid-delete-partial" role="tabpanel" aria-labelledby="tab-bulk-tid-delete">
+            {{ template "bulkTidDeletePartial" .}}
+        </div>
+        <!-- Add further tabs as requirements demand -->
+    </div>
+
+
+{{ end }}

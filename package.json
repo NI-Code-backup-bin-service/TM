@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "popper.js": "^1.12.9",
+    "react": "^16.7.0"
+  }
+}

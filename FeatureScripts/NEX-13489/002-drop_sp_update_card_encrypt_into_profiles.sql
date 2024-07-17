@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS `update_card_encrypt_into_profiles`;

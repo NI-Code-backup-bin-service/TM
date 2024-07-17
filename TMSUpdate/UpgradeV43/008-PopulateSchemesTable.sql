@@ -1,0 +1,1 @@
+INSERT INTO schemes (scheme_id, scheme_name) VALUES (1, 'MASTER'), (2, 'VISA'), (3, 'AMEX'), (4, 'DINERS'), (5, 'UNIONPAY'), (6, 'JCB'), (7, 'MERCURY');

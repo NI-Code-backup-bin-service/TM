@@ -1,0 +1,10 @@
+pkg
+bin
+nextgen-tms-website
+debug
+.vscode
+*.exe
+backups
+
+/.idea/*
+/vendor/

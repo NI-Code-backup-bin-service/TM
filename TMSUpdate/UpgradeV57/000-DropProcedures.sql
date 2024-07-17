@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS add_tid_user;

@@ -1,0 +1,2 @@
+UPDATE profile_data pd SET pd.datavalue = "true" WHERE pd.data_element_id = (SELECT de.data_element_id FROM data_element de WHERE de.name = 'onlineRefund');
+UPDATE profile_data pd SET pd.updated_at = NOW() WHERE pd.data_element_id = (SELECT de.data_element_id FROM data_element de WHERE de.name = 'onlineRefund');

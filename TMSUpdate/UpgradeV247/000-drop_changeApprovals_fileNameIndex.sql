@@ -1,0 +1,1 @@
+ALTER TABLE `bulk_approvals` DROP INDEX `filename` ;

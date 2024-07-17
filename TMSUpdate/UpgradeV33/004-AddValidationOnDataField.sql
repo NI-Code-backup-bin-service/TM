@@ -1,0 +1,1 @@
+UPDATE data_element SET validation_expression = '^([1-9]|1[0-5])$', validation_message = 'Value must be within range 1 - 15', front_end_validate = 1 WHERE data_element_id = 61;

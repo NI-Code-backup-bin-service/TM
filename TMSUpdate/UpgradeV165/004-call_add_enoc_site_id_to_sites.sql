@@ -1,0 +1,1 @@
+CALL add_enoc_site_id_to_sites();

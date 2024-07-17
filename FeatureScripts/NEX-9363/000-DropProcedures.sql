@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS log_tid_change;

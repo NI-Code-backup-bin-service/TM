@@ -1,0 +1,19 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+#services-edit-modal .modal-dialog {
+    margin-top: 1%;
+}
+
+#services-edit-modal .modal-body {
+    max-height: 80vh; /* This means the modal content will take up to 80% of the viewport height. */
+    overflow-y: auto; /* This makes it scrollable if the content exceeds the set max-height */
+}

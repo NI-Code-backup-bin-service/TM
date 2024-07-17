@@ -1,0 +1,4 @@
+INSERT IGNORE INTO profile_data_group(profile_id, data_group_id, version, updated_at, updated_by, created_at, created_by) VALUES (1, (SELECT data_group_id FROM data_group WHERE `name` = 'dualCurrency' LIMIT 1), 1, NOW(), 'system', NOW(), 'system');
+INSERT IGNORE INTO profile_data(profile_id, data_element_id, datavalue, version, updated_at, updated_by, created_at, created_by, approved, overriden) VALUES (1, (SELECT data_element_id FROM data_element WHERE `name` = 'secondaryTid' LIMIT 1), '00000000', 1, NOW(), 'system', NOW(), 'system', 1, 0);
+INSERT IGNORE INTO data_element_locations_data_element(location_id, data_element_id) VALUES ((SELECT location_id FROM data_element_locations WHERE location_name = 'tid_override'), (SELECT data_element_id FROM data_element WHERE name = 'secondaryTid'));
+UPDATE data_element set validation_expression = '^\\d{8}$' WHERE name = 'secondaryTid';

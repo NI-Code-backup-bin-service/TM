@@ -1,0 +1,1 @@
+INSERT INTO txn_limit_types (limit_type_id, limit_type) VALUES (1, 'Daily Count'), (2, 'Batch Count'), (3, 'Single Transaction Limit');

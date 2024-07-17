@@ -1,0 +1,1 @@
+UPDATE data_element SET validation_expression='^[a-zA-Z0-9]{1,15}$', validation_message='Transaction retrieval site ID must be between 1 and 15 characters long' WHERE name='siteID';

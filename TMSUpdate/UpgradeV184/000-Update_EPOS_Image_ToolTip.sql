@@ -1,0 +1,1 @@
+UPDATE data_element SET tooltip = 'The image display on the PED when in EPOS mode. Use JPG or PNG. Use aspect ratio between 1:1 and 6:1.' WHERE name = 'eposImage' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');

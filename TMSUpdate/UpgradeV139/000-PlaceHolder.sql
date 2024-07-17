@@ -1,0 +1,1 @@
+ /* This is a placeholder script to fix an issue in the upgrade path, which allows 138 to be empty but still present. */

@@ -1,0 +1,1 @@
+UPDATE profile_data SET datavalue = SUBSTRING(datavalue,1,5 ) WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'time') AND LENGTH(datavalue)>5;

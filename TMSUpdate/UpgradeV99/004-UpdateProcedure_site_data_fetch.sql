@@ -1,0 +1,60 @@
+--multiline
+create procedure site_data_fetch(IN site_id int, IN updatesFrom bigint, IN dataLocation varchar(200))
+BEGIN
+    DECLARE updatesFromDate DATETIME ;
+    SET @updatesFromDate = FROM_UNIXTIME(updatesFrom);
+    SET SESSION group_concat_max_len = 1000000;
+    set @site_id = site_id;
+    set @dataLocation = dataLocation;
+    select concat("coalesce(" , group_concat("v",l.priority,".datavalue"), ")")  from (select priority from profile_type order by priority) l
+    into @datavalues;
+    select concat("coalesce(" , group_concat("v",l.priority,".updated_at"), ")") from (select priority from profile_type order by priority) l
+    into @updatedAt;
+    select concat("coalesce(" , group_concat("v",l.priority,".level"), ")")      from (select priority from profile_type order by priority) l
+    into @levels;
+    select concat("coalesce(" , group_concat("v",l.priority,".overriden"), ")")  from (select priority from profile_type order by priority) l
+    into @overrides;
+    select concat("coalesce(" , group_concat("v",l.priority,".is_encrypted"), ")")  from (select priority from profile_type order by priority) l
+    into @is_encrypted;
+    select concat("coalesce(" , group_concat("v",l.priority,".not_overridable"), ")")  from (select priority from profile_type order by priority) l
+    into @not_overridable;
+    SELECT if(dataLocation = null OR dataLocation = '', '', CONCAT("AND e.location_name = '", @dataLocation, "' ")) into @dataLocationFilter;
+    select group_concat(concat("left join site_data v", l.priority, " on v",l.priority,".site_id = e.site_id and v",l.priority,".data_element_id = e.data_element_id and v", l.priority, ".priority = ",l.priority
+                            ," and v", l.priority,".version = (select MAX(d",l.priority,".version) from site_data d",l.priority," where d",l.priority,".site_id = e.site_id and d",l.priority,".data_element_id = e.data_element_id and d", l.priority, ".priority = ",l.priority,")") SEPARATOR ' ')
+    from (select priority from profile_type order by priority) l
+    into @joins;
+    select concat_ws(" ",
+                     "select
+                     e.site_id,
+                     e.data_group_id,
+                     dg.name as 'data_group',
+                     dg.displayname_en as 'data_group_display_name',
+                     e.data_element_id,
+                     e.name,",
+                     @levels, " as `source`,",
+                     @datavalues, "as `datavalue`,",
+                     @overrides, "as `overriden`,",
+                     "ifnull(",@not_overridable, ", 0)", "as `not_overridable`,
+                    e.datatype,
+                    e.is_allow_empty,
+                    e.max_length,
+                    e.validation_expression,
+                    e.validation_message,
+                    e.front_end_validate,
+                    e.options,
+                    e.display_name,
+                    e.sort_order_in_group,
+                    IFNULL(e.is_password, 0),",
+                     "IFNULL(",@is_encrypted, ",0) as is_encrypted",
+                     " from site_data_elements e",
+                     "join data_group dg on dg.data_group_id = e.data_group_id",
+                     @joins,
+                     " where e.site_id = ", @site_id,
+                     "AND ",
+                     "( ",  @updatedAt, " IS NULL", "or ", @updatedAt, " >= '", @updatesFromDate, "' ", ")",
+                     @dataLocationFilter
+               ) into @sql;
+    PREPARE stmt1 FROM @sql;
+    EXECUTE stmt1;
+    DEALLOCATE PREPARE stmt1;
+END;

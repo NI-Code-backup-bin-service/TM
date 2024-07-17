@@ -1,0 +1,23 @@
+{{ define "bulkSiteUpdatePartial" }}
+<script src="/assets/js/bulkSiteUpdate.js"></script>
+  <div>
+    <div>
+      <h4>Bulk Site Update</h4>
+      <form id="site-update-upload">
+        <div class="row spaced-bottom indent">
+          <input id="site-update-upload-file" name="file" type="file" class="form-control-file"/>
+        </div>
+        <div class="mt-2 spaced-bottom indent">
+          <button type="button"  id="site-update-upload-file-button" class="btn btn-primary my-2 my-sm-0" onclick="updateSites()">Upload</button>
+        </div>
+        {{ .CSRFField }}
+      </form>
+    </div>
+    <div id="site-update-spinner" class="bulk-site-update-spinner">
+      <div class="loader" class="loader-tag"></div>
+    </div>
+    <div id="site-update-results">
+
+    </div>
+  </div>
+{{ end }}

@@ -1,0 +1,1 @@
+UPDATE `operations_permissiongroup` SET `name` = 'GlobalAdmin' WHERE (`group_id` = '3');

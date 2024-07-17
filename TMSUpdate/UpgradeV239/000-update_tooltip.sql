@@ -1,0 +1,3 @@
+UPDATE data_element SET tooltip='Enables/Disables allow fallback to Standalone on the PED' WHERE name = 'allowFallbackToStandalone' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty')LIMIT 1;
+UPDATE data_element SET tooltip='Selected third party package from manage update 3PA dropdown' WHERE name = 'thirdPartyPackageList' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty')LIMIT 1;
+UPDATE data_element SET tooltip='Enables/Disables trigger from Standalone on the PED' WHERE name = 'triggerFromStandalone' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty')LIMIT 1;

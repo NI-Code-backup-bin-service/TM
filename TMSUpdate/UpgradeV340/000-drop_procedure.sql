@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS save_tid_to_site_and_pending_profile_change;

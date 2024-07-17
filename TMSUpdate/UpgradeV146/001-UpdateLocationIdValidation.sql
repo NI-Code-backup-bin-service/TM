@@ -1,0 +1,1 @@
+UPDATE data_element SET validation_expression = '^[0-9]{1,9}$', is_allow_empty = 0 WHERE name = 'locationId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol')

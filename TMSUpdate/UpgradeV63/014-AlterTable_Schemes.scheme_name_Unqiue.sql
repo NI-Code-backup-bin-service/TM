@@ -1,0 +1,1 @@
+create unique index schemes_scheme_name_uindex on schemes (scheme_name);

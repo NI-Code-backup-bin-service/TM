@@ -1,0 +1,1 @@
+INSERT INTO permissiongroup_permission (permissiongroup_id, permission_id) SELECT pg.group_id, 13 FROM permissiongroup pg WHERE pg.`name` = 'GlobalAdmin';

@@ -1,0 +1,163 @@
+{{ define "contactUsManual" }}
+{{$p := .PageModel}}
+{{template "confirm" .}}
+{{template "warning"}}
+<head>
+    <script src="/assets/js/contactUsManual.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/confirmation.js"></script>
+    <script src="/assets/js/warningMessage.js"></script>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>ContactUsManual</title>
+</head>
+<body>
+<div class="col-xs-1" align="center">
+<div id="pageContent" class="card" style="width: 40rem; padding: 1.5rem;">
+    <h5 class="card-header bg-light">Contact Sheet</h5>
+    <form id="pageContentForm">
+        <div class="form-group">
+            <label for="Name">Acquirer Name</label>
+            <input disabled type="text" class="form-control" id="Name" aria-describedby="nameHelp"
+                   value={{$p.AcquirerName}}>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="PrimaryPhone">Primary Phone Number</label>
+                    <input disabled type="text" class="form-control" id="PrimaryPhone"
+                           aria-describedby="primaryPhoneHelp"
+                           value={{$p.AcquirerPrimaryPhone}}>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="SecondaryPhone">Secondary Phone Number</label>
+                    <input disabled type="text" class="form-control" id="SecondaryPhone"
+                           aria-describedby="secondaryPhoneHelp" value={{$p.AcquirerSecondaryPhone}}>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email address</label>
+            <input disabled type="text" class="form-control" id="Email" aria-describedby="emailHelp"
+                   value={{$p.AcquirerEmail}}>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="ALOne">Address Line One</label>
+                    <input disabled type="text" class="form-control" id="ALOne" aria-describedby="inputALOneHelp"
+                           value={{$p.AcquirerAddressLineOne}}>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="ALTwo">Address Line Two</label>
+                    <input disabled type="text" class="form-control" id="ALTwo" aria-describedby="inputALTwoHelp"
+                           value={{$p.AcquirerAddressLineTwo}}>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="ALThree">Address Line Three</label>
+                    <input disabled type="text" class="form-control" id="ALThree" aria-describedby="inputALThreeHelp"
+                           value={{$p.AcquirerAddressLineThree}}>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FurtherInformation">Further Information</label>
+            <textarea disabled class="form-control" id="FurtherInformation" rows="3"
+                      aria-describedby="furtherInformationHelp">{{$p.FurtherInformation}}</textarea>
+        </div>
+    </form>
+    {{ if .CurrentUser.UserPermissions.ContactEdit }} <button id="editPage" class="btn btn-lg btn-primary btn-block d-print-none" onclick="openForm()">Edit Page</button> {{ end }}
+    <button id="#generateContactPDF" class="btn btn-lg btn-outline-success btn-block d-print-none"
+            onclick="exportContactPDF()">Export Contact Sheet
+    </button>
+</div>
+<div id="spinner"
+     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5)">
+    <div class="loader" style="position: absolute; top: 50%; left: 50%;"></div>
+</div>
+<div class="col-xs-1" align="center">
+<div id="formContent" class="d-print-none card" style="width: 40rem; padding: 1.5rem;">
+    <h5 class="card-header bg-light">Contact Form</h5>
+    <form id="formData">
+        <div class="form-group">
+            <label for="inputName">Acquirer Name</label>
+            <input disabled type="text" class="form-control" id="inputName" aria-describedby="nameHelp"
+                   value={{$p.UserAcquirer}}>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputPrimaryPhone">Primary Phone Number</label>
+                    <input type="text" class="form-control" id="inputPrimaryPhone"
+                           aria-describedby="primaryPhoneHelp"
+                           placeholder="Enter Primary Phone Number">
+                    <small id="primaryPhoneHelp" class="form-text text-muted">Please Enter Primary Phone
+                        Number.</small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputSecondaryPhone">Secondary Phone Number</label>
+                    <input type="text" class="form-control" id="inputSecondaryPhone"
+                           aria-describedby="secondaryPhoneHelp" placeholder="Enter Secondary Phone Number">
+                    <small id="secondaryPhoneHelp" class="form-text text-muted">Please Enter Secondary Phone
+                        Number.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                   placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">Please Enter Email Address.</small>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputALOne">Address Line One</label>
+                    <input type="text" class="form-control" id="inputALOne" aria-describedby="inputALOneHelp"
+                           placeholder="Enter Address Line One">
+                    <small id="inputALOneHelp" class="form-text text-muted">Please Enter Address Line One.</small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputALTwo">Address Line Two</label>
+                    <input type="text" class="form-control" id="inputALTwo" aria-describedby="inputALTwoHelp"
+                           placeholder="Enter Address Line Two">
+                    <small id="inputALTwoHelp" class="form-text text-muted">Please Enter Address Line Two.</small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputALTwo">Address Line Three</label>
+                    <input type="text" class="form-control" id="inputALThree" aria-describedby="inputALThreeHelp"
+                           placeholder="Enter Address Line Three">
+                    <small id="inputALThreeHelp" class="form-text text-muted">Please Enter Address Line
+                        Three.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputFurtherInformation">Further Information</label>
+            <textarea class="form-control" id="inputFurtherInformation" rows="3"
+                      aria-describedby="furtherInformationHelp"></textarea>
+            <small id="furtherInformationHelp" class="form-text text-muted">Please Enter Any Further
+                Information.</small>
+        </div>
+        {{.CSRFField}}
+    </form>
+    <div>
+        <button type="button" class="btn btn-lg btn-primary btn-block" onclick="submitForm()">Submit Form</button>
+        <button type="button" class="btn btn-lg btn-danger btn-block" onclick="closeForm()">Cancel</button>
+    </div>
+</div>
+</div>
+</body>
+{{ end }}

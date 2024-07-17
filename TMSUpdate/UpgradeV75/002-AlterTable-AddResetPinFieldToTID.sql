@@ -1,0 +1,2 @@
+CALL AddColumn('tid', 'reset_pin', 'varchar(80)', 'NULL COMMENT \'Stores the reset OTP\'');
+CALL AddColumn('tid', 'reset_pin_expiry_date', 'datetime', 'NULL COMMENT \'Stores the expiry datetime of the reset OTP\'');

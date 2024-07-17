@@ -1,0 +1,35 @@
+{{define "signon"}} 
+
+{{template "headerSimple" .}}
+<div class="container">
+<form class="form-signin" action="/signon?redirectUrl=" method="post">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" autocomplete="off" required>
+    <div class="checkbox">
+      <label>
+        <input id="remember-me-checkbox" type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button id="sign-in-button" class="btn btn-lg btn-primary btn-block" type="submit" style="width: 300px;">Sign in</button>
+    {{.CSRFField}}
+  </form>
+{{ if .PageModel.Error }}
+    {{ .PageModel.Error }}
+{{ end }}
+</div>
+
+<div class="footer-info">
+    <div>
+        <label id="database-target-version">Database Target Version: {{.PageModel.DbTargetVersion }}</label>
+    </div>
+    <div>
+        <label id="website-version">Website Version: {{.PageModel.WebsiteVersion }}</label>
+        <label id="database-version">Database Version: {{.PageModel.DbVersion }}</label>
+    </div>
+</div>
+{{template "footerSimple" .}} 
+
+{{end}}

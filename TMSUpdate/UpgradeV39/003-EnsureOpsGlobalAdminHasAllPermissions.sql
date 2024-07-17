@@ -1,0 +1,8 @@
+insert into operations_permissiongroup_permission select 3, 1 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 1 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 2 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 2 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 3 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 3 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 4 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 4 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 5 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 5 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 6 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 6 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 7 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 7 limit 1) limit 1;
+insert into operations_permissiongroup_permission select 3, 8 where not exists (select 1 from operations_permissiongroup_permission where permissiongroup_id = 3 and permission_id = 8 limit 1) limit 1;

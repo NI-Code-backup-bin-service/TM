@@ -1,0 +1,1 @@
+ALTER TABLE tid DROP COLUMN is_encrypted;

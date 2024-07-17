@@ -1,0 +1,323 @@
+{{ define "dataElementRow" }}
+    <tr data-bs-toggle="tooltip" class="d-flex" data-trigger="hover" data-placement="top" title="{{ .de.Tooltip }}" data-delay='{"show":"1000"}' id="tooltip-{{ .group }}-{{ .de.Name }}">
+        {{ $displayName := ""}}
+        {{ $name := .de.Name }}
+        {{ $type := .de.Type }}
+        {{ if ne .de.DisplayName "" }}
+            {{ $displayName = .de.DisplayName }}
+        {{ else }}
+            {{ $displayName = .de.Name }}
+        {{ end }}
+
+        <td class="{{ if ne $type "BOOLEAN" }}{{ if not .de.IsAllowedEmpty }}mandatory-element{{ end }} {{ end }} col-3">{{ $displayName }}</td>
+        <td class="col-6">
+            {{ $val := .de.DataValue }}
+            {{ $id := .de.ElementId }}
+            {{ $opts := .de.Options }}
+            {{ $isSouhoolaEnable := .currentUser.UserPermissions.SouhoolaLogin}}
+            {{ $passEdit := .currentUser.UserPermissions.EditPasswords }}
+            {{ $tokenEdit := .currentUser.UserPermissions.EditToken }}
+            {{ $elementID := printf "%v-%v" .group $name }}
+            {{ if eq $type "BOOLEAN" }}
+                {{ if and (eq .de.IsReadOnlyAtCreation true) (eq .IsNewProfile true) }}
+                    <input id="{{ $elementID }}" type="checkbox" class="form-checkbox profile-checkbox"
+                           name="data.{{ $id }}" value="false" disabled/>
+                    <input type="hidden" name="hidden.{{ $id }}" value="false"/>
+                {{ else }}
+                    <input id="{{ $elementID }}" type="checkbox" class="form-checkbox profile-checkbox"
+                           name="data.{{ $id }}" value="true"{{ if eq $val "true" }} checked{{ end }}/>
+                    <input type="hidden" name="hidden.{{ $id }}" value="false"/>
+                {{ end }}
+            {{ else if or (and (eq $type "INTEGER") (not $opts)) (and (eq $type "LONG") (not $opts)) }}
+                <input id="{{ $elementID }}"
+                        {{ if and (eq .de.IsPassword true) (eq $passEdit true) }}
+                            type="password" readonly
+                        {{ else if and (eq .de.IsPassword true) (eq $passEdit false) }}
+                            {{ $val = "*********************************" }}
+                            type="password" disabled
+                        {{ else }}
+                            type="text"
+                        {{ end }}
+                       class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                        {{ if eq .de.FrontEndValidate true }}
+                            pattern="{{ .de.ValidationExpression }}"
+                            oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                            oninput="this.setCustomValidity('')"
+                        {{ end }}
+                />
+            {{ else if and (eq .de.Name "definitions") (eq .group "cashback") }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-edit-modal" class="btn btn-primary mb-2" type="button"
+                            onclick="showJsonEditModal('modalTemplate/cashbackBinDefinitions', {{ $displayName }}, {{$elementID}})">
+                        Edit
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-input-clear" class="btn btn-warning mb-2" type="button"
+                            onclick="clearInput({{ $elementID}})">
+                        Clear
+                    </button>
+                </div>
+                <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                       class="form-control col-8 float-end"/>
+            {{ else if and (eq .de.Name "countryDetails") (eq .group "dpoMomo") }}
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-edit-modal" class="btn btn-primary mb-2" type="button" onclick="showJsonEditDpoModal('modalTemplate/dpoMomoCountryDetails', {{ $displayName }}, {{$elementID}})">
+                    Edit
+                </button>
+            </div>
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-input-clear" class="btn btn-warning mb-2" type="button" onclick="clearInput({{ $elementID}})">
+                    Clear
+                </button>
+            </div>
+            <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly class="form-control col-8 float-end"/>
+            {{ else if and (eq .de.Name "mccDetails") (eq .group "softUi") }}
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-edit-modal" class="btn btn-primary mb-2" type="button" onclick="showJsonEditSoftUIModal('modalTemplate/softUIMCCDetails', {{ $displayName }}, {{$elementID}}, {{$opts}})">
+                    Edit
+                </button>
+            </div>
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-input-clear" class="btn btn-warning mb-2" type="button" onclick="clearInput({{ $elementID}})">
+                    Clear
+                </button>
+            </div>
+            <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly class="form-control col-8 float-end"/>
+            {{ else if and (eq .de.Name "gratuityConfigs") (eq .group "modules") }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-edit-modal" class="btn btn-primary mb-2" type="button"
+                            onclick="showGratuityJsonEditModal('modalTemplate/moduleGratuityConfigs', {{ $displayName }}, {{$elementID}}) ">
+                        Choose Configuration
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-input-clear" class="btn btn-warning mb-2" type="button"
+                            onclick="clearInput({{ $elementID}})">
+                        Clear
+                    </button>
+                </div>
+                <input id="{{ $elementID }}"  name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                       class="form-control col-8 float-end"/>
+            {{ else if and (eq $type "JSON") $opts }}
+                {{ if eq (index $opts 0).Option "__NO_DATA__" }}
+                    <select id="{{ $elementID }}" multiple="multiple" name="multi.{{ $id }}" value="{{ $val }} class=">
+                        <option disabled>No Data Available</option>
+                    </select>
+                {{ else }}
+                    <select id="{{ $elementID }}" multiple="multiple" name="multi.{{ $id }}" value="{{ $val }} class=">
+                        {{ range $opts }}
+                            <option{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Option }}</option>
+                        {{ end }}
+                    </select>
+                {{ end }}
+
+                <input type="hidden" name="hidden.{{ $id }}" value="[]"/>
+            {{ else if and (eq $type "FILE") (not $opts) }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-choose" class="btn btn-primary mb-2" type="button"
+                            onclick="openChooseImageFile({{ $elementID}})">
+                        Choose File
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-clear" class="btn btn-warning mb-2" type="button"
+                            onclick="clearInput({{ $elementID}})">
+                        Clear
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <img id="{{ $elementID }}-image" width="15%" max-height="50%" src="{{ .de.Image }}">
+                </div>
+                <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                       class="form-control col-8 float-end"/>
+            {{ else if eq $type "INCONFIGFILE" }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-choose" class="btn btn-primary mb-2" type="button"
+                            onclick="openChooseTextFile({{ $elementID}})">
+                        Choose File
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-clear" class="btn btn-warning mb-2" type="button"
+                            onclick="clearInput({{ $elementID}})">
+                        Clear
+                    </button>
+                </div>
+                <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                       class="form-control col-8 float-end"/>
+            {{ else if eq $type "MENUFILE" }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-choose" class="btn btn-primary mb-2" type="button"
+                            onclick="openChooseMenuFile({{ $elementID}})">
+                        Choose File
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $elementID }}-file-clear" class="btn btn-warning mb-2" type="button"
+                            onclick="clearInput({{ $elementID}})">
+                        Clear
+                    </button>
+                </div>
+                <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                       class="form-control col-8 float-end"/>
+            {{ else if eq $type "SOFTUICONFIGFILE" }}
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-file-choose" class="btn btn-primary mb-2" type="button"
+                        onclick="openChooseSoftUIConfigFile({{ $elementID}})">
+                    Choose File
+                </button>
+            </div>
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-file-clear" class="btn btn-warning mb-2" type="button"
+                        onclick="clearInput({{ $elementID}})">
+                    Clear
+                </button>
+            </div>
+            <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                   class="form-control col-8 float-end"/>
+            {{ else if eq $type "RECEIPTCONFIGFILE" }}
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-file-choose" class="btn btn-primary mb-2" type="button"
+                        onclick="openChooseReceiptFile({{ $elementID}})">
+                    Choose File
+                </button>
+            </div>
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $elementID }}-file-clear" class="btn btn-warning mb-2" type="button"
+                        onclick="clearInput({{ $elementID}})">
+                    Clear
+                </button>
+            </div>
+            <input id="{{ $elementID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                   class="form-control col-8 float-end"/>
+            {{ else if $opts }}
+                {{ if .de.OptionSelectable }}
+                    <select id="{{ $elementID }}" name="data.{{ $id }}" class="form-select">
+                        {{ range .de.Options }}
+                            <option{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Option }}</option>
+                        {{ end }}
+                    </select>
+                {{ else }}
+                    <input id="{{ $elementID }}" type="text" readonly name="data.{{ $id }}" class="form-control col-8 float-end"
+                           value="{{ $val }}"/>
+                {{ end }}
+            {{ else if and (eq .de.Name "time") (eq .group "endOfDay") }}
+            <select id="endOfDayAutoType" name="endOfDayAutoType" class="form-select" onchange="eodAutoTypeChange()">
+                    <option {{ if lt (len $val) 6 }} selected="selected"{{ end }}>Specific Time</option>
+                    <option {{ if ne (len $val) 5 }} selected="selected"{{ end }}>Time Range</option>
+                    </select>
+                <br>
+            <div id="endOfDayAutoTime">
+                {{ if ne (len $val) 5 }}
+                From :
+                <input id="{{ $elementID }}" type="text" name="data.{{ $id }}" placeholder="From" value='{{ if (ne $val "") }}{{ slice $val 0 5 }}{{ end }}'
+                       {{ if eq .de.FrontEndValidate true }}
+                       pattern="{{ .de.ValidationExpression }}"
+                       oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                       oninput="this.setCustomValidity('')"
+                       {{ end }}
+                />
+                To :
+                <input id="{{ $elementID }}-2" type="text" name="data.{{ $id }}***" placeholder="To" value='{{ if (ne $val "") }}{{ slice $val 8 }}{{ end }}'
+                       {{ if eq .de.FrontEndValidate true }}
+                       pattern="{{ .de.ValidationExpression }}"
+                       oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                       oninput="this.setCustomValidity('')"
+                       {{ end }}
+                />
+                {{ else }}
+                <input id="{{ $elementID }}" type="text" class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                       {{ if eq .de.FrontEndValidate true }}
+                       pattern="{{ .de.ValidationExpression }}"
+                       oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                       oninput="this.setCustomValidity('')"
+                       {{ end }}
+                />
+                {{ end }}
+            </div>
+            {{ else if or (and (eq .de.Name "password") (eq .group "souhoola")) (and (eq .de.Name "username") (eq .group "souhoola")) }}
+                    <input id="{{ $elementID }}"
+                            {{ if (eq $isSouhoolaEnable true) }}
+                                {{ if (eq .de.IsPassword true) }}
+                                    type="password" readonly
+                                {{ else }}
+                                    type="text"
+                                {{ end }}
+                                class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                                {{ if eq .de.FrontEndValidate true }}
+                                    pattern="{{ .de.ValidationExpression }}"
+                                    oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                                    oninput="this.setCustomValidity('')"
+                                {{ end }}
+                            {{else }}
+                                type="text" disabled
+                                class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                            {{ end }}
+                    />
+            {{ else if and (eq .de.Name "paymentServiceGroup") (eq .group "paymentServices") }}
+                <select id="{{ $elementID }}" name="data.{{ $id }}" class="form-select">
+                    {{ range .de.Options }}
+                    <option{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Option }}</option>
+                    {{ end }}
+                </select>
+            {{ else }}
+                {{if or (eq .de.Name "companyToken") (eq .de.Name "serviceType")}}
+                    <input id="{{ $elementID }}"
+                            {{ if and (eq .de.IsPassword true) (eq $tokenEdit true) }}
+                                type="password" readonly
+                            {{ else if and (eq .de.IsPassword true) (eq $tokenEdit false) }}
+                                {{ $val = "*********************************" }}
+                                type="password" disabled
+                            {{ else }}
+                                type="text"
+                            {{ end }}
+                           class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                    />
+                {{ else }}
+                    <input id="{{ $elementID }}"
+                           {{ if and (eq .de.IsPassword true) (eq $passEdit true) }}
+                           type="password" readonly
+                           {{ else if and (eq .de.IsPassword true) (eq $passEdit false) }}
+                           {{ $val = "*********************************" }}
+                           type="password" disabled
+                           {{ else }}
+                           type="text"
+                           {{ end }}
+                           class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                           {{ if eq .de.FrontEndValidate true }}
+                           pattern="{{ .de.ValidationExpression }}"
+                           oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                           oninput="this.setCustomValidity('')"
+                           {{ end }}
+                           {{ if or (eq .de.Name "merchant_endpoint_mapping") (eq .de.IsReadOnlyAtCreation true)}}
+                            readonly
+                           {{ end }}
+                    />
+                {{ end }}
+            {{ end }}
+        </td>
+        {{ if and (eq .de.IsPassword true) (eq $tokenEdit true) (or (eq .de.Name "companyToken") (eq .de.Name "serviceType")) }}
+            <td id="{{ $name }}-showPwdBtn" style="vertical-align: bottom" onclick="togglePasswordInputField({{ $elementID }}, {{ $type }})" class="float-end col-2">
+                <img alt="show password" style="display:inline-block;" src="/assets/images/show-password-icon.png"/>
+                <p style="font-size:0.8em; margin:0; display:inline-block;">Show Token</p>
+            </td>
+        {{ else if and (eq .de.IsPassword true) (eq $passEdit true) (and (ne .de.Name "companyToken") (ne .de.Name "serviceType"))}}
+            <td id="{{ $name }}-showPwdBtn" style="vertical-align: bottom" onclick="togglePasswordInputField({{ $elementID }}, {{ $type }})" class="float-end col-2">
+                <img alt="show password" style="display:inline-block;" src="/assets/images/show-password-icon.png"/>
+                <p style="font-size:0.8em; margin:0; display:inline-block;">Show Password</p>
+            </td>
+        {{ else }}
+            <td class="col-2"> &nbsp;</td>
+        {{end}}
+        {{if .de.Overriden}}
+            <td class="col-1">
+                <button id="override-button-{{ $elementID }}" type="button" class="btn btn-secondary btn-sm override-button text-nowrap float-end" onclick="toggleRemoveOverride({{ $elementID }})">
+                    Remove Override
+                </button>
+            </td>
+        {{ else }}
+            <td class="col-1"> &nbsp;</td>
+        {{ end }}
+    </tr>
+{{ end }}

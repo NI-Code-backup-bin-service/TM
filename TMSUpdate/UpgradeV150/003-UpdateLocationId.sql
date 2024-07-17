@@ -1,0 +1,1 @@
+UPDATE data_element SET datatype = 'STRING' WHERE name = 'locationId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol')

@@ -1,0 +1,2 @@
+UPDATE data_element SET options = 'sale|refund|void|preAuth|gratuitySale|gratuityCompletion|alipay|upi|xls' WHERE `name`='active';
+INSERT IGNORE INTO data_group (`name`, version, updated_at, updated_by, created_at, created_by,displayname_en)  values ('loyalty', 1, NOW(),'system', NOW(), 'system','loyalty');

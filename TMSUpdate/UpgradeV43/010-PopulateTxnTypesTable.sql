@@ -1,0 +1,1 @@
+INSERT INTO txn_types (txn_type_id, txn_type, display_name) VALUES (1, 'sale', 'Sale'), (2, 'refund', 'Refund'), (3, 'void', 'Void'), (4, 'gratuity', 'Tip Sale'), (5, 'auth', 'Pre Auth Sale'), (6, 'completion', 'Pre Auth Completion'), (7, 'tipCompletion', 'Tip Completion'), (8, 'reversal', 'Reversal');

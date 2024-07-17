@@ -1,0 +1,1 @@
+UPDATE data_element SET max_length = 15, validation_expression = '^[0-9]{1,15}$', validation_message = 'Value must be numeric and must be between 1 and 15 digits long'  WHERE name = 'minimumRedemptionAmount' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'touchPoints')

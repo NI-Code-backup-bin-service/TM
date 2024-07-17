@@ -1,0 +1,2 @@
+CALL AddColumn('data_element', 'required_at_site_level', 'tinyint(1)', 'NOT NULL DEFAULT 0 COMMENT \'Determines if the field is required at site level specifically\'');
+UPDATE data_element SET required_at_site_level = 1 WHERE name in ('name', 'addressLine1', 'addressLine2')

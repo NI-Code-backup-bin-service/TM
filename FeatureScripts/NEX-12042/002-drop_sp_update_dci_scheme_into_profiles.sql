@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS `update_dci_scheme_into_profiles`;

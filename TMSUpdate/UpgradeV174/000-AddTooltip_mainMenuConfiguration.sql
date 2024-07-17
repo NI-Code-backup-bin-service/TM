@@ -1,0 +1,1 @@
+UPDATE data_element SET tooltip = 'Determines which main menu configuration file should be used to populate the PEDs main menu.' WHERE name = 'mainMenuConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi');

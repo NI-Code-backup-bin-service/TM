@@ -1,0 +1,12 @@
+{{define "chooseFileDialog"}}
+{{range .Files }}
+<div class="row spaced-bottom">
+    <div class="col-sm-6 text-muted">
+        <label>{{.Name}}</label>
+    </div>
+    <div class="col-sm-6  text-right font-bold">
+        <button id="delete-{{ .Name }}" class="btn btn-primary float-end size" data-filename="{{.Name}}" data-filetype="{{$.FileType}}" type="button" data-type="choose-file-name" >{{$.ButtonText}}</button>
+    </div>
+</div>
+{{end}}
+{{end}}

@@ -1,0 +1,1 @@
+INSERT IGNORE INTO txn_limit_types (limit_type_id, limit_type) VALUES (4, "Cumulative Daily Limit"),(5, "Cumulative Batch Limit");

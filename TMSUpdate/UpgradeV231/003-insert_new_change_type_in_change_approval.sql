@@ -1,0 +1,1 @@
+INSERT INTO approval_type VALUES(7,'Chain Duplication');

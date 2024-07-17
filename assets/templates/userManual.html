@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script	src="assets/js/jquery-migrate-3.4.1.min.js"></script>
+    <script src="assets/js/jquery-3.4.0.min.js"></script>
+    <script src="assets/js/jquery-ui-1.13.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/userManual.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.js" integrity="sha512-/fgTphwXa3lqAhN+I8gG8AvuaTErm1YxpUjbdCvwfTMyv8UZnFyId7ft5736xQ6CyQN4Nzr21lBuWWA9RTCXCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="text-left w-50">
+        <img id="network-logo" src="/assets/images/network_PantoneResized.png"/>
+    </div>
+    <div class="text-right w-50">
+        <button id="#generatePDF" class="btn btn-outline-success my-2 my-sm-0 margin-left-small d-print-none"
+                onclick="exportPDF()">Export Manual
+        </button>
+        <button id="printScreen" class="btn btn-primary my-2 my-sm-0 margin-left-small d-print-none hidden" onclick="printDocument()">Print Page</button>
+    </div>
+</nav>
+<div class="tabbable boxed parentTabs">
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tms">
+            <div class="tabbable">
+                <ul class="nav nav-tabs d-print-none" id="tmsTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="#homeContent" href="#homeContent" data-bs-toggle="tab">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#searchContent" href="#searchContent" data-bs-toggle="tab">Search & Configuration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#changeApproval" href="#changeApproval" data-bs-toggle="tab">Change
+                            Approval</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#addCreate" href="#addCreate" data-bs-toggle="tab">Add/Create</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#fileManagement" href="#fileManagement" data-bs-toggle="tab">File
+                            Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#bulkImports" href="#bulkImports" data-bs-toggle="tab">Bulk Imports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#userManagement" href="#userManagement" data-bs-toggle="tab">User
+                            Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#reporting" href="#reporting" data-bs-toggle="tab">Reporting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="#contactUs" href="#contactUs" data-bs-toggle="tab">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="tmsContent">
+                    <div id="homeContent" class="tab-pane active">
+                        <embed class="hidden" src="/assets/manual/cover.pdf#toolbar=0" width="100%" height="100%" type="application/pdf">
+                        <div class="col-xs-1" align="center">
+                        <div id="welcomePage" class="card" style="width: 50rem; height: 30rem; padding: 1.5rem;">
+                            <div class="card-header bg-light">
+                            <img id="network-logo" src="/assets/images/network_PantoneResized.png"/>
+                            </div>
+                            <h2 class="m-5">TMS Website User Manual</h2>
+                            <h4>This User Manual covers all the functionality for the TMS website,
+                                each of the contained sections represents a section of the TMS website</h4>
+                        </div>
+                        </div>
+                    </div>
+                    <div id="searchContent" class="tab-pane fade">
+                        {{ template "searchContentManual" }}
+                    </div>
+                    <div id="changeApproval" class="tab-pane fade">
+                        {{ template "changeApprovalManual" }}
+                    </div>
+                    <div id="addCreate" class="tab-pane fade">
+                        {{ template "addCreateManual" }}
+                    </div>
+                    <div id="fileManagement" class="tab-pane fade">
+                        {{ template "fileManagementManual" }}
+                    </div>
+                    <div id="bulkImports" class="tab-pane fade">
+                        {{ template "bulkImportsManual" }}
+                    </div>
+                    <div id="userManagement" class="tab-pane fade">
+                        {{ template "userManagementManual" }}
+                    </div>
+                    <div id="reporting" class="tab-pane fade">
+                        {{ template "reportingManual" }}
+                    </div>
+                    <div id="contactUs" class="tab-pane fade">
+                        {{ template "contactUsManual" .}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

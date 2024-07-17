@@ -1,0 +1,3 @@
+-- Done as part of NEX-6348. This adds Transaction History to PIN Restricted Modules when Hotel User Management is enabled, and SupervisorOnly drop down menu for more general use.
+UPDATE data_element SET options = CONCAT(`options`, '|', 'transactionHistory') WHERE name = 'supervisorOnly';
+UPDATE data_element SET options = CONCAT(`options`, '|', 'transactionHistory') WHERE name = 'PINRestrictedModules';

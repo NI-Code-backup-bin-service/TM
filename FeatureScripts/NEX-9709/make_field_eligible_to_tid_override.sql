@@ -1,0 +1,2 @@
+-- please replace <Data_Element_Names> with the field name that needs to be added to the TID override panel
+UPDATE data_group dg inner join data_element de on dg.data_group_id = de.data_group_id set de.tid_overridable = 1 where de.name in (<Data_Element_Names>...);

@@ -1,0 +1,1 @@
+UPDATE data_element SET is_read_only_at_creation = 1 WHERE name = 'manualEntryEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

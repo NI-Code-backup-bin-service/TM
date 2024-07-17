@@ -1,0 +1,18 @@
+{{define "searchPartialSites"}}
+    {{ $u := .CurrentUser }}
+    <script>let permSiteWrite = {{$u.UserPermissions.SiteWrite}}</script>
+    <div class="container tiny-gutter full-resize">
+        <table id="sitesTable" class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th id="sites-mid" scope="col" class="col-merchant-number">Merchant Number</th>
+                <th id="sites-name" scope="col">Site Name</th>
+                <th id="sites-chain" scope="col">Chain Name</th>
+                <th id="sites-manage" scope="col" class="col-two-buttons"></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{{end}}

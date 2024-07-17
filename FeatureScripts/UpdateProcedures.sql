@@ -1,0 +1,1 @@
+UPDATE mysql.proc p SET definer = 'tmsappuser@%' WHERE definer = 'admin@%'

@@ -1,0 +1,1 @@
+UPDATE data_element SET validation_message = 'Value must be numeric and no greater than 9 digits' WHERE name = 'locationId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol')

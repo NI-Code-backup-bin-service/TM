@@ -1,0 +1,119 @@
+ {{define "profileMaintenance"}}
+ <script src="/assets/js/DOMPurify/purify.min.js"></script>
+ <script src="/assets/js/warningMessage.js"></script>
+ <script src="/assets/js/sanitization.js"></script>
+ <script src="/assets/js/profileFields.js"></script>
+ <script src="/assets/js/profileMaintenance.js"></script>
+ <script src="/assets/js/bootstrap-multiselect.js"></script>
+ <script src="/assets/js/jsontables.js"></script>
+ <script src="/assets/js/rivet.js"></script>
+ <script src="/assets/js/moment.js"></script>
+ <script src="/assets/js/cashback.js"></script>
+ <script src="/assets/DataTables/datatables.js"></script>
+ <script src="/assets/js/dpoMomo.js"></script>
+ <script src="/assets/js/softUI.js"></script>
+ <script src="/assets/js/jquery.datetimepicker.full.js"></script>
+ <link rel="stylesheet" type="text/css" href="/assets/css/jquery.datetimepicker.min.css"/>
+ <link rel="stylesheet" href="/assets/css/bootstrap-multiselect.css"/>
+ <link rel="stylesheet" href="/assets/DataTables/datatables.css"/>
+ <link rel="stylesheet" href="/assets/css/custom.css"/>
+
+ <div id="profile-edit-contents" class="container tiny-gutter full-resize">
+    {{template "profileEditPartial" .}}
+</div>
+
+{{template "confirm" .}}
+
+ <div class="modal bd-example-modal-lg" id="chooseFileModal" tabindex="-1" role="dialog">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title">Choose File</h5>
+                 <button id="choose-file-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                 </button>
+             </div>
+             <div id="choose-file-body" class="modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal" id="config-edit-modal" tabindex="-1">
+     <div class="modal-dialog modal-dialog-centered modal-xl">
+         <div class="modal-content" id="config-modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="config-edit-modal-title"></h5>
+                 <button id="config-edit-modal-close" type="button" class="btn-close" onclick="emptyToolTipAndCloseConfigModal()" aria-label="Close" >
+
+                 </button>
+             </div>
+             <div id="config-edit-modal-body" class="modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal" id="services-edit-modal" tabindex="-1" height="500px">
+     <div class="modal-dialog modal-dialog-centered modal-xl">
+         <div class="modal-content" id="services-edit-modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="services-edit-modal-title"></h5>
+                 <button id="services-edit-modal-close" type="button" class="close" onclick="closeServicesModal()" aria-label="Close" >
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div id="services-edit-modal-body" class="modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal" id="dpo-config-edit-modal" tabindex="-1">
+     <div class="modal-dialog modal-dialog-centered modal-xl">
+         <div class="modal-content" id="dpo-modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="dpo-config-edit-modal-title"></h5>
+                 <button type="button" class="btn-close" onclick = "emptyToolTipAndCloseDpoModal()" aria-label="Close">
+
+                 </button>
+             </div>
+             <div id="dpo-config-edit-modal-body" class="modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal" id="soft-ui-config-edit-modal" tabindex="-1">
+     <div class="modal-dialog modal-dialog-centered modal-lg">
+         <div class="modal-content" id="soft-ui-modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="soft-ui-config-edit-modal-title"></h5>
+                 <button type="button" class="btn-close" onclick = "emptyToolTipAndCloseSoftUIModal()" aria-label="Close">
+
+                 </button>
+             </div>
+             <div id="soft-ui-config-edit-modal-body" class="modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <div class="modal fade bd-example-modal-lg" id="gratuity-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-xl" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="gratuity-edit-modal-title"></h5>
+                 <button type="button" id="gratuity-edit-modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                 </button>
+             </div>
+             {{template "warning" "gratuity"}}
+             <div class="modal-body" id="gratuity-edit-modal-body">
+             </div>
+         </div>
+     </div>
+ </div>
+
+
+ {{template "footer" .}} {{end}}

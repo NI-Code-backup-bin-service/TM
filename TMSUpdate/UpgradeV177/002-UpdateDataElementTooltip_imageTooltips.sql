@@ -1,0 +1,4 @@
+UPDATE data_element SET tooltip = 'Acquirer logo. Use JPG or PNG. Use aspect ratio between 1:1 and 6:1. Max size 100kB.' WHERE name = 'acquirerLogo' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'The image display on the PED when in EPOS mode. Use JPG or PNG. Use aspect ratio between 1:1 abd 6:1.' WHERE name = 'eposImage' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'Application header image. Use JPG or PNG. Use aspect ratio between 1:1 and 6:1. Max size 100kB.' WHERE name = 'applicationHeaderImg' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Application footer image. Use JPG or PNG. Use aspect ratio between 1:1 and 6:1. Max size 100kB.' WHERE name = 'applicationFooterImg' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');

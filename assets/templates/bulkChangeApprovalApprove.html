@@ -1,0 +1,61 @@
+{{define "bulkChangeApprovalApprove"}}
+<div>
+    <table class="changeApprovalTable table table-striped table-sm col-wrap">
+        <thead>
+            <tr>
+                <th scope="col">File name</th>
+                <th scope="col"></th>
+                <th scope="col">Type</th>
+                <th scope="col">Change Type</th>
+                <th scope="col">Created by</th>
+                <th scope="col">Created At</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="bulk-change-approval-history-table">
+            {{ range .PageModel }}
+            <tr>
+                <td name="filename">{{ if or ( and (eq .FileType "FileManagement") (eq .ChangeType "Delete" )) (le (len .Filename) 15 )}}{{ .Filename }}{{ else }}{{ slice .Filename 15 }}{{
+                    end }}</td>
+                <td name="viewButton">
+                    {{ if and (ne .FileType "FileManagement") (ne .FileType "LogoManagement")}}
+                    <button name="download_file" type="button" class="btn btn-secondary btn-sm button-margin"
+                        onclick="downloadFile({{.Filename}},{{.FileType}},false)">View</button>
+                    {{ end }}
+                </td>
+                <td name="filetype">{{ .FileType }}</td>
+                <td name="changetype">{{ .ChangeType }}</td>
+                <td name="created-by">{{ .CreatedBy }}</td>
+                <td name="created-at">{{ .CreatedAt }}</td>
+                <td>
+                    <button name="discard-change-bulk-change-approval-{{ .Filename }}" type="button"
+                        class="btn btn-secondary btn-sm float-end button-margin"
+                        onClick="discard({{ .Filename }},{{.FileType}},{{.ChangeType}})"
+                        data-button="discard">Discard</button>
+
+                    <button name="approve-change-bulk-change-approval-{{ .Filename }}" type="button"
+                        class="btn btn-secondary btn-sm float-end button-margin"
+                        onClick="approve({{ .Filename }},{{.FileType}},{{.ChangeType}})"
+                        data-button="approve">Approve</button>
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <button id='bulk-change-approval-discardChanges' type="button"
+                class="btn btn-secondary btn-sm float-end button-margin" onClick="discard()" data-button="discardAll">
+                Discard All</button>
+            <button id='bulk-change-approval-approveChanges' type="button"
+                class="btn btn-secondary btn-sm float-end button-margin" onClick="approve()"
+                data-button="approveAll">Approve All</button>
+        </td>
+    </table>
+</div>
+
+{{ end }}

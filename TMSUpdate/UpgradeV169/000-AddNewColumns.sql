@@ -1,0 +1,3 @@
+ALTER TABLE tid ADD COLUMN ip_address VARCHAR(280);
+ALTER TABLE tid ADD COLUMN ip_addresses TEXT;
+ALTER TABLE tid ADD COLUMN sim_card_serial_number VARCHAR(280);

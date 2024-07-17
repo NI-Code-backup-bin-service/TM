@@ -1,0 +1,1 @@
+DROP PROCEDURE if exists profile_data_fetch;

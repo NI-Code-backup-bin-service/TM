@@ -1,0 +1,18 @@
+{{ define "terminalFlaggingUploadResults" }}
+
+
+<div>
+    {{ if .UploadStatus }} <!-- When an element fails validation we need to display it here-->
+    <div class="row">
+        <h4 class="success">Upload Successful !</h4>
+    </div>
+    {{ else }}
+    <div>
+        <h4 style="color: red">Upload Failed !</h4>
+
+    </div>
+    {{ end }}
+</div>
+{{template "confirm" .}}
+{{template "footer" .}}
+{{ end }}

@@ -1,0 +1,13 @@
+{{ define "loader" }}
+    {{.CSRFField}}
+    <script>
+        let ID = {{ .PageModel.ID }}
+        let DGUpdated = {{ .PageModel.DGUpdated }}
+        let Type = {{ .PageModel.Type }}
+    </script>
+    <script src="/assets/js/profileMaintenanceLoader.js"></script>
+    {{.CSRFField}}
+    <div id="profLoader" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5)">
+        <div class="loader" style="position: absolute; top: 50%; left: 50%;"></div>
+    </div>
+{{ end }}

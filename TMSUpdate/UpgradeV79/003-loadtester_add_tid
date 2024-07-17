@@ -1,0 +1,18 @@
+--multiline
+CREATE PROCEDURE `loadtest_add_tid`(
+    IN tid varchar(50),
+    IN serial_number varchar(50),
+    IN site varchar(50)
+)
+BEGIN
+    -- obtain the site id
+    SET @siteId = (SELECT site_id FROM site_profiles JOIN profile p on site_profiles.profile_id = p.profile_id WHERE p.name = site LIMIT 1);
+    -- delete the tid if already present
+    DELETE FROM tid_site WHERE tid_id = tid AND site_id = @siteId;
+    DELETE FROM tid_updates WHERE tid_id = tid;
+    DELETE FROM tid_user_override where tid_id = tid;
+    DELETE FROM tid WHERE tid_id = tid;
+    -- add the tid
+    INSERT INTO tid (tid_id, `serial`) VALUES (tid, serial_number);
+    INSERT INTO tid_site VALUES (tid, @siteId, NULL, NOW());
+END;

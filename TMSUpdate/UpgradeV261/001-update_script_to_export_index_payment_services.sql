@@ -1,0 +1,2 @@
+UPDATE data_element de SET export_display_index = '56' WHERE de.name ='paymentServicesConfigs' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='paymentServices');
+UPDATE data_element de SET export_display_index = '57' WHERE de.name ='paymentMode' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='paymentServices');

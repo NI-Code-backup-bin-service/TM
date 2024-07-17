@@ -1,0 +1,4 @@
+DELETE FROM approvals WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'merchantReceiptConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi'));
+DELETE FROM data_element_locations_data_element WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'merchantReceiptConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi'));
+DELETE FROM profile_data WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'merchantReceiptConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi'));
+DELETE FROM data_element WHERE name = 'merchantReceiptConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi');

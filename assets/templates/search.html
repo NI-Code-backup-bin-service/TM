@@ -1,0 +1,60 @@
+{{define "search"}}
+{{ $u := .CurrentUser }}
+<script src="/assets/js/search.js"></script>
+<script src="/assets/js/jquery.datetimepicker.full.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script>
+<text id="userData" data-user="{{ index .PageModel.PendingExports $u.Username }}" hidden="hidden">{{ $u.Username }}</text>
+<div class="container no-padding tiny-gutter full-resize">
+    <ul class="nav nav-tabs inline-flex">
+        {{/* IDs shouldn't start with # - don't copy these! */}}
+        <li class="nav-item">
+            <a class="nav-link" id="#tids" data-bs-toggle="tab" href="#tids" onclick="setActiveTab(id)">TIDs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="#sites" data-bs-toggle="tab" href="#sites" onclick="setActiveTab(id)">Sites</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="#chains" data-bs-toggle="tab" href="#chains" onclick="setActiveTab(id)">Chains</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="#acquirers" data-bs-toggle="tab" href="#acquirers" onclick="setActiveTab(id)">Acquirers</a>
+        </li>
+    </ul>
+
+    <div class="inline-flex float-end">
+        {{.CSRFField}}
+        <button class="btn btn-outline-success my-2 my-sm-0 margin-start-small me-1" id="exportBtn" type="button" onclick="exportSearch(false)"
+                {{ if (eq $u.UserPermissions.SiteWrite false) }} disabled {{ end }}>Export</button>
+        <button class="btn btn-outline-success my-2 my-sm-0 margin-start-small" id="exportFilterdBtn" type="button" onclick="exportSearch(true)"
+                {{ if (eq $u.UserPermissions.SiteWrite false) }} disabled {{ end }}>Filtered Export</button>
+    </div>
+
+
+    <div id="searchPartial">
+        {{template "searchPartial" .}}
+    </div>
+
+    <div class="modal bd-example-modal-lg" id="exportModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content padding-small">
+                <div class="modal-header align-self-center">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Generating report, please wait...</h5>
+                </div>
+                <div class="modal-body align-self-center" id="exportModalBody">
+                    <div class="loader"></div>
+                </div>
+                <button class="btn btn-outline-success my-2 my-sm-0 align-self-center" id="cancelBtn" type="button" onclick="cancelExport()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+{{template "confirm" .}}
+{{template "footer" .}}
+{{end}}

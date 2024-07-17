@@ -1,0 +1,16 @@
+{{define "searchPartial"}}
+<div class="tab-content mt-1">
+    <div id="tids" class="tab-pane">
+        {{template "searchPartialTIDs" .}}
+    </div>
+    <div id="sites" class="tab-pane active">
+        {{template "searchPartialSites" .}}
+    </div>
+    <div id="chains" class="tab-pane">
+        {{template "searchPartialChains" .}}
+    </div>
+    <div id="acquirers" class="tab-pane">
+        {{template "searchPartialAcquirers" .}}
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,1 @@
+Drop procedure if exists get_third_party_apks;

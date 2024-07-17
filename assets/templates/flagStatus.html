@@ -1,0 +1,15 @@
+{{define "flagStatus"}}
+<div id="flagging-checkbox" class="input-group">
+{{ range .PageModel}}
+    <div class="col-sm-2 text-center">
+
+        <label for="fs.{{.TID}}" class="col-sm-7 my-2">{{.TID}}</label>
+        <input id="fs.{{.TID}}" name="fs.{{.TID}}"
+        {{if eq .FlagStatus true }}
+               checked disabled
+        {{end}}
+        type="checkbox" class="form-checkbox-sm col-sm-2 my-2" value="true"/>
+    </div>
+{{end}}
+</div>
+{{end}}

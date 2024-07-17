@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|NIIPP') WHERE name = 'active' AND options not like '%NIIPP%';

@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_data_groups_by_profile_id;

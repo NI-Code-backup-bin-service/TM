@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS add_apk_to_package;

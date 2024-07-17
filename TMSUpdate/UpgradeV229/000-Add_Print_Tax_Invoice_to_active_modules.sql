@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|PrintTaxInvoice') WHERE name = 'active' AND options not LIKE '%PrintTaxInvoice%';

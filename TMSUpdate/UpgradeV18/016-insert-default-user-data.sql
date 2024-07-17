@@ -1,0 +1,10 @@
+INSERT INTO `operations_permission` (`permission_id`, `name`) VALUES ('1', 'TransactionViewer');
+INSERT INTO `operations_permission` (`permission_id`, `name`) VALUES ('2', 'Ecom Transaction Viewer');
+INSERT INTO `operations_permission` (`permission_id`, `name`) VALUES ('3', 'Monitoring');
+INSERT INTO `operations_permission` (`permission_id`, `name`) VALUES ('4', 'User Management');
+INSERT INTO `operations_permissiongroup` (`group_id`, `name`, `default_group`) VALUES ('1', 'NI Admin', '1');
+INSERT INTO `operations_permissiongroup` (`group_id`, `name`, `default_group`) VALUES ('2', 'NI User', '1');
+INSERT INTO `operations_permissiongroup` (`group_id`, `name`, `default_group`) VALUES ('3', 'Global Admin', '1');
+insert into operations_permissiongroup_permission (permissiongroup_id, permission_id) values (1, 4);
+set @GlobalAdminId = (select group_id from operations_permissiongroup pg where pg.name = "GlobalAdmin");
+insert ignore into operations_permissiongroup_permission (permissiongroup_id, permission_id) select @GlobalAdminId, p.permission_id from permission p;

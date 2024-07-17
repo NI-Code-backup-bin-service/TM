@@ -1,0 +1,1 @@
+DROP procedure IF EXISTS get_tid_user_data_of_site;

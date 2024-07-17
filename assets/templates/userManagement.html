@@ -1,0 +1,33 @@
+{{ define "userManagement" }}
+<script src="assets/js/warningMessage.js"></script>
+<script src="assets/js/userManagement.js"></script>
+<script src="assets/js/confirmation.js"></script>
+<script src="assets/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-multiselect.css"/>
+<link rel="stylesheet" href="assets/css/userManagement.css"/>
+
+<h1>User Management</h1>
+{{ template "warning" }}
+{{template "confirm" .}}
+{{ $AuditPermission := .CurrentUser.UserPermissions.UserManagementAudit }}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a id="#userConfig" class="nav-link active" data-bs-toggle="tab" href="#userManagementPartial">User Config</a>
+    </li>
+    <li class="nav-item">
+        <a id="#userHistory" class="nav-link {{ if (eq $AuditPermission false) }} disabled {{ end }}" data-bs-toggle="tab" href="#userManagementAudit" {{ if (eq $AuditPermission true) }} onclick="userHistoryTabSelect({{.PageModel.AuditHistory.IdentifierColumn}}, 0)" {{ end }}>History</a>
+    </li>
+
+</ul>
+<div class="tab-content">
+    <div id="userManagementPartial" class="tab-pane active">
+        {{ template "userManagementPartial" . }}
+    </div>
+    <div id="userManagementAudit" class="tab-pane">
+        {{ template "userManagementAudit" . }}
+    </div>
+</div>
+
+
+{{template "footer" .}}
+{{end}}

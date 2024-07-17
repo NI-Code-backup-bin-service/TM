@@ -1,0 +1,5 @@
+-- NEX-6938 - This script updates the nolDeviceId data element validation message & expression, whilst also providing a TID Override Data element location_id for TID override.
+UPDATE data_element SET validation_expression = '^[0-9a-fA-F]{0,6}$', validation_message = 'Value must be in hexadecimal format and be up to 6 characters long.', `unique` = 1 WHERE name  = 'nolDeviceId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+INSERT IGNORE INTO data_element_locations_data_element (location_id, data_element_id) VALUES ('16', (SELECT data_element_id FROM data_element WHERE name = 'nolDeviceId'));
+INSERT INTO profile_data (profile_id, data_element_id, datavalue, version, updated_at, updated_by, created_at, created_by, approved, overriden, is_encrypted, not_overridable) VALUES (1, (SELECT data_element_id FROM data_element WHERE name = 'nolDeviceId'), '1', 1, NOW(), 'NISuper', NOW(), 'NISuper', 1, 0, 0, 1);
+INSERT IGNORE INTO profile_data_group (profile_id, data_group_id, version, updated_at, updated_by, created_at, created_by) VALUES (1, (SELECT data_group_id FROM data_group WHERE name = 'nol'), 1, NOW(), 'system', NOW(), 'system');

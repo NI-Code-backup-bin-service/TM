@@ -1,0 +1,1 @@
+ALTER TABLE `tid` ADD COLUMN `software_version` INT NULL DEFAULT 0 AFTER `update_date`, ADD COLUMN `last_transaction_time` DATETIME NULL AFTER `software_version`, ADD COLUMN `firmware_version` VARCHAR(45) NULL DEFAULT 'Unknown' AFTER `software_version`;;

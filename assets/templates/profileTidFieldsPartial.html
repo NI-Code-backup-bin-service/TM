@@ -1,0 +1,28 @@
+{{define "profileTidFieldsPartial"}}
+{{ $u := .model.CurrentUser }}
+{{ $t := .t }}
+<form id="saveTidProfile_{{.t.TID}}" action="saveTidProfile" method="POST">
+    <input hidden="hidden" id="profileID" name="profileID" value="{{.model.PageModel.ProfileId}}"/>
+    <input hidden="hidden" id="siteID" name="siteID" value="{{.model.PageModel.SiteId}}"/>
+    <input hidden="hidden" id="tidID" name="tidID" value="{{.t.TID}}"/>
+    {{.model.CSRFField}}
+
+    <div class="contrainer m-2">
+        <div class="row">
+            <div class="button-bar" style="width: 100%">
+                <button id="duplicate-{{ .t.TID }}" type="button" class="btn btn-primary float-end button-margin"
+                        onclick="AddDuplicatedTidOverride({{ .t.TID }})"{{ if eq $u.UserPermissions.SiteWrite false }} disabled{{ end }}>Duplicate</button>
+
+                <button id="tid-save-{{ .t.TID }}" type="button" class="btn btn-primary float-end button-margin"
+                        onclick="SaveTidOverride({{ .t.TID }})"{{ if eq $u.UserPermissions.SiteWrite false }} disabled{{ end }}>Save</button>
+
+                <button id="tid-delete-{{ .t.TID }}" type="button" class="btn btn-primary float-end button-margin"
+                        onclick="DeleteTidOverride({{ .t.TID }})"{{ if eq $u.UserPermissions.SiteWrite false }} disabled{{ end }}>Delete</button>
+            </div>
+        </div>
+
+        {{ template "tidGroupTable" dict "tid" .t.TID "pg" .t.TIDProfileGroups "checkDirty" true "currentUser" $u "tidProfileID" .t.TIDProfileID "SiteId" $t.SiteId}}
+    </div>
+    {{.CSRFField}}
+</form>
+{{end}}

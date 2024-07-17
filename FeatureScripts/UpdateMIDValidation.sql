@@ -1,0 +1,1 @@
+update data_element set max_length = 15, validation_expression = "^[a-zA-Z0-9]{6,15}$", validation_message = "Must be between 6 and 15 alphanumeric characters in length and not contain special characters" where name = "merchantNo";

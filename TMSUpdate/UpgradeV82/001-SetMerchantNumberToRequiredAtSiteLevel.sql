@@ -1,0 +1,1 @@
+UPDATE data_element SET required_at_site_level = 1 WHERE name = 'merchantNo';

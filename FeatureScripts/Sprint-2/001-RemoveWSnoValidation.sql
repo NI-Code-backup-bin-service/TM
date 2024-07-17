@@ -1,0 +1,1 @@
+UPDATE data_element SET validation_expression = null, validation_message = '' WHERE (name = 'workstationNumber');

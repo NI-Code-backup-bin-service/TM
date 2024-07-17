@@ -1,0 +1,2 @@
+INSERT IGNORE INTO schemes (scheme_id, scheme_name, qr_scheme) VALUES (8, 'VISAQR',1), (9, 'UPIQR', 1), (10, 'ALIPAY', 1), (11, 'MASTERCARDQR',1);
+update data_group set name = 'upiQr' where name = 'upi';

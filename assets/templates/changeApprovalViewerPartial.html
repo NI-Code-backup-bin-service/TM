@@ -1,0 +1,130 @@
+{{define "changeApprovalViewerPartial"}}
+{{ $u := .CurrentUser }}
+{{$resultCount := len .History}}
+<div>
+    <span id="prev-results-{{.IdentifierColumn}}" class="fas fa-angle-left fa-2x fa-pull-left opacity" onclick="pageResults(-50, {{.IdentifierColumn}})"></span>
+    <label id="shown-results-{{.IdentifierColumn}}">Showing Results 0 to 50</label>
+    <span id="next-results-{{.IdentifierColumn}}"
+          class='fas fa-angle-right fa-2x fa-pull-right {{if eq $resultCount 50}}clickable{{else}} opacity {{end}}'
+          {{if eq $resultCount 50}} onclick="pageResults(50, {{.IdentifierColumn}})" {{end}}>
+    </span>
+</div>
+<div class="container tiny-gutter full-resize">
+    <div class="row">
+        <table class="changeApprovalTable table table-striped table-sm col-wrap">
+            <thead>
+            <tr>
+                <th scope="col">{{.IdentifierColumn}}</th>
+                <th scope="col">Field</th>
+                <th scope="col">Original Value</th>
+                <th scope="col">Update Value</th>                
+                <th scope="col">Updated by</th>
+                <th scope="col">Updated At</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="{{.TabType}}-history-table">
+            {{ range $i, $t := .History }}
+            <tr>
+                <td name="identifier">
+                    {{if eq .ChangeType 11 }}
+                    {{.PaymentServiceGroupName}}
+                    {{else}}
+                    {{.Identifier}}
+                    {{end}}
+                </td>
+                <td name="field">
+                    {{ if ne .TidId ""}}
+                    TID {{.TidId}}{{ if eq .ChangeType 6 }} Serial Number {{ end }}
+                    {{else if eq .ChangeType 10 }}
+                    {{.ChangeValue}}
+                    {{else if eq .ChangeType 11 }}
+                    {{.PaymentServiceName}}
+                    {{else if ne .MID ""}}
+                    MID {{.MID}}
+                    {{else if eq .ChangeType 7 }}
+                    {{.OriginalValue}}
+                    {{else}}
+                    {{.Field}}
+                    {{end}}
+                </td>
+                {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true) }}
+                    <td name="original-value">
+                        <span class="col-wrap" id="original-value-{{.ProfileDataID}}_hidden" hidden>{{ .OriginalValue }}</span>
+                        <span class="col-wrap" id="original-value-{{.ProfileDataID}}_show">*******</span>
+                        <img id="Row{{$i}}-orig-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png" class="togglePIN" onclick="togglePasswordDiv('original-value-{{ .ProfileDataID }}_show','original-value-{{ .ProfileDataID }}_hidden')">
+                    </td>
+                    <td name="change-value">
+                        <span class="col-wrap" id="change-value-{{.ProfileDataID}}_hidden" hidden>{{ .ChangeValue }}</span>
+                        <span class="col-wrap" id="change-value-{{.ProfileDataID}}_show">*******</span>
+                        <img id="Row{{$i}}-chng-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png" class="togglePIN" onclick="togglePasswordDiv('change-value-{{ .ProfileDataID }}_show','change-value-{{ .ProfileDataID }}_hidden')">
+                    </td>
+                {{ else if eq .IsPassword true }}
+                    <td name="original-value">*******</td>
+                    <td name="change-value">*******</td>
+                {{ else if eq .ChangeType 7 }}
+                <td name="original-value"></td>
+                <td name="change-value">{{.OriginalValue}}</td>
+                {{ else if eq .ChangeType 10 }}
+                <td name="original-value"></td>
+                <td name="change-value">
+                    Payment service group deleted
+                </td>
+                {{ else if eq .ChangeType 11 }}
+                <td name="original-value"></td>
+                <td name="change-value">
+                    Payment service deleted
+                </td>
+                {{ else }}
+                    <td name="original-value">{{.OriginalValue}}</td>
+                    <td name="change-value">
+                        {{ if and (eq .Field "core/flagStatus") (eq (slice .ChangeValue 0 3) "fil")}}
+                            {{slice .ChangeValue 22 }}
+                            <button name="download_flagging_file" type="button" class="btn btn-secondary btn-sm float-end button-margin"
+                                    onclick="downloadFlaggingFile({{.ChangeValue}})">View
+                            </button>
+                        {{else}}
+                            {{.ChangeValue}}
+                        {{ end }}
+                    </td>
+                {{ end }}
+                <td name="changed-by">{{.ChangedBy}}</td>
+                <td name="changed-at">{{.ChangedAt}}</td>
+                <td>
+                    {{/* Using name attribute rather than ID here since we can't guarantee that it will be unique.
+                         This is OK for the purposes of test automation; Selenium will simply pick the first matching value it finds. */}}
+                    <button id="{{ $.IdentifierColumn }}-discard-row-{{ $i }}" name="discard-change-{{ .Identifier }}-{{ .Field }}-{{ .ChangeValue }}" type="button" class="btn btn-secondary btn-sm float-end button-margin" onClick=" this.disabled=true; discardChange( {{ .ProfileDataID }}, {{$.IdentifierColumn}} );" data-button="discard"
+                    {{ if (eq $u.UserPermissions.ChangeApprovalWrite false) }} disabled {{ end }}>Discard</button>
+
+                    <button id="{{ $.IdentifierColumn }}-approve-row-{{ $i }}" name="approve-change-{{ .Identifier }}-{{ .Field }}-{{ .ChangeValue }}" type="button" class="btn btn-secondary btn-sm float-end button-margin" onClick="this.disabled=true; approveChange( {{ .ProfileDataID }}, {{$.IdentifierColumn}} );" data-button="approve"
+                    {{ if (eq $u.UserPermissions.ChangeApprovalWrite false) }} disabled {{ end }}>Approve</button>
+                </td>
+            </tr>
+            {{ end }}
+            </tbody>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button id='{{.TabType}}-discardChanges' type="button" class="btn btn-secondary btn-sm float-end button-margin" onClick=" this.disabled=true; discardAll({{.IdentifierColumn}});" data-button="discardAll"
+                        {{ if (eq $u.UserPermissions.ChangeApprovalWrite false) }} disabled {{ end }}>Discard All</button>
+                <button id='{{.TabType}}-approveChanges' type="button" class="btn btn-secondary btn-sm float-end button-margin" onClick="this.disabled=true; approveAll({{.IdentifierColumn}});" data-button="approveAll"
+                        {{ if (eq $u.UserPermissions.ChangeApprovalWrite false) }} disabled {{ end }}>Approve All</button>
+            </td>
+        </table>
+    </div>
+
+</div>
+<div>
+    <span id="prev-results-footer-{{.IdentifierColumn}}" class="fas fa-angle-left fa-2x fa-pull-left opacity" onclick="pageResults(-50, {{.IdentifierColumn}})"></span>
+    <label id="shown-results-footer-{{.IdentifierColumn}}">Showing Results 0 to 50</label>
+    <span id="next-results-footer-{{.IdentifierColumn}}"
+          class='fas fa-angle-right fa-2x fa-pull-right {{if eq $resultCount 50}}clickable{{else}} opacity {{end}}'
+          {{if eq $resultCount 50}} onclick="pageResults(50, {{.IdentifierColumn}})" {{end}}>
+    </span>
+</div>
+{{end}}

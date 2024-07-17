@@ -1,0 +1,1 @@
+alter table data_element add column tid_overridable boolean default false;

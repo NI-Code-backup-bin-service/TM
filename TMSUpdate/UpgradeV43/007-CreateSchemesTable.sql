@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS schemes (scheme_id INT NOT NULL, scheme_name VARCHAR(255) NOT NULL, PRIMARY KEY (scheme_id));

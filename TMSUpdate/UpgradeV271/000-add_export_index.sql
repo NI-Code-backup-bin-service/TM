@@ -1,0 +1,1 @@
+UPDATE data_element SET export_display_index = 63 where name = 'printClearPan';

@@ -1,0 +1,35 @@
+{{define "updateDetailsSN"}}
+{{ template "warning" "updateDetailsSNPartial" }}
+<form id="snUpdates_{{.PageModel.TID}}">
+    <div class="form-group" >
+        <h6 style="margin-left: 1%">TID: {{ .PageModel.TID }} </h6>
+        <h6 style="margin-left: 1%">Minimum Software: {{ .PageModel.MinimumSoftwareVersion }}</h6>
+        <table>
+            <tr>
+                <input hidden="hidden" id="SnCell{{ .PageModel.TID }}" name="SnCell{{ .PageModel.TID }}" value="{{ .PageModel.Serial }}"/>
+                <td id="UpdateSerialCell{{ .PageModel.TID }}">
+                    Serial:  <input id="SnEditInput{{ .PageModel.TID }}" name="SnEditInput{{ .PageModel.TID }}" class="inputSerialNumber" value="{{ .PageModel.Serial }}" type="text" onchange="SetDirty()">
+                </td>
+            </tr>
+        </table>
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Target Software</th>
+                <th scope="col">Update Date</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="update_table_sn">
+                {{ template "updateDetailsSNPartial" .}}
+            </tbody>
+        </table>
+        {{.CSRFField}}
+    </div>
+</form>
+<div class="modal-footer">
+    <button id="applyUpdatesSN" class="btn btn-primary" onclick="ApplyTIDSNUpdates({{ .PageModel.TID }})" style="float: right; margin: 1%">Save</button>
+</div>
+
+{{end}}

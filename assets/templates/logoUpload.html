@@ -1,0 +1,43 @@
+{{define "logoUpload"}}
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/logoUpload.js"></script>
+<script src="/assets/js/upload-file.js"></script>
+<div class="container no-padding tiny-gutter full-resize">
+<h2>Logo Management</h2>
+{{template "warning"}}
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a id="#mnoIconsUpload" class="nav-link active" data-bs-toggle="tab" href="#mnoIconsUpload">Upload MNO's Logo</a>
+        </li>
+    </ul>
+    <div id="site-upload-spinner" style="display:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5)">
+        <div class="loader" style="position: absolute; top: 50%; left: 50%;"></div>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div id="mnoIconsUpload" class="tab-pane active">
+        <div id="mnoIconsUpload">
+            <form id="mno-logo-upload" action="uploadMnoLogo" method="POST">
+                <p class="h6">Upload MNO's Logo</p>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <select id="mno-logo" name="mnoName" class="left-spaced form-select form-select-sm d-inline-block" style="width:auto;">
+                            </select>
+                        </td>
+                        <td><input id="mno-icons-import-upload-file" name="logo" type="file" class="form-control-file"/></td>
+                        <td colspan="2"><button id="mno-icons-import-upload-file-button" class="btn btn-primary my-2 my-sm-0">Upload</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                {{.CSRFField}}
+            </form>
+        </div>
+    </div>
+</div>
+<div id="choose-file-body" class="modal-body"></div>
+{{template "confirm" .}}
+{{end}}

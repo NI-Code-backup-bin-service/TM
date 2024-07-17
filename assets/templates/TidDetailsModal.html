@@ -1,0 +1,128 @@
+{{define "TidDetailsModal"}}
+<!-- Modal script goes here.-->
+<div id="tid-details-modal">
+    <table id="tid-details-table" class="table table-responsive-md">
+        <tr class="tidhover">
+            <td>
+                <label id="deviceDetailsLabel" onclick="tidDetailsDisplay('deviceDetails')" style="cursor: pointer;" class = "tidDetailHeaderLabel">Device
+                    Details</label>
+            </td>
+            <td class="tidhover"></td>
+        </tr>
+        <tbody id="deviceDetails">
+        <tr>
+            <td id="tid-software-version-label">Software Version</td>
+            <td id="tid-software-version">{{ .AppVer}}</td>
+        </tr>
+        <tr>
+            <td id="tid-firmware-version-label">Firmware Version</td>
+            <td id="tid-firmware-version">{{ .FirmwareVer }}</td>
+        </tr>
+        <tr>
+            <td id="tid-last-recorded-transaction-label">Last Recorded Transaction Time</td>
+            <td id="tid-last-recorded-transaction">{{ .LastTransaction }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-free-internal-storage-label">PED Free Internal Storage</td>
+            <td id="tid-ped-free-internal-storage">{{ .FreeInternalStorage }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-total-internal-storage-label">PED Total Internal Storage</td>
+            <td id="tid-ped-total-internal-storage">{{ .TotalInternalStorage }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-last-checked-label">PED Last Checked</td>
+            <td id="tid-ped-last-checked">{{ .LastCheckedTime }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-confirmed-label">PED Confirmed</td>
+            <td id="tid-ped-confirmed">{{ .ConfirmedTime }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-last-apk-download-label">Last APK Download Time</td>
+            <td id="tid-ped-last-apk-download">{{ .LastAPKDownloadTime }}</td>
+        </tr>
+        </tbody>
+        <tr class = "tidhover">
+            <td>
+                <label id="endOfDayDetailsLabel" onclick="tidDetailsDisplay('endOfDayDetails')" style="cursor: pointer;" class = "tidDetailHeaderLabel">Config
+                    Details</label>
+            </td>
+            <td class="tidhover"></td>
+        </tr>
+        </tbody>
+        <tbody id="endOfDayDetails">
+        <tr>
+            <td id="tid-ped-eod-auto-label">End Of Day Auto</td>
+            <td id="tid-ped-eod-auto">{{ .EODAuto }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-auto-time-label">Auto Time</td>
+            <td id="tid-ped-auto-time">{{ .AutoTime }}</td>
+        </tr>
+        </tbody>
+        <tbody class="tidhover">
+        <tr class = "tidhover">
+            <td>
+                <label id="pedLocationDetailsLabel" onclick="tidDetailsDisplay('pedLocationDetails')" class = "tidDetailHeaderLabel"
+                       style="cursor: pointer;">PED Location Details</label>
+            </td>
+            <td class="tidhover"></td>
+        </tr>
+        </tbody>
+        <tbody id="pedLocationDetails">
+        <tr>
+            <td id="tid-ped-coordinates-label">PED Coordinates</td>
+            <td id="tid-ped-coordinates">{{ .Coordinates }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-accuracy-label">PED Coordinates Accuracy</td>
+            <td id="tid-ped-accuracy">{{ .Accuracy }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-last-coordinate-time-label">PED Coordinates Last Update Time</td>
+            <td id="tid-ped-last-coordinate-time">{{ .LastCoordinateTime }}</td>
+        </tr>
+        </tbody>
+        <tr class="tidhover">
+            <td>
+                <label id="softUiFileDownloadDetailsLabel" class = "tidDetailHeaderLabel"
+                       onclick="tidDetailsDisplay('softUiFileDownloadDetails')" style="cursor: pointer;">SoftUI File
+                    Details</label>
+            </td>
+            <td class="tidhover"></td>
+        </tr>
+        <tbody id="softUiFileDownloadDetails">
+        <tr>
+            <td id="tid-ped-softui-last-downloaded-main-menu-file-label">Last SoftUI File Download Main Menu Name</td>
+            <td id="tid-ped-softui-last-downloaded-main-menu-file" class="softui-details-td">{{ .SoftuiLastDownloadedFileName }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-softui-last-downloaded-main-menu-file-hash-label">Last SoftUI File Download Main Menu Hash
+            </td>
+            <td id="tid-ped-softui-last-downloaded-main-menu-file-hash" class="softui-details-td">{{ .SoftuiLastDownloadedFileHash }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-softui-last-downloaded-file-date-time-label" >Last SoftUI File Download Time</td>
+            <td id="tid-ped-softui-last-downloaded-file-date-time">{{ .SoftuiLastDownloadedFileDateTime }}</td>
+        </tr>
+        <tr>
+            <td id="tid-ped-softui-last-downloaded-file-list-label">SoftUI Last Downloaded File List :</td>
+            <td>
+        <tr>
+            <td id="tid-ped-softui-last-downloaded-file-name-label" class = "tidDetailElementLabel">File Name</td>
+            <td id="tid-ped-softui-last-downloaded-file-hash-label" class = "tidDetailElementLabel">File Hash</td>
+        </tr>
+        {{ range $softuiElement := .SoftuiLastDownloadedFileList }}
+        <tr>
+            <td class="softui-details-td">{{$softuiElement.name}}</td>
+            <td class="softui-details-td">{{$softuiElement.hash}}</td>
+        </tr>
+        {{ end }}
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{{end}}

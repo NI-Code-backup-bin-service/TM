@@ -1,0 +1,32 @@
+{{ define "bulkChangeApproval" }}
+<script src="/assets/js/bulkChangeApproval.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/confirmation.js"></script>
+
+<h1>Bulk Change Approval</h1>
+{{template "warning"}}
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a id="#bulkChangeApprovalApprove" class="nav-link active" data-bs-toggle="tab"  href="#bulkChangeApprovalApprove">Approve</a>
+        </li>
+        <li class="nav-item">
+            <a id="#bulkChangeApprovalHistory" class="nav-link" data-bs-toggle="tab"  href="#bulkChangeApprovalHistory" onclick="showBulkChangeApprovalHistory()">History</a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="tab-content">
+    <div id="bulkChangeApprovalApprove" class="tab-pane active">
+        {{ .CSRFField }}
+        <div id="bulkChangeApprovalContainerApprove">
+        </div>
+    </div>
+    <div id="bulkChangeApprovalHistory" class="tab-pane">
+        {{ .CSRFField }}
+        <div id="bulkChangeApprovalContainerHistory">
+        </div>
+    </div>
+</div>
+{{ end }}

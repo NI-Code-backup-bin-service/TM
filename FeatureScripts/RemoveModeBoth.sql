@@ -1,0 +1,1 @@
+update data_element set options = "standalone|epos" where name = "mode";

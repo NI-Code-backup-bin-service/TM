@@ -1,0 +1,3 @@
+update profile_data set datavalue = ''  where data_element_id = (select data_element_id from data_element where name = 'superPIN' and data_group_id = (select data_group_id from data_group where name = 'userMgmt')) and profile_id = ;
+update profile_data set datavalue = ''  where data_element_id = (select data_element_id from data_element where name = 'wifiPIN' and data_group_id = (select data_group_id from data_group where name = 'userMgmt')) and profile_id = ;
+update profile_data set datavalue = ''  where data_element_id = (select data_element_id from data_element where name = 'modeChangePIN' and data_group_id = (select data_group_id from data_group where name = 'userMgmt')) and profile_id = ;

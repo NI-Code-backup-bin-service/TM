@@ -1,0 +1,1 @@
+UPDATE profile_data SET not_overridable = 0 WHERE data_element_id = (SELECT data_element_id FROM data_element WHERE name = 'autoCutOver' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay'));

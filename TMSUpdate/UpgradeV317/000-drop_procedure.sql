@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_users_value_by_site_id;

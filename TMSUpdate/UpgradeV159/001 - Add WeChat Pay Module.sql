@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|weChatPay') WHERE name = 'active' AND options not like '%weChatPay%';

@@ -1,0 +1,1 @@
+INSERT INTO `data_element` (`data_group_id`, `name`, `datatype`, `is_allow_empty`, `version`, `updated_by`, `created_by`, `front_end_validate`, `unique`, `options`) VALUES ((SELECT `dg`.`data_group_id` FROM `data_group` AS `dg` WHERE `dg`.`name` = 'opi'), 'allowGetPAN', 'BOOLEAN', '0', '1', 'system', 'system', '0', '0', '');

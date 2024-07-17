@@ -1,0 +1,21 @@
+{{define "searchPartialChains"}}
+    {{ $u := .CurrentUser }}
+
+<script>let permChainDublication = {{$u.UserPermissions.ChainDuplication}}</script>
+    <div class="container tiny-gutter full-resize">
+        {{template "warning"}}
+        <table id="chainsTable" class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th id="chains-id" scope="col">Id</th>
+                <th id="chains-name" scope="col">Chain Name</th>
+                <th id="chains-tid-count" scope="col">Chain TID Count</th>
+                <th id="chains-acquirer" scope="col">Acquirer Name</th>
+                <th id="chains-manage" scope="col" class="col-merchant-number"></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{{end}}

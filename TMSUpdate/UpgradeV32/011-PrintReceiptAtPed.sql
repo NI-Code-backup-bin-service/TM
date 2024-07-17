@@ -1,0 +1,1 @@
+UPDATE data_element SET data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules'), name = 'automaticReceipt', displayname_en = 'Print Receipt' WHERE (name = 'printReceiptAtPed' OR name = 'automaticReceipt');

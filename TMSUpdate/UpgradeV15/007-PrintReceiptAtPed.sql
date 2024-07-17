@@ -1,0 +1,1 @@
+UPDATE `NextGen_TMS`.`data_element` SET data_group_id = (SELECT data_group_id FROM `NextGen_TMS`.`data_group` WHERE name = 'modules'), `name` = 'automaticReceipt' WHERE (`name` = 'printReceiptAtPed');

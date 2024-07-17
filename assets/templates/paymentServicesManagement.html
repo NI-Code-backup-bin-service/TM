@@ -1,0 +1,49 @@
+{{ define "paymentServicesManagement" }}
+<link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script>
+<script src="/assets/js/paymentServices.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+
+{{.CSRFField}}
+
+<input type="hidden" name="type" value="manage">
+
+<div class="modal bd-example-modal-lg" id="add-service-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Service</h5>
+                <button id="modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeAddServiceModal()">
+
+                </button>
+            </div>
+            <div id="choose-file-body" class="modal-body">
+                <label for="service-name-input" class="col-sm-2">Name:</label>
+                <input id="service-name-input" class="col-sm-7" autocomplete="off"/>
+                <button id="add" type="button" class="col-sm-2 btn btn-primary button-margin" aria-label="Close" onclick="addPaymentService()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container tiny-gutter full-resize">
+    <h2>Payment Service Group: {{ .PageModel.Group.Name }} </h2>
+    {{template "warning"}}
+    <table id="service-tbl" class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th id="service-name" scope="col">Payment Service Name</th>
+            <th id="service-manage" scope="col" class="col-two-buttons"></th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+{{template "warning" .}}
+{{template "confirm" .}}
+{{template "footer" .}}
+{{end}}

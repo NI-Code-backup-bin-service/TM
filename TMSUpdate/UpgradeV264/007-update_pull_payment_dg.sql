@@ -1,0 +1,2 @@
+UPDATE data_element SET `unique` = 0 WHERE name='disable_void' AND data_group_id=(SELECT data_group_id FROM data_group WHERE name = 'pullpayments')
+UPDATE data_element SET `unique` = 0 WHERE name='disable_refund' AND data_group_id=(SELECT data_group_id FROM data_group WHERE name = 'pullpayments')

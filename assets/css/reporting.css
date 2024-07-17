@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    font-weight: 400
+}
+
+.buttonwrapper {
+    list-style: none;
+    padding: 5px;
+    display: inline-flex;
+    border-radius: 50px;
+    width: auto;
+    border-style: groove;
+    border-width: 2px;
+    border-color: #8c8e90;
+}
+
+.buttonwrapper li {
+    display: inline-flex;
+    float: left;
+    min-height: fit-content;
+    min-width: fit-content;
+}
+
+.buttonwrapper li:first-child {
+    margin-left: 0
+}
+
+.buttonwrapper label {
+    display: block;
+    opacity: 1;
+    font-size: 12px;
+    line-height: 2;
+    text-align: center;
+    padding: 10px 10px;
+    margin-bottom: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.buttonwrapper li.active label {
+    background-color: #8c8e90;
+    border-radius: 50px
+}
+
+.buttonwrapper input {
+    border-radius: 20px;
+}
+
+.buttonwrapper button {
+    margin: 0.5%;
+    border-radius: 20px;
+}
+
+.VolumeChart {
+    margin: 0 auto;
+}
+
+.Top10Chart {
+    margin: 0 auto;
+}
+
+body .row {
+    margin-top: 1%;
+}
+
+.kpi {
+    width: 100%;
+    background-color: #fff;
+    height: 150px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 2rem;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(62, 57, 107, .04);
+    box-shadow: 0 2px 4px 0 rgba(62, 57, 107, .04);
+    border-style: groove;
+    border-width: 2px;
+    border-color: #8c8e90;
+}
+
+.kpi-content {
+    width: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.kpi-header {
+    font-size: 1.1vw;
+    font-weight: 100;
+    color: #8c8e90;
+    font-family: Lato, sans-serif
+}
+
+.kpi-container {
+    margin-top: 30px;
+}
+
+.sub-header {
+    font-size: .8rem;
+    color: #8c8e90
+}
+
+.kpi-value,
+.sub-header {
+    margin-top: -15px;
+    font-weight: 400;
+    font-family: Lato, sans-serif
+}
+
+.kpi-value {
+    font-size: 1.5vw;
+    color: #3d4f5f;
+}

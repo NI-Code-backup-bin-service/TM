@@ -1,0 +1,94 @@
+{{define "profileChangeHistory"}}
+{{ $u := .CurrentUser }}
+<div class="row">
+    <table class="changeApprovalTable table table-striped table-sm col-wrap mt-3">
+        <thead>
+            <tr>
+                <th scope="col">TID</th>
+                <th scope="col">Field</th>
+                <th scope="col">Original Value</th>
+                <th scope="col">Update Value</th>
+                <th scope="col">Updated by</th>
+                <th scope="col">Time</th>
+                <th scope="col">Approved</th>
+                <th scope="col">Discarded</th>
+            </tr>
+        </thead>
+        <tbody id="tid-history-table">
+            {{ $pm := . }}
+            {{ range $i, $t := .PageModel.History }}
+            <tr>
+                <td id="tid-{{$i}}">{{.TidId}}</td>
+                <td id="field-{{$i}}">
+                    {{ if or (eq .ChangeType 3) (eq .ChangeType 5) }}
+                    {{else if eq .ChangeType 6}}
+                    TID Serial Number
+                    {{else}}
+                    {{.Field}}
+                    {{end}}
+                </td>
+                {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true) }}
+                <td id="original-value-{{$i}}" name="original-value">
+                    <span class="col-wrap" id="original-value-{{.RowNo}}_hidden" hidden>{{ .OriginalValue }}</span>
+                    <span class="col-wrap" id="original-value-{{.RowNo}}_show">*******</span>
+                    <img id="Row{{$i}}-orig-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png"
+                        class="togglePIN"
+                        onclick="togglePasswordDiv('original-value-{{ .RowNo }}_show','original-value-{{ .RowNo }}_hidden')">
+                </td>
+                <td id="update-value-{{$i}}" name="change-value">
+                    <span class="col-wrap" id="change-value-{{.RowNo}}_hidden" hidden>{{ .ChangeValue }}</span>
+                    <span class="col-wrap" id="change-value-{{.RowNo}}_show">*******</span>
+                    <img id="Row{{$i}}-chng-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png"
+                        class="togglePIN"
+                        onclick="togglePasswordDiv('change-value-{{ .RowNo }}_show','change-value-{{ .RowNo }}_hidden')">
+                </td>
+                {{ else if (eq .IsPassword true) }}
+                <td id="original-value-{{$i}}">*******</td>
+                <td id="update-value-{{$i}}">*******</td>
+                {{ else }}
+                <td id="original-value-{{$i}}">{{.OriginalValue}}</td>
+                <td id="update-value-{{$i}}">{{.ChangeValue}}</td>
+                {{ end }}
+                <td id="updated-by-{{$i}}">{{.ChangedBy}}</td>
+                <td id="updated-at-{{$i}}">{{.ChangedAt}}</td>
+                <td id="approved-{{$i}}"><input type="checkbox" style="margin-left: 60px" onclick="return false" {{if
+                        (eq .Approved 1 )}} checked {{end}}></td>
+                <td id="discarded-{{$i}}"><input type="checkbox" style="margin-left: 60px" onclick="return false" {{if
+                        (eq .Approved -1 )}} checked {{end}}></td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <div class="col-sm-12 col-md-12">
+        <div class="dataTables_paginate paging-simple_numbers" id="tid-table-pagination" style="float: right;">
+            <ul class="pagination">
+                <li {{ if $pm.PageModel.TIDPagination.Less }}
+                    onclick="changeSiteHistoryTablePrevious({{ $pm.PageModel.TIDPagination.CurrentPage }})" {{ end }}
+                    class="paginate_button page-item previous {{ if not $pm.PageModel.TIDPagination.Less }} disabled {{ end }}"
+                    id="site-tid-table-previous">
+                    <a href="#" aria-controls="site-tid-table" tabindex="0" class="page-link">Previous</a>
+                </li>
+                {{ range $p := $pm.PageModel.TIDPagination.Pages }}
+                {{ if $p.Active }}
+                <li id="site-tid-table-{{ $p.PageNumber }}" onClick="changeSiteHistoryTablePage({{ $p.PageNumber }})"
+                    class="pagination_button page-item {{ if $p.Selected }} active {{ end }}">
+                    <a href="#" aria-controls="site-tid-table" tabindex="0" class="page-link">{{ $p.PageNumber }}</a>
+                </li>
+                {{ else }}
+                <li class="pagination_button page-item disabled">
+                    <a href="#" aria-controls="site-tid-table" tabindex="0" class="page-link">{{ $p.PageNumber }}</a>
+                </li>
+                {{ end }}
+                {{ end }}
+                <li {{ if $pm.PageModel.TIDPagination.More }}
+                    onclick="changeSiteHistoryTableNext({{ $pm.PageModel.TIDPagination.CurrentPage }})" {{ end }}
+                    class="paginate_button page-item next {{ if not $pm.PageModel.TIDPagination.More }} disabled {{ end }}"
+                    id="site-tid-table-next">
+                    <a href="#" aria-controls="site-tid-table" tabindex="0" class="page-link">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{{end}}

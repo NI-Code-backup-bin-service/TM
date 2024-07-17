@@ -1,0 +1,13 @@
+Drop procedure if exists get_change_approval_history;
+Drop PROCEDURE if exists get_profile_change_approval_history;
+DROP PROCEDURE IF EXISTS site_data_fetch;
+DROP PROCEDURE IF EXISTS store_profile_data;
+DROP PROCEDURE IF EXISTS get_data_group_elements;
+DROP PROCEDURE IF EXISTS get_data_elements_for_new_site;
+DROP PROCEDURE IF EXISTS fetch_data_element_metadata;
+DROP PROCEDURE IF EXISTS tid_list_fetch;
+DROP PROCEDURE IF EXISTS get_site_tids;
+DROP PROCEDURE IF EXISTS delete_tid;
+DROP PROCEDURE IF EXISTS profile_data_fetch;
+DROP VIEW IF EXISTS `site_data_elements`;
+DROP PROCEDURE IF EXISTS get_profile_change_history;

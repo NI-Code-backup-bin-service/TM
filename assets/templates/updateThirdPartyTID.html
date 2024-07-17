@@ -1,0 +1,19 @@
+{{define "updatesThirdPartyTID"}}
+<form id="thirdPartyUpdate_{{.PageModel.TID}}">
+    <input type='hidden' id='siteId' name="siteId" />
+    <h5 style="margin-left: 1%">3rd Party Target</h5>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Merchant App Name</th>
+            <th scope="col">3rd Party Target</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="update_third_party_table">
+        {{ template "updateThirdPartyTIDPartial" .}}
+        </tbody>
+    </table>
+    {{.CSRFField}}
+</form>
+{{end}}

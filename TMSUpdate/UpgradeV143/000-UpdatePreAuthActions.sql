@@ -1,0 +1,1 @@
+UPDATE data_element SET options='Card present|Card not present|Pre-auth with RRN' where name = 'preAuthActions';

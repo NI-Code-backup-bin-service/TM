@@ -1,0 +1,22 @@
+{{define "confirm"}}
+<script src="/assets/js/confirmation.js"></script>
+<div id="confirmModal" class='modal' role='dialog' aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div id="confirmModalContent" class="modal-content">
+        <div class="modal-header">
+            <h5 id="confirm-title"class="modal-title">Confirm</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+            </button>
+        </div>
+        <div class="modal-body">
+            <p id="confirm-message">Are you sure?</p>
+        </div>
+        <div class="modal-footer">
+            <button id="confirm-yes" class="btn btn-primary">Yes</button>
+            <button id="confirm-no" class="btn btn-secondary">No</button>
+        </div>
+    </div>
+</div>
+</div>
+{{end}}

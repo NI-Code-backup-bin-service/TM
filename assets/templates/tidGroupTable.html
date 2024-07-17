@@ -1,0 +1,25 @@
+{{ define "tidGroupTable" }}
+{{ $tid := .tid }}
+{{ $check := .checkDirty }}
+{{ $currentUser := .currentUser }}
+{{ $IsNew := .IsNew }}
+{{ $tidProfileID := .tidProfileID }}
+{{ $SiteId := .SiteId }}
+    <div class="row">
+        <div class="col">
+            <table id="group-table-{{ $tid }}-tid" class="table table-sm">
+                {{ range $g := .pg }}
+                <thead id="header-group-{{ $g.DataGroup }}-{{ $tid }}-tid" class="table-active">
+                <tr>
+                    <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }} {{ $g.DataGroup }} {{end}}</th>
+                </tr>
+                </thead>
+                <tbody id="tid-group-{{ $g.DataGroup }}-{{ $tid }}"{{ if $check }} onchange="checkIsDirty({{ $tid }})"{{ end }}>
+                {{ range $de := $g.DataElements }}
+                    {{ template "tidDataElementRow" dict "de" . "group" $g.DataGroup "tid" $tid "IsNew" $IsNew "tidProfileID" $tidProfileID "currentUser" $currentUser "SiteId" $SiteId}}
+                {{ end }}{{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{ end }}

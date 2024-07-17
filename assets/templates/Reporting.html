@@ -1,0 +1,162 @@
+{{ define "Reporting" }}
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.datetimepicker.min.css"/>
+<script src="/assets/js/jquery.datetimepicker.full.js"></script>
+<script src="/assets/js/loader.js"></script>
+
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/reporting.js"></script>
+<link href="./assets/css/reporting.css" rel="stylesheet">
+
+<!-- FusionCharts -->
+<script src="/assets/FusionCharts/js/fusioncharts.js"></script>
+
+<!-- jQuery-FusionCharts -->
+<script src="/assets/FusionCharts/integrations/jquery/js/jquery-fusioncharts.js"></script>
+
+<!-- Fusion Theme -->
+<script src="/assets/FusionCharts/js/themes/fusioncharts.theme.candy.js"></script>
+
+<!-- Include fusioncharts jquery plugin -->
+<script src="/assets/FusionCharts/integrations/jquery/js/jquery-fusioncharts.min.js"></script>
+<script src="assets/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-multiselect.css"/>
+
+<body>
+    {{template "warning"}}
+    <h1 style="margin-bottom: 1%">Reporting</h1>
+    <ul class="buttonwrapper">
+        <li id="monthFilter" onclick="setActive('month')">
+            <label>Past Month</label>
+        </li>
+        <li id="weekFilter" onclick="setActive('week')" class="active">
+            <label>Past Week</label>
+        </li>
+        <li id="dayFilter" onclick="setActive('day')">
+            <label>Today</label>
+        </li>
+        <li id="customFilter" onclick="setActive('custom')">
+            <label>Custom</label>
+        </li>
+        <label for="after">After: </label>
+        <input id="after" type="text" readonly="true" class="form-control txn-filters-field"/>
+        <label for="before">Before: </label>
+        <input id="before" type="text" readonly="true" class="form-control txn-filters-field"/>
+
+        <label for="acquirers">Acquirers: </label>
+        <select id="acquirersMulti" multiple="multiple">
+            {{ range $aq := .PageModel.Acquirers }}
+                <option id="acquirers-{{ $aq }}">{{ $aq }}</option>
+            {{ end }}
+        </select>
+
+        <button id="apply-filters" type="button" onClick="filterChartsCustom();" class="btn btn-primary float-end" data-type='filter-txn-details'>Filter</button>
+        <button id="clear-filters" type="button" class="btn btn-secondary float-end left-spaced text-nowrap">Clear Filters</button>
+        {{.CSRFField}}
+    </ul>
+
+    <div class="row kpi-content">
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi0">
+                <p class="kpi-header">Total MIDs</p>
+                <p class="kpi-value" id="total-mids"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi1">
+                <p class="kpi-header">Total TIDs</p>
+                <p class="kpi-value" id="total-tids"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi2">
+                <p class="kpi-header">Transacting MIDs</p>
+                <p class="kpi-value" id="transacting-mids"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi3">
+                <p class="kpi-header">Transacting TIDs</p>
+                <p class="kpi-value" id="transacting-tids"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row kpi-content">
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi4">
+                <p class="kpi-header">Total Transactions</p>
+                <p class="kpi-value" id="total-transactions"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi5">
+                <p class="kpi-header">Total Transaction Value</p>
+                <p class="sub-header">(AED)</p>
+                <p class="kpi-value" id="total-transaction-value"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi6">
+                <p class="kpi-header">Approved Transactions</p>
+                <p class="kpi-value" id="approved-transactions"></p>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="kpi" id="kpi7">
+                <p class="kpi-header">Declined Transactions</p>
+                <p class="kpi-value" id="declined-transactions"></p>
+            </div>
+        </div>
+    </div>
+    <div id="reporting-charts">
+        <div class="row">
+            <div class="VolumeChart" id="Total-Volume"></div>
+            <div class="VolumeChart" id="Approved-Transaction-Volume"></div>
+            <div class="VolumeChart" id="Declined-Transaction-Volume"></div>
+        </div>
+
+        <div class="row">
+            <div class="VolumeChart" id="Total-Value"></div>
+            <div class="VolumeChart" id="Approved-Transaction-Value"></div>
+            <div class="VolumeChart" id="Declined-Transaction-Value"></div>
+        </div>
+
+        <div class="row">
+            <div class="Top10Chart" id="Top-10-Decline-Reasons"></div>
+            <div class="Top10Chart" id="Top-10-MIDs"></div>
+            <div class="Top10Chart" id="Top-10-TIDs"></div>
+            <div class="Top10Chart" id="Top-10-Card-Types"></div>
+        </div>
+
+        <div class="row">
+            <div class="Top10Chart" id="Top-10-MID-Values"></div>
+            <div class="Top10Chart" id="Top-10-TID-Values"></div>
+            <div class="Top10Chart" id="Top-10-Card-Type-Values"></div>
+        </div>
+    </div>
+
+    <div class="modal bd-example-modal-lg" id="report-loading-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content padding-small">
+                <div class="modal-header align-self-center">
+                    <h5 class="modal-title" id="report-loading-modal-title">Retrieving report data, please wait...</h5>
+                </div>
+                <div class="modal-body align-self-center" id="report-loading-modal-body">
+                    <div class="loader"></div>
+                    <h6 id="data-being-fetched"></h6>
+                    <h6 id="data-successfully-retrieved"></h6>
+                </div>
+                <button class="btn btn-outline-success my-2 my-sm-0 align-self-center" id="report-cancel-button" type="button" onclick="cancelGenerateReport()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+{{template "footer" .}}
+{{end}}

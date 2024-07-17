@@ -1,0 +1,1 @@
+Drop procedure if exists search_report_data_batch;

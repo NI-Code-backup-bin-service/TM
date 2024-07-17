@@ -1,0 +1,1 @@
+ALTER TABLE data_element ADD COLUMN `displayname_en` TEXT;

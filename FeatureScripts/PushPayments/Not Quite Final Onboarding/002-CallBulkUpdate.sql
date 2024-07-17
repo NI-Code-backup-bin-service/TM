@@ -1,0 +1,1 @@
+CALL bulkUpdate('71010');

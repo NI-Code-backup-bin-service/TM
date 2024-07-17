@@ -1,0 +1,1 @@
+UPDATE data_element SET required_at_site_level = 1 WHERE data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules') and name = 'manualEntryEnabled';

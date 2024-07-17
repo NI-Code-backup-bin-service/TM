@@ -1,0 +1,5 @@
+DROP PROCEDURE IF EXISTS delete_site_user;
+DROP PROCEDURE IF EXISTS add_site_user;
+DROP PROCEDURE IF EXISTS add_tid_user;
+DROP PROCEDURE IF EXISTS delete_tid_user;
+DROP PROCEDURE IF EXISTS get_site_user_by_id;

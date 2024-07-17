@@ -1,0 +1,2 @@
+# Parameters in order are dataGroup, softUiDataGroup, MID, bankUserId, paymentLocationId, merchantTag, participantBankCode, participantGroupCode, mainMenuConfiguration to update
+call Enable_IPP_DG_Update_DE_on_profile("IPP","softUi", "001110000072", "LA0071111", "10001", "VY297HM", "00026", "00026", "menu.json");

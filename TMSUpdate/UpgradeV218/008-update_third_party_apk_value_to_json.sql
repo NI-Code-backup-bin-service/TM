@@ -1,0 +1,1 @@
+update tid_updates set third_party_apk=concat('[' ,third_party_apk,']');

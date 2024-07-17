@@ -1,0 +1,1 @@
+ALTER TABLE data_element CHANGE tooltip tooltip TEXT NOT NULL;

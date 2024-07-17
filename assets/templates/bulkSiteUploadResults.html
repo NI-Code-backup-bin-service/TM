@@ -1,0 +1,85 @@
+{{ define "bulkSiteUploadResultsPartial" }}
+<div>
+    {{ if .ValidationFailed }} <!-- When an element fails validation we need to display it here-->
+    <div class="row">
+        <h4 class="failure">Validation Failure</h4>
+        <table id="site-upload-failed-validation-table" class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th id="failure-header-entry-no" scope="col">Entry #</th>
+                    <!-- Relates to failed site's index in the csv file -->
+                    <th id="failure-header-element-name" scope="col">Element Name</th>
+                    <!-- The name of the element that has failed validation -->
+                    <th id="failure-header-reason" scope="col">Validation Failure Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- We only need the one row here as we end validation on the first failure -->
+                <tr class="cap-height">
+                    <td>{{ .Failure.Site.Ref }}</td>
+                    <td>{{ .Failure.FailedElementName }}</td>
+                    <td>{{ .Failure.FailureReason }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {{ end }}
+    <div>
+        <h4>Successful Validations</h4>
+        {{ if not .ValidationFailed }}
+        <div>
+            <div>
+                <p>All sites have successfully passed validation. Please review the results below and then either commit
+                    the changes or discard them.</p>
+            </div>
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <input id="commit-site-imports" class="btn badge-primary" type="button" value="Commit"
+                        onclick="commitBulkSiteImport()" />
+                </div>
+                <div class="btn-group">
+                    <input id="cancel-site-imports" class="btn btn-danger" type="button" value="Cancel"
+                        onclick="cancelBulkSiteImport()" />
+                </div>
+            </div>
+        </div>
+        {{ end }}
+        <div class="row">
+            <table id="site-upload-results-table" class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Entry #</th>
+                        {{ range $column := .Columns }}
+                        <th id="{{ $column.ElementId }}" scope="col">{{ $column.DisplayName }}</th>
+                        {{ end }}
+                    </tr>
+                </thead>
+                {{ range $site := .Passes.NewSites }}
+                <tr class="cap-height">
+                    <td>{{ $site.Ref }}</td>
+                    {{ range $element := $site.DataElements }}
+                    <td>
+                        <p>{{ $element.Data }}</p>
+                    </td>
+                    {{ end }}
+                </tr>
+                {{ end }}
+            </table>
+        </div>
+    </div>
+    {{ if .ColumnsRemoved }}
+    <div>
+        <h5>Excluded columns</h5>
+        <p>The following columns present in the imported csv were not saved to the new sites as they belong to data
+            groups not enabled on the template site</p>
+        <ul class="d-flex flex-wrap">
+            {{ range $removed := .UnusedColumns }}
+            <li class="list-group-item flex-fill">{{ $removed.DataGroup }}.{{ $removed.Name }}</li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+</div>
+{{template "confirm" .}}
+{{template "footer" .}}
+{{ end }}

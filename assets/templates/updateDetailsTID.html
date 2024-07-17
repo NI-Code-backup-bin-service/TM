@@ -1,0 +1,27 @@
+{{define "updateDetailsTID"}}
+
+<form id="tidUpdates_{{.PageModel.TID}}">
+    <input type='hidden' id='siteId' name="siteId" />
+    <h5 style="margin-left: 1%">Minimum Software: {{ .PageModel.MinimumSoftwareVersion }}</h5>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Target Software</th>
+                <th scope="col">Update Date</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="update_table">
+                {{ template "updateDetailsTIDPartial" .}}
+        </tbody>
+    </table>
+    {{.CSRFField}}
+</form>
+
+<div class="inline">
+    <button id="applyUpdates" class="btn btn-primary" onclick="ApplyTIDUpdates( {{.PageModel.TID}} ,  {{.PageModel.ProfileID}} )" style="float: right; margin: 1%">Apply</button>
+    <button class="btn btn-primary" onclick="AddTIDUpdate( {{.PageModel.TID}} )" style="float: right; margin: 1%">Add</button>
+</div>
+
+{{end}}

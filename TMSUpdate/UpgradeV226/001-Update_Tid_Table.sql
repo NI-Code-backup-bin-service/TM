@@ -1,0 +1,2 @@
+ALTER TABLE tid ADD COLUMN free_internal_storage VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tid ADD COLUMN total_internal_storage VARCHAR(50) DEFAULT NULL;

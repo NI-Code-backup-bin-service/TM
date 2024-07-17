@@ -1,0 +1,1 @@
+update data_element de inner join data_group dg on de.data_group_id = dg.data_group_id set max_length = 15, validation_expression = '^[a-zA-Z0-9]{6,15}$', validation_message = 'Must be between 6 and 15 alphanumeric characters in length and not contain special characters' where dg.name = 'dualCurrency'and de.name = 'secondaryMid';

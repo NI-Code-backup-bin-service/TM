@@ -1,0 +1,1 @@
+UPDATE data_element SET `options` = CONCAT(`options`, '|standalone+epos') WHERE `name` = 'mode' AND `options` NOT LIKE '%standalone+epos%' LIMIT 1;

@@ -1,0 +1,1 @@
+update profile_data pd left join data_element de on de.data_element_id = pd.data_element_id set pd.datavalue = "['sale','void']" where pd.profile_id = 3 and de.name = "active";

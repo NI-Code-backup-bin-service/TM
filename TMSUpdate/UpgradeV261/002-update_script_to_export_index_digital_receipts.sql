@@ -1,0 +1,7 @@
+UPDATE data_element de SET de.displayname_en='Digital Receipts Enabled' WHERE de.name='enabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '58' WHERE de.name ='enabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '59' WHERE de.name ='onScreenReceipt' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '59' WHERE de.name ='qrEnabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '60' WHERE de.name ='smsEnabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '61' WHERE de.name ='emailEnabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');
+UPDATE data_element de SET export_display_index = '62' WHERE de.name ='txnHistoryEnabled' AND de.data_group_id=(SELECT dg.data_group_id FROM data_group dg WHERE dg.name='digitalReceipts');

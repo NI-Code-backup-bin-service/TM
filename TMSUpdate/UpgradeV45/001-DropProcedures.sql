@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS site_profiles_fetch;

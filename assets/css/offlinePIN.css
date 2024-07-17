@@ -1,0 +1,16 @@
+.input-full-width {
+    width: 100%;
+}
+
+.op-loader {
+    display: none;
+    margin: auto;
+}
+
+.op-header {
+    display: flex;
+}
+
+.op-padding {
+    width: 25%;
+}

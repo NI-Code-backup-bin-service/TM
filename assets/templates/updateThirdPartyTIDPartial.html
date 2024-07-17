@@ -1,0 +1,48 @@
+{{define "updateThirdPartyTIDPartial"}}
+
+<div id="updateThirdPartyRows">
+        {{ template "updateThirdPartyTIDRow" dict "update" "model" $.PageModel  "show" false}}
+</div>
+
+{{end}}
+
+{{ define "updateThirdPartyTIDRow" }}
+
+<tr id="updateThirdPartyRow">
+    <input type="hidden" name="btnID" id="btnID" value=""/>
+    <input type="hidden" name="tidUpdateID" id="tidUpdateID" value=""/>
+    <input type="hidden" name="apkIDs" id="apkIDs" value=""/>
+    <td id ="partialPackageNameDropdown" >
+        <select id="partialPackageName_select" name="partial_package_name_select"  class="form-select mr-sm-0" onchange="getThirdPartyList(this,{{ .model.TID }},{{ .model.SiteID }})">
+            <option selected value="">Select Merchant App Name</option>
+            {{range $i, $a := .model.PreFixNames}}
+                <option value="{{ $a }}">{{$a}}</option>
+            {{end}}
+        </select>
+    </td>
+    <td id ="third-party-dropdown">
+        <select id="third-party-select" name="third-party-select"  class="form-select mr-sm-0" >
+            {{range .model.ThirdPartyApks}}
+                <option value="{{ .ApkID }}">{{.Apk}}</option>
+            {{end}}
+        </select>
+    </td>
+    <td>
+        <button type="button" class="btn btn-secondary btn-sm float-end" id="addThirdParty" onclick="addThirdPartyTarget({{ .model.TID }},{{ .model.SiteID }} )">Add</button>
+    </td>
+</tr>
+<div class="">
+    <button type="button" id="saveThirdPartyTarget" class="btn btn-primary" onclick="saveThirdPartyTargetData({{ .model.TID }},{{ .model.SiteID }})" style="margin: 1%">Save</button>
+</div>
+<table id="userList" class="table table-small-font table-bordered table-striped table-condensed">
+    <thead>
+    <tr>
+        <th scope="col">3rd Party Target</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    {{.CSRFField}}
+</table>
+{{ end }}

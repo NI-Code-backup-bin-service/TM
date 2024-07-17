@@ -1,0 +1,64 @@
+{{define "profileSiteFieldsPartial"}}
+{{ $u := .CurrentUser }}
+{{ $IsNewProfile := .PageModel.NewProfile }}
+{{if not .PageModel.NewProfile}}
+<form id="saveProfile" action="saveProfile" method="POST">
+{{end}}
+    <input type="hidden" id="profileID" name="profileID" value="{{.PageModel.ProfileId}}"/>
+    <input type="hidden" id="siteID" name="siteID" value="{{.PageModel.SiteId}}"/>
+    <input type="hidden" id="profileTypeName" name="profileTypeName" value="{{.PageModel.ProfileTypeName}}"/>
+    {{.CSRFField}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="button-bar">
+                <button id="site-save" type="submit" class="btn btn-primary"{{ if eq $u.UserPermissions.SiteWrite false }} disabled{{ end }}>Save</button>
+                {{ if and (eq .PageModel.ProfileTypeName "site") (eq .PageModel.NewProfile false) }}
+                <button id="site-download-rpi" type="button" class="btn btn-secondary float-end"   onclick="downloadRpiCertificate()">Download RPI Certificate</button>
+                {{ end }}
+
+                {{ if (eq .PageModel.NewProfile false) }}
+                <div class="float-end m-1" id="flagStatusOption"></div>
+                <select id="flagStatus" name="flagStatus" class="rounded float-end m-1 p-1 text-center" onchange="flagStatusSelect(this, 'flagStatusOption')">
+                    <option disabled selected value> -- Select Flag Status -- </option>
+                    <option value="all" >Flag all</option>
+                    {{ if (eq .PageModel.ProfileTypeName "site")}}
+                    <option value="specific">Flag specific</option>
+                    {{ end }}
+                    <option value="file">Upload file</option>
+                </select>
+                {{ end }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table id="group-table" class="table">
+                    {{ range $g := .PageModel.ProfileGroups }}
+                    <thead id="header-group-{{ $g.DataGroup }}" class="table-active">
+                    <tr>
+                        <th colspan="3">{{ if (ne $g.DisplayName "") }} {{ $g.DisplayName }} {{ else }} {{ $g.DataGroup }} {{end}}</th>
+                    </tr>
+                    </thead>
+                    <tbody id="group-{{ $g.DataGroup }}">
+                    {{ range $de := .DataElements }}
+                        {{ if or (eq $de.Name "flagStatus") (eq $de.Name "users") (eq $de.Name "fraud")}}
+                            {{continue}}
+                        {{ else if eq $de.Name "time" }}
+                            {{ template "dataElementRow" dict "de" $de "group" $g.DataGroup "currentUser" $u "IsNewProfile" $IsNewProfile}}
+                            {{continue}}
+                        {{ end }}
+                        {{ template "dataElementRow" dict "de" $de "group" $g.DataGroup "currentUser" $u "IsNewProfile" $IsNewProfile}}
+                    {{ end }}
+                    </tbody>
+                    {{ end }}
+                </table>
+            </div>
+        </div>
+    </div>
+    {{.CSRFField}}
+    {{if not .PageModel.NewProfile}}
+    {{end}}
+    <div id="site_tid_data_for_flagging"></div>
+</form>
+{{end}}

@@ -1,0 +1,1 @@
+DROP PROCEDURE `get_data_elements_for_new_site`;

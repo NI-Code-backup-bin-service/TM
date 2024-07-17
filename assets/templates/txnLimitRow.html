@@ -1,0 +1,59 @@
+{{ define "txnLimitRow" }}
+    {{ $model := .PageModel }}
+    {{ $override := .PageModel.Override }}
+    <input hidden="hidden" id="override" name="override" value="{{ $override }}"/>
+    <div class="row transaction-details-row">
+        <div class="alert-filter-header-row">
+            <div class="col-sm-2"></div>
+            <button id="add-txnLimit" type="button" onclick="addTxnLimit()" class="btn btn-primary" data-type="filter-txn-details">
+                Add Limit
+            </button>
+        </div>
+    </div>
+    {{ template "warning" "txnLimitModal"}}
+    <div class="row">
+        <div class="col">
+            <table id="group-table" class="table table-sm">
+                {{ range $g := .PageModel.TransactionTypes }}
+                <thead id="header-group-{{ $g.TxnLimitGroup }}" class="table-active">
+                <tr>
+                    <th colspan="3">{{ .TxnLimitGroup }}</th>
+                </tr>
+                </thead>
+                <tbody id="group-{{ $g.TxnLimitGroup }}">
+                {{ range $i, $f := $g.TxnLimits }}
+                    <tr id="row-{{ $f.TxnLimitID }}">
+                        <td>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <a id="remove-filter-button-{{ $g.TxnLimitGroup }}-{{ $i }}" href="#" class="viewer-remove col-sm-1" onclick="removeTxnLimit({{ $f.TxnLimitID }}); {{ if eq $override "true" }} displayTIDTxnLimits() {{ else }} displayTxnLimits() {{ end }}">x</a>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="txnType-{{ $g.TxnLimitGroup }}-{{ $i }}" id="txnType-{{ $g.TxnLimitGroup }}-{{ $i }}" class="viewer-filter-label col-sm-2 alert-filter-label ">{{ $f.TxnTypeReadable }}</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select id="limitType-{{ $g.TxnLimitGroup }}-{{ $i }}" class="form-select col-sm-3 alert-filer-input" onchange="showUpdateButton({{ $f.TxnLimitID }})">
+                                            {{ range $index, $limit := $model.AvailableLimits }}
+                                            <option id="select-{{ $g.TxnLimitGroup }}-{{ $limit.Identifier }}-{{ $i }}" value="{{ $limit.Limittype }}" {{ if eq $limit.Limittype $f.LimitType}}selected{{ end }}>{{ $limit.Limittype }}</option>
+                                            {{ end }}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input id="value-{{ $g.TxnLimitGroup }}-{{ $i }}" type="number" min="0" class="form-control col-sm-2 alert-filer-input numbersOnly" data-txnLimit-id="{{ $f.TxnLimitID }}" value="{{ $f.Value }}" oninput="showUpdateButton({{ $f.TxnLimitID }})"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button id="update-txnLimit-{{ $g.TxnLimitGroup }}-{{ $i }}" type="button" onclick="updateTxnLimits({{ $f.TxnLimitID }}, '{{ $g.TxnLimitGroup }}-{{ $i }}')" class="btn btn-secondary" data-type="filter-txn-details">
+                                            Update
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {{ end }}{{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{ end }}

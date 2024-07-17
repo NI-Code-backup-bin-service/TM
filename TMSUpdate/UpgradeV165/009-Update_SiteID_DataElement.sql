@@ -1,0 +1,1 @@
+UPDATE IGNORE data_element SET is_allow_empty = 0, validation_expression = '^[\\S](.{0,50})(\\S)$', validation_message = 'Must not be blank or have leading/trailing spaces' WHERE name = 'siteID';

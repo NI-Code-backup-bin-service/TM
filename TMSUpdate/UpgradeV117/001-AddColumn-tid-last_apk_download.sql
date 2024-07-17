@@ -1,0 +1,1 @@
+CALL AddColumn('tid', 'last_apk_download', 'datetime', 'NULL COMMENT \'Stores the time of the last successful apk download\'');

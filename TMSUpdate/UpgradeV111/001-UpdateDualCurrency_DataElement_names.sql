@@ -1,0 +1,7 @@
+UPDATE data_element SET name = 'ctlsApplicationConfigShared' WHERE name = 'dualCurrencyCtlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccCtls' WHERE name = 'dualCurrencyDccCtls' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccEnabled' WHERE name = 'dualCurrencyDccEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccLocalBins' WHERE name = 'dualCurrencyDccLocalBins' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccMaxValue' WHERE name = 'dualCurrencyDccMaxValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccMinValue' WHERE name = 'dualCurrencyDccMinValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET name = 'dccProvider' WHERE name = 'dualCurrencyDccProvider' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');

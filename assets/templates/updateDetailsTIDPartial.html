@@ -1,0 +1,36 @@
+{{define "updateDetailsTIDPartial"}}
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.datetimepicker.min.css"/>
+<script src="/assets/js/jquery.datetimepicker.full.js"></script>
+
+<div id="updateDetailsRows">
+    {{ range $t := .PageModel.Updates }}
+        {{ template "updateDetailsTIDRow" dict "update" $t "model" $.PageModel  "show" false}}
+    {{ end }}
+</div>
+
+{{end}}
+
+{{ define "updateDetailsTIDRow" }}
+<tr id="updateDetailsRow{{ .update.UpdateID }}">
+    <td id ="versionDropdown{{ .update.UpdateID }}" version-select="{{ .update.UpdateID }}">
+        <select id="version_select{{ .update.UpdateID }}" name="version_{{ .update.UpdateID }}"  class="form-select mr-sm-0" {{if (eq .show false)}} disabled {{end}} >
+            {{if (eq .update.PackageID 0)}}
+                <option value="" selected disabled hidden></option>
+            {{end}}
+            {{range .model.Packages}}
+                <option {{if (eq $.update.PackageID .PackageID)}} selected {{end}} value="{{ .PackageID }}">{{.Version}}</option>
+            {{end}}
+        </select>
+    </td>
+    <td id="UpdateDateCell{{ $.update.UpdateID }}">
+            <input id="date{{ $.update.UpdateID }}" name="date_{{ .update.UpdateID }}" class="form-control inputDateTime" type="form-control" value="{{ .update.UpdateDate }}" {{if (eq .show false)}} disabled {{end}} readonly="readonly">
+    </td>
+    <td>
+        <button id='manageThirdPartyTarget{{ $.update.UpdateID }}' type="button" class="btn btn-secondary btn-sm float-end" onClick="manageThirdPartyTID( {{ .model.TID }}, {{ .model.SiteID }}, {{ .update.UpdateID }} )">3rd Party Target</button>
+    </td>
+    <td>    
+        <button id='deleteUpdate' type="button" class="btn btn-secondary btn-sm float-end" onClick="DeleteUpdate( {{ .model.TID }}, {{ .update.UpdateID }}, {{ .model.SiteID }}, {{ .model.ProfileID }})">Delete</button>
+    </td>
+</tr>
+
+{{ end }}

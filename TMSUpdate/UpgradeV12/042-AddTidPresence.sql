@@ -1,0 +1,1 @@
+ALTER TABLE tid ADD COLUMN `Presence` INT(11) NULL DEFAULT 0 AFTER `last_transaction_time`;

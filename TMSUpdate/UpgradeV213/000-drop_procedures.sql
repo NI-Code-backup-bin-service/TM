@@ -1,0 +1,9 @@
+DROP PROCEDURE IF EXISTS profile_data_fetch;
+DROP PROCEDURE IF EXISTS get_chain_data;
+DROP PROCEDURE IF EXISTS get_data_elements_for_new_site;
+DROP PROCEDURE IF EXISTS update_eod_auto_time_range;
+DROP PROCEDURE IF EXISTS update_eod_auto_time;
+DROP PROCEDURE IF EXISTS update_eod_auto;
+DROP PROCEDURE IF EXISTS eod_auto_data_fetch;
+DROP PROCEDURE IF EXISTS save_tid;
+DROP PROCEDURE IF EXISTS fetch_tid_details;

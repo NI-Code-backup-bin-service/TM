@@ -1,0 +1,41 @@
+{{ define "terminalFlagging" }}
+<script src="/assets/js/terminalFlagging.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/confirmation.js"></script>
+
+<h1>Terminal Flagging</h1>
+{{template "warning"}}
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a id="#terminalUpload" class="nav-link active" data-bs-toggle="tab" href="#terminalUpload">Upload</a>
+        </li>
+    </ul>
+    <div id="site-upload-spinner" style="display:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5)">
+        <div class="loader" style="position: absolute; top: 50%; left: 50%;"></div>
+    </div>
+
+</div>
+
+
+<div class="tab-content">
+    <div id="terminalUpload" class="tab-pane active">
+        <div id="terminalFlaggingContainerUpload">
+            <h4>Upload File</h4>
+            <form id="terminal-flagging-import-upload">
+                <div class="row spaced-bottom indent">
+                    <input id="terminal-flagging-import-upload-file" name="file" type="file" class="form-control-file"/>
+                </div>
+                <div class="mt-2 spaced-bottom indent">
+                    <button id="terminal-flagging-import-upload-file-button"  class="btn btn-primary my-2 my-sm-0">Upload</button>
+                </div>
+                {{ .CSRFField }}
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="terminal-flagging-upload-results">
+</div>
+
+{{ end }}

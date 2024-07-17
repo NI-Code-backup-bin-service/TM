@@ -1,0 +1,1 @@
+create table if not exists feature_script_audits (audit_id int NOT NULL AUTO_INCREMENT, s_name varchar(255) NOT NULL, s_date date NOT NULL, s_time time NOT NULL, outcome int NOT NULL, fail_reason varchar(250) NULL, PRIMARY KEY (audit_id));

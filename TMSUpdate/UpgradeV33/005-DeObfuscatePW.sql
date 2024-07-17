@@ -1,0 +1,1 @@
+UPDATE data_element SET is_password = 0;

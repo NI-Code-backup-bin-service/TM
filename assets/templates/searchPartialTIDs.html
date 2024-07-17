@@ -1,0 +1,75 @@
+{{ define "searchPartialTIDs" }}
+    {{ $u := .CurrentUser }}
+    <script src="/assets/js/profileFields.js"></script>
+    <script src="/assets/js/profileMaintenance.js"></script>
+    <script src="/assets/js/updateDetailsTID.js"></script>
+    <script src="/assets/js/warningMessage.js"></script>
+    <script src="/assets/js/bootstrap-multiselect.js"></script>
+    <script>let permSiteDelete = {{$u.UserPermissions.SiteDelete}}</script>
+    <div class="container tiny-gutter full-resize">
+        <table id="tidsTable" class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th id="tids-tid" scope="col" class="col-medium">TID</th>
+                    <th id="tids-serial" scope="col" class="col-medium">Serial</th>
+                    <th id="tids-enrolment-pin" scope="col" class="col-pin">Enrolment&nbsp;PIN&nbsp;</th>
+                    <th id="tids-reset-pin" scope="col" class="col-pin">Reset PIN</th>
+                    <th id="tids-activation" scope="col">Activation</th>
+                    <th id="tids-mid" scope="col" class="col-medium">Merchant ID</th>
+                    <th id="tids-site" scope="col">Site Name</th>
+                    <th id="tids-manage" scope="col" class="col-four-buttons"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal bd-example-modal-lg" id="tidUpdatesModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="update-modal-title">TID Updates</h5>
+                    <button id="tid-updates-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeDataModal()" aria-label="Close">
+
+                    </button>
+                </div>
+                <div class="modal-body" id="tidUpdatesModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal bd-example-modal-lg" id="tidModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">TID Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                    </button>
+                </div>
+                <div class=".modal-body" id="tidModalBody">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal bd-example-modal-lg" id="third-party-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="third-party-edit-modal-title"></h5>
+                <button type="button" id="third-party-edit-modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                </button>
+            </div>
+            {{template "warning" "updatesThirdPartyTID"}}
+            <div class="modal-body" id="third-party-edit-modal-body">
+                <div id="thirdPartyApksContainer" class="col-sm-12"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

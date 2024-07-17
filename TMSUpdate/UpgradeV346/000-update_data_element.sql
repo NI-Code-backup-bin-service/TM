@@ -1,0 +1,4 @@
+UPDATE data_element SET is_encrypted = 1 WHERE name = 'alipayPrivateKey' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'alipay');
+UPDATE data_element SET is_encrypted = 1 WHERE name = 'companyToken' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dpoMomo');
+UPDATE data_element SET is_encrypted = 1 WHERE name = 'serviceType' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dpoMomo');
+UPDATE data_element SET is_encrypted = 1 WHERE name = 'password' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'souhoola');

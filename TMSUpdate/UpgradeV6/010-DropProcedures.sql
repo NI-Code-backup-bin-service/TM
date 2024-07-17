@@ -1,0 +1,1 @@
+Drop procedure if exists site_data_fetch;

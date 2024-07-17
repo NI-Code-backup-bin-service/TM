@@ -1,0 +1,2 @@
+# options are added for testing purpose once we finalize naming convention needs to be update accordingly.
+UPDATE data_element SET datatype = 'JSON',options = 'TPA|ThirdParty'  WHERE name = 'partialPackageName' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'thirdParty')

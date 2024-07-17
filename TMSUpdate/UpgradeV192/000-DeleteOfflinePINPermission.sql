@@ -1,0 +1,2 @@
+DELETE FROM `permissiongroup_permission` WHERE `permissiongroup_id` = (SELECT `group_id` FROM `permissiongroup` WHERE `name` = 'GlobalAdmin') AND `permission_id` = (SELECT `permission_id` FROM `permission` WHERE `name` = 'Offline PIN');
+DELETE FROM `permission` WHERE `name` = 'Offline PIN';

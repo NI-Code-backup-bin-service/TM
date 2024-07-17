@@ -1,0 +1,1 @@
+alter table schemes add qr_scheme bool default false not null comment 'Indicates if the scheme is QR based i.e. VisaQR';

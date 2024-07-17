@@ -1,0 +1,27 @@
+{{ define "bulkTidUpdatePartial" }}
+<script src="/assets/js/bulkTidUpdate.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+<script src="/assets/js/confirmation.js"></script>
+  
+<div>
+  <div>
+    <h4>Bulk TID Update</h4>
+    <form id="tid-update-upload">
+      <div class="row spaced-bottom indent">
+        <input id="tid-update-upload-file" name="file" type="file" class="form-control-file"/>
+      </div>
+      <div class="mt-2 spaced-bottom indent">
+        <button type="button" id="tid-update-upload-file-button" class="btn btn-primary my-2 my-sm-0" onclick="updateTids()">Upload</button>
+      </div>
+      {{ .CSRFField }}
+    </form>
+  </div>
+  <div id="tid-update-spinner" class="bulk-tid-update-spinner">
+    <div class="loader" class="loader-tag"></div>
+  </div>
+  <div id="tid-update-results">
+
+  </div>
+</div>
+
+{{ end }}

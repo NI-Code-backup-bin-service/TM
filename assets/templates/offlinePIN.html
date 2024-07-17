@@ -1,0 +1,60 @@
+{{ define "offlinePIN" }}
+<link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css" />
+<link rel="stylesheet" type="text/css" href="/assets/DataTables/buttons/buttons.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/offlinePIN.css" />
+<script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="/assets/DataTables/buttons/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/assets/DataTables/buttons/buttons.bootstrap5.min.js"></script>
+<script type="text/javascript" src="/assets/DataTables/buttons/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/assets/js/offlinePIN.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+
+<div class="spaced-top op-header">
+    <h1 class="op-padding">Offline PIN</h1>
+    <div id="op-loader" class="loader op-loader"></div>
+    <div class="op-padding"></div>
+</div>
+{{ template "warning" }}
+
+<table id="op-table" class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Serial Number</th>
+            <th>IMEI</th>
+            <th>Engineering Expiry (days)</th>
+            <th>Factory Reset Expiry (days)</th>
+            <th>Engineering PIN (S/N)</th>
+            <th>Engineering PIN (IMEI)</th>
+            <th>Expires After</th>
+            <th>Factory Reset PIN (S/N)</th>
+            <th>Factory Reset PIN (IMEI)</th>
+            <th>Expires After</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<div class="spaced-bottom">
+    <button id="op-add-row" class="btn btn-add-row">Add Row</button>
+    <button id="op-clear-rows" class="btn btn-danger">Clear All Rows</button>
+</div>
+<div>
+    <button id="op-gen-pin-engineering" class="btn btn-primary">Generate Engineering PIN(s)</button>
+    <button id="op-gen-pin-reset" class="btn btn-primary">Generate Factory Reset PIN(s)</button>
+    <button id="op-gen-pin" class="btn btn-primary">Generate Both PIN(s)</button>
+</div>
+
+<form id="op-csv-upload" class="spaced-bottom">
+    <div class="row spaced-top spaced-bottom">
+        <input id="op-csv-upload-input" name="file" type="file" class="form-control-file" />
+    </div>
+    <button id="op-csv-upload-button" class="btn btn-primary my-2 my-sm-0">Import CSV</button>
+    {{ .CSRFField }}
+</form>
+
+<div id="op-csv-export-container"></div>
+
+{{ template "footer" . }}
+{{ end }}

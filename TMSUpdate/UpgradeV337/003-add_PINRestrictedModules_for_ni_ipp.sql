@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|ippSale|ippRefund|ippReversal') WHERE name = 'PINRestrictedModules' AND options not like '%|ippSale|ippRefund|ippReversal%' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

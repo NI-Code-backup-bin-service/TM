@@ -1,0 +1,1 @@
+ALTER TABLE tid ADD COLUMN eod_auto BOOLEAN DEFAULT false, ADD COLUMN auto_time VARCHAR(45);

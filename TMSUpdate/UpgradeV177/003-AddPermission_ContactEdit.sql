@@ -1,0 +1,1 @@
+INSERT INTO permission (permission_id, name) VALUES (20, 'Contact Edit');

@@ -1,0 +1,1 @@
+Drop procedure if exists approve_change;

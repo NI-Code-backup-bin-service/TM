@@ -1,0 +1,89 @@
+{{define "changeApprovalViewer"}}
+<script src="/assets/js/changeApprovalView.js"></script>
+<script src="/assets/js/warningMessage.js"></script>
+{{template "warning"}}
+<h3>Pending Changes</h3>
+{{.CSRFField}}
+<ul class="nav nav-tabs">
+    {{/* IDs shouldn't start with # - don't copy these! */}}
+    <li class="nav-item">
+        <a id="#site" class="nav-link active" data-bs-toggle="tab" href="#site">
+            Sites
+            <span id="siteBadge" class="badge badge-pill" style="background: lightgrey" {{ if not .PageModel.SiteTab.History }}hidden{{end}}>
+                {{ .PageModel.SiteTab.Count }}
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a id="#chain" class="nav-link" data-bs-toggle="tab" href="#chain">
+            Chains
+            <span id="chainBadge" class="badge badge-pill" style="background: lightgrey" {{ if not .PageModel.ChainTab.History }}hidden{{end}}>
+                {{ .PageModel.ChainTab.Count }}
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a id="#acquirer" class="nav-link" data-bs-toggle="tab" href="#acquirer">
+            Acquirers
+            <span id="acquirerBadge" class="badge badge-pill" style="background: lightgrey" {{ if not .PageModel.AcquirerTab.History }}hidden{{end}}>
+                {{ .PageModel.AcquirerTab.Count }}
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a id="#tid" class="nav-link" data-bs-toggle="tab" href="#tid">
+            TIDs
+            <span id="tidBadge" class="badge badge-pill" style="background: lightgrey" {{ if not .PageModel.TidTab.History }}hidden{{end}}>
+            {{ .PageModel.TidTab.Count }}
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a id="#others" class="nav-link" data-toggle="tab" href="#others">
+            Others
+            <span id="othersBadge" class="badge-pill" style="background: lightgrey" {{ if not .PageModel.OthersTab.History }}hidden{{end}}>
+            {{ .PageModel.OthersTab.Count }}
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a id="#history" class="nav-link" data-toggle="tab" href="#history" onclick="historyTabSelect({{.PageModel.HistoryTab.IdentifierColumn}}, 0)">History</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div id="site" class="tab-pane active">
+        <div id="changeApprovalContainerSite">
+            {{template "changeApprovalViewerPartial" .PageModel.SiteTab}}
+        </div>
+    </div>
+    <div id="chain" class="tab-pane">
+            <div id="changeApprovalContainerChain">
+                {{template "changeApprovalViewerPartial" .PageModel.ChainTab}}
+            </div>
+    </div>
+    <div id="acquirer" class="tab-pane">
+            <div id="changeApprovalContainerAcquirer">
+                {{template "changeApprovalViewerPartial" .PageModel.AcquirerTab}}
+            </div>
+    </div>
+    <div id="tid" class="tab-pane">
+        <div id="changeApprovalContainerTID">
+            {{template "changeApprovalViewerPartial" .PageModel.TidTab}}
+        </div>
+    </div>
+    <div id="others" class="tab-pane">
+        <div id="changeApprovalContainerOthers">
+            {{template "changeApprovalViewerPartial" .PageModel.OthersTab}}
+        </div>
+    </div>
+    <div id="history" class="tab-pane">
+        <div id="changeApprovalContainerHistory">
+        {{template "changeApprovalViewerHistoryPartial" .}}
+        </div>
+    </div>
+</div>
+
+{{template "footer" .}}
+{{template "confirm" .}}
+{{end}}

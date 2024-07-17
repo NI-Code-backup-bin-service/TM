@@ -1,0 +1,2 @@
+CALL AddColumn('data_element', 'required_at_acquirer_level', 'tinyint(1)', 'NOT NULL DEFAULT 0 COMMENT \'Determines if the field is required at acquirer level specifically\'');
+UPDATE data_element SET required_at_acquirer_level = 1 WHERE name in ('companyToken', 'serviceType')

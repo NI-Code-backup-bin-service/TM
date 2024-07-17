@@ -1,0 +1,1 @@
+ALTER TABLE approvals ADD COLUMN tid_id varchar(45) DEFAULT NULL;

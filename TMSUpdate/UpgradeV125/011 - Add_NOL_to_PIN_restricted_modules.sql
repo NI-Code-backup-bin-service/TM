@@ -1,0 +1,1 @@
+UPDATE data_element SET options = CONCAT(options, '|nolSale') WHERE name = 'PINRestrictedModules' AND options not like '%nolSale%';

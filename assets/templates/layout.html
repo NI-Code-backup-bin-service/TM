@@ -1,0 +1,125 @@
+ {{define "headerSimple"}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+	<!-- The above meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>NextGen TMS</title>
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="/assets/css/site.css">
+	<script src="/assets/js/polyfill.js"></script>
+	<script src="/assets/js/jquery-3.3.1.min.js"></script>
+	<script	src="assets/js/jquery-migrate-3.4.1.min.js"></script>
+	<script src="assets/js/jquery-3.4.0.min.js"></script>
+	<script src="assets/js/jquery-ui-1.13.1.min.js"></script>
+	<script src="/assets/js/popper.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/fontawesome-all.min.js"></script>
+	<script src="/assets/js/react.development.js"></script>
+	<script src="/assets/js/react-dom.development.js"></script>
+	<script src="/assets/js/DOMPurify/purify.min.js"></script>
+	<script src="/assets/js/sanitization.js"></script>
+	<script src="/assets/js/site.js"></script>
+    <link rel="icon" sizes="16x11" href="/assets/images/Monogram_RGB_Favicons-01Resize.jpg">
+
+</head>
+{{if .CurrentUser}}
+	{{if .CurrentUser.LoggedIn}}
+		<div id="sideNav" class="sidenav">
+			<div class="sidenav-inner">
+				<a id="nav-menu-close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<a id="nav-menu-home" href="/search">Home</a>
+				<a id="nav-menu-search" href="/search">Search</a>
+				<a id="nav-menu-change-approval" class="{{ if (eq .CurrentUser.UserPermissions.ChangeApprovalRead false) }}disabled{{ end }}" href="/changeApproval">Change Approval</a>
+				<a id="nav-menu-bulk-change-approval" class="{{ if (eq .CurrentUser.UserPermissions.BulkChangeApproval false) }}disabled{{ end }}" href="/bulkChangeApproval">Bulk / File Change Approval</a>
+				<a id="nav-menu-add-site" class="{{ if (eq .CurrentUser.UserPermissions.AddCreate false) }}disabled{{ end }}" href="/addSite">Add/Create</a>
+				<a id="nav-menu-file-upload" class="{{ if (eq .CurrentUser.UserPermissions.AddCreate false) }}disabled{{ end }}" href="/fileUpload">File Management</a>
+				<a id="nav-menu-dpomomo-upload" class="{{ if (eq .CurrentUser.UserPermissions.LogoManagement false) }}disabled{{ end }}" href="/logoUpload">Logo Management</a>
+				<a id="nav-menu-bulk-updates" class="{{ if (eq .CurrentUser.UserPermissions.BulkImport false) }}disabled{{ end }}" href="/bulkUpdates">Bulk Imports</a>
+				<a id="nav-menu-terminal-flagging" class="{{ if (eq .CurrentUser.UserPermissions.TerminalFlagging false) }}disabled{{ end }}" href="/terminalFlagging">Terminal Flagging</a>
+				<a id="nav-menu-offline-pin" class="{{ if (eq .CurrentUser.UserPermissions.OfflinePIN false) }}disabled{{ end }}" href="/offlinePIN">Offline PIN</a>
+				<a id="nav-menu-user-management" class="{{ if (eq .CurrentUser.UserPermissions.UserManagement false) }}disabled{{ end }}" href="/userManagement">User Management</a>
+				<a id="nav-menu-reporting" class="{{ if (eq .CurrentUser.UserPermissions.Reporting false) }}disabled{{ end }}" href="/reporting">Reporting</a>
+				<a id="nav-menu-manual" href="origin(window.location.origin)" onclick="window.open('/userManual','popup','width=1150,height=850'); return false;" >User Manual</a>				<a id="nav-menu-payment-services" class="{{ if (eq .CurrentUser.UserPermissions.PaymentServices false) }}disabled{{ end }}" href="/paymentServices">Payment Services</a>
+				<a></a>
+				<a>
+					<button id="nav-menu-backup-database" class="{{ if (eq .CurrentUser.UserPermissions.DbBackup false ) }}disabled{{ end }} btn btn-primary" onclick="backupDatabase()">Backup Database</button>
+				</a>
+				<a>
+					<button id="nav-menu-export-tooltips" class="btn btn-primary" onclick="exportTooltips()">Export Tooltips</button>
+				</a>
+			</div>
+		</div>
+	{{ end }}
+{{ end }}
+
+<div class="modal bd-example-modal-lg" id="DbBackupModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="padding: 1%">
+            <div class="modal-header" style="align-self: center">
+                <h5 class="modal-title" id="exampleModalLongTitle">Backing up Database, please wait...</h5>
+            </div>
+            <div class="modal-body" id="DbBackupModalBody" style="align-self: center">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body id="main">
+	<nav class="navbar navbar-expand-sm navbar-light bg-light">
+		{{if .CurrentUser.LoggedIn}}
+		<div>
+			<span id="nav-menu-open" style="font-size:30px;cursor:pointer;padding: 20px;color:black" onclick="openNav()">&#9776;</span>
+		</div>
+		<a id="network-logo-link" href="/search">
+			<img id="network-logo" src="/assets/images/network_PantoneResized.png" />
+		</a>
+		{{else}}
+		{{if .CurrentUser.PasswordChange}}
+		<a id="network-logo-link" href="/signon">
+			<img id="network-logo" src="/assets/images/network_PantoneResized.png"/>
+		</a>
+		{{else}}
+		<img id="network-logo" src="/assets/images/network_PantoneResized.png"/>
+		{{end}}
+		{{end}}
+
+		{{if .CurrentUser.LoggedIn}}
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				aria-expanded="true" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a id="logout" class="btn btn-link my-2 my-sm-0 float-end" href="/logout">Logout</a>
+				</li>
+			</ul>
+		</div>
+		{{end}}
+	</nav>
+</body>
+</html>
+{{end}}
+
+{{define "footerSimple"}}
+<div></div>
+{{end}}
+
+{{define "header"}}
+{{template "headerSimple" .}}
+{{end}}
+
+{{define "footer"}}
+{{template "footerSimple" .}}
+{{end}}

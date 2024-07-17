@@ -1,0 +1,2 @@
+UPDATE data_element SET displayname_en = 'Pre-Auth - Print PAN', tooltip = 'Enables/disables the option to print the PAN value of Pre-Auth transaction with or without RRN.' WHERE name = 'preAuthWithRRNPrintPAN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');;
+UPDATE data_element SET options = CONCAT(options, '|Pre-auth without RRN'), tooltip = 'Dictates the allowed Pre-Auth actions.' where name = 'preAuthActions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules') AND options not like '%Pre-auth without RRN%';

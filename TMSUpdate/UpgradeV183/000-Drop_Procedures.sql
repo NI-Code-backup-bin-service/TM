@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS get_data_group_elements;

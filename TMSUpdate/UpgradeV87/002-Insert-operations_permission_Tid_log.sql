@@ -1,0 +1,4 @@
+INSERT IGNORE INTO operations_permission (name) values ('TID Logs');
+INSERT IGNORE INTO operations_permissiongroup_permission (permissiongroup_id, permission_id) VALUE ((SELECT group_id FROM operations_permissiongroup WHERE name = 'GlobalAdmin'), (SELECT permission_id FROM operations_permission WHERE name = 'TID Logs'));
+INSERT IGNORE INTO permission (name) values ('TID Logs');
+INSERT IGNORE INTO permissiongroup_permission (permissiongroup_id, permission_id) VALUE ((SELECT group_id FROM permissiongroup WHERE name = 'GlobalAdmin'), (SELECT permission_id FROM permission WHERE name = 'TID Logs'));

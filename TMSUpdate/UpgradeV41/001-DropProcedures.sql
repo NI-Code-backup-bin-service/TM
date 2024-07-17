@@ -1,0 +1,1 @@
+Drop procedure if exists operations_user_fetch;

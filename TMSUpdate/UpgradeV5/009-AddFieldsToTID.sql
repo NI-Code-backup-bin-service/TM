@@ -1,0 +1,2 @@
+ALTER TABLE tid ADD COLUMN target_package_id int DEFAULT 0;
+ALTER TABLE tid ADD COLUMN update_date DATE DEFAULT NULL;

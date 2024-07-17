@@ -1,0 +1,135 @@
+{{define "tidDataElementRow"}}
+    <tr data-bs-toggle="tooltip" data-trigger="hover" data-placement="top" title="{{ .de.Tooltip }}" data-delay='{"show":"1000"}' id="tooltip-{{ .tid }}-{{ .group }}-{{ .de.Name }}">
+        {{ $displayName := ""}}
+        {{ $name := .de.Name }}
+
+        {{ if ne .de.DisplayName "" }}
+            {{ $displayName = .de.DisplayName }}
+        {{ else }}
+            {{ $displayName = .de.Name }}
+        {{ end }}
+        {{ $type := .de.Type }}
+        <td class="{{ if ne $type "BOOLEAN" }} {{ if not .de.IsAllowedEmpty }}mandatory-element{{ end }}{{ end }}" >{{ $displayName }}</td>
+        <td>
+            {{ $val := .de.DataValue }}
+            {{ $id := .de.ElementId }}
+            {{ $opts := .de.Options }}
+            {{ $passEdit := .currentUser.UserPermissions.EditPasswords }}
+            {{ $inputID := printf "%v-%v-%v-tid" .group $name .tid }}
+            {{ if eq .de.Type "BOOLEAN" }}
+                {{ if or (and (eq .de.IsReadOnlyAtCreation true) (eq .IsNew true)) (and (eq .de.IsReadOnlyAtCreation true) (eq .tidProfileID 0)) }}
+                    <input id="{{ $inputID }}" type="checkbox" class="form-checkbox profile-checkbox" name="data.{{ $id }}" value="false" disabled/>
+                    <input type="hidden" name="hidden.{{ $id }}" value="false" disabled/>
+                {{ else }}
+                    <input id="{{ $inputID }}" type="checkbox" class="form-checkbox profile-checkbox" name="data.{{ $id }}" value="true"{{ if eq $val "true" }} checked{{ end }} {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}/>
+            <input type="hidden" name="hidden.{{ $id }}" value="false"{{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}/>
+                {{ end }}
+            {{ else if or (and (eq $type "INTEGER") (not $opts)) (and (eq $type "LONG") (not $opts)) }}
+                <input id="{{ $inputID }}"
+                    {{ if and (eq .de.IsPassword true) (eq $passEdit true) }}
+                        type="password" readonly
+                    {{ else if and (eq .de.IsPassword true) (eq $passEdit false) }}
+                        {{ $val = "*********************************" }}
+                        type="password" disabled
+                    {{ else }}
+                        type="text"
+                    {{ end }}
+                    class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                    {{ if eq .de.FrontEndValidate true }}
+                        pattern="{{ .de.ValidationExpression }}"
+                        oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                        oninput="this.setCustomValidity('')"
+                    {{ end }}
+                    {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}
+                />
+            {{ else if and (eq .de.Name "thirdPartyPackageList") (eq .group "thirdParty") }}
+                <input id="{{ $inputID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly
+                   class="form-control col-8 float-end"/>
+            {{ else if and (eq $type "JSON") (eq .de.Name "paymentServicesConfigs") }}
+                <div class="col-3 inline-div no-margin">
+                    <input type="hidden" id="{{$inputID}}" name="data.{{$id}}" value="{{ $val }}" {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}/>
+                    <button id="{{ .inputID }}-edit-modal" class="btn btn-primary" type="button"  {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}
+                            onclick="showPaymentServicesEditModal('/paymentServicesEditModal', {{ .SiteId }}, {{ .tid }}, {{$inputID}}, 'Edit Services' )">
+                        Configure Services
+                    </button>
+                </div>
+            {{ else if and (eq $type "JSON") $opts }}
+                <select id="{{ $inputID }}" multiple="multiple" name="multi.{{ $id }}" value="{{ $val }}" class="form-select"
+                {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                    {{ range .de.Options }}
+                        <option{{ if (eq .Selected true) }} selected="selected"{{end}}>{{ .Option }}</option>
+                    {{ end }}
+                </select>
+                <input type="hidden" name="hidden.{{ $id }}" value="[]"{{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}/>
+            {{ else if eq $type "FILE" }}
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $inputID }}-file-choose" class="btn btn-primary" type="button" onclick="openChooseImageFile({{ $inputID }})"
+                    {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                        Choose Image
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <button id="{{ $inputID }}-file-clear" class="btn btn-warning" type="button" onclick="clearInput({{ $inputID }})"
+                    {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                        Clear
+                    </button>
+                </div>
+                <div class="col-3 inline-div no-margin">
+                    <img id="{{ $inputID }}-image" width="15%" max-height="50%" src="{{ .de.Image }}">
+                </div>
+                <input id="{{ $inputID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly class="form-control col-8 float-end"/>
+            {{ else if eq $type "INCONFIGFILE" }}
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $inputID }}-file-choose" class="btn btn-primary" type="button" onclick="openChooseTextFile({{ $id }})"
+                {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                    Choose File
+                </button>
+            </div>
+            <div class="col-3 inline-div no-margin">
+                <button id="{{ $inputID }}-file-clear" class="btn btn-warning" type="button" onclick="clearInput({{ $id }})"
+                {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                    Clear
+                </button>
+            </div>
+            <input id="{{ $inputID }}" name="data.{{ $id }}" type="text" value="{{ $val }}" readonly class="form-control col-8 float-end"/>
+            {{ else if $opts }}
+                {{ if .de.OptionSelectable }}
+                    <select id="select-{{ $id }}-{{ .tid }}-tid" name="data.{{ $id }}" class="form-select"
+                    {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}>
+                        {{ range $opts }}
+                            <option{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Option }}</option>
+                        {{ end }}
+                    </select>
+                {{ else }}
+                    <input id="{{ $inputID }}" type="text" readonly name="data.{{ $id }}" class="form-control col-8 float-end" value="{{ $val }}" {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}/>
+                {{ end }}
+            {{ else }}
+                <input id="{{ $inputID }}"
+                    {{ if and (eq .de.IsPassword true) (eq $passEdit true) }}
+                        type="password" readonly
+                    {{ else if and (eq .de.IsPassword true) (eq $passEdit false) }}
+                        {{ $val = "*********************************" }}
+                        type="password" disabled
+                    {{ else }}
+                        type="text"
+                    {{ end }}
+                    class="form-control col-8 float-end" name="data.{{ $id }}" placeholder="{{ $displayName }}" value="{{ $val }}"
+                    {{ if eq .de.FrontEndValidate true }}
+                        pattern="{{ .de.ValidationExpression }}"
+                        oninvalid="this.setCustomValidity('{{ .de.ValidationMessage }}')"
+                        oninput="this.setCustomValidity('')"
+                    {{ end }}
+                    {{ if or  (eq .IsNew true) (eq .tidProfileID 0) }} disabled {{ end }}
+                />
+            {{ end }}
+        </td>
+        {{ if and (eq .de.IsPassword true) (eq $passEdit true) }}
+            <td id="{{ $name }}-showPwdBtn" style="vertical-align: bottom" onclick="togglePasswordInputField('{{ $inputID }}', '{{ $type }}')">
+                <img alt="show password" style="display:inline-block;" src="/assets/images/show-password-icon.png"/>
+                <p style="font-size:0.8em; margin:0; display:inline-block;">Show Password</p>
+            </td>
+        {{else}}
+            <td> </td>
+        {{end}}
+    </tr>
+{{ end }}

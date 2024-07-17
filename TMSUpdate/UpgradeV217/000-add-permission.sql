@@ -1,0 +1,1 @@
+INSERT IGNORE INTO permission(name) VALUES ("API Automation");

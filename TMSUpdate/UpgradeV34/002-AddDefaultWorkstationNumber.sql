@@ -1,0 +1,2 @@
+INSERT IGNORE INTO profile_data_group(profile_id, data_group_id, version, updated_at, updated_by, created_at, created_by) VALUES (1, (SELECT data_group_id FROM data_group WHERE `name` = 'opi' LIMIT 1), 1, NOW(), "system", NOW(), "system")
+INSERT IGNORE INTO profile_data(profile_id, data_element_id, datavalue, version, updated_at, updated_by, created_at, created_by, approved, overriden) VALUES (1, (SELECT data_element_id FROM data_element WHERE `name` = 'workstationNumber' LIMIT 1), "0", 1, NOW(), "system", NOW(), "system", 1, 0);

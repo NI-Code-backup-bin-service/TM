@@ -1,0 +1,1 @@
+INSERT INTO approval_type (`approval_type_id`, `approval_type_name`) VALUES ('12', 'Thirdparty Apk deletion');

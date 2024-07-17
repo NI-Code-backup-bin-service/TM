@@ -1,0 +1,9 @@
+UPDATE data_element SET displayname_en = 'Tip Max %' WHERE name = 'gratuityMax' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET displayname_en = 'Tip Tier' WHERE name = 'gratuityTier' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET displayname_en = 'Pre-Auth Max %' WHERE name = 'preAuthMax' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET displayname_en = 'Contactless Application Config Shared' WHERE name = 'ctlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET displayname_en = 'Contact Application Config' WHERE name = 'contactApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET displayname_en = 'Contact Application Config Shared' WHERE name = 'contactApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET displayname_en = 'Contact Key Config' WHERE name = 'contactKeyConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET displayname_en = 'Contactless Application Config' WHERE name = 'ctlsApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET displayname_en = 'Contactless Application Config Shared' WHERE name = 'ctlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');

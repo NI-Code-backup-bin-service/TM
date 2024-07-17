@@ -1,0 +1,2 @@
+DROP PROCEDURE IF EXISTS get_tid_configuration;
+DROP PROCEDURE IF EXISTS get_configured_data_elements_for_tid;

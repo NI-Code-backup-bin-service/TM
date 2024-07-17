@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS disable_terraPay_by_MID;

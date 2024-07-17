@@ -1,0 +1,11 @@
+drop procedure if exists delete_site;
+drop procedure if exists delete_tid;
+drop procedure if exists record_site_to_history;
+drop procedure if exists approve_change;
+drop procedure if exists get_pending_profile_change_approvals;
+drop procedure if exists get_profile_change_history;
+drop procedure if exists get_pending_change_approvals;
+drop procedure if exists get_change_approval_history;
+drop procedure if exists get_site_change_history;
+drop procedure if exists save_pending_element_change;
+drop procedure if exists save_pending_profile_change;

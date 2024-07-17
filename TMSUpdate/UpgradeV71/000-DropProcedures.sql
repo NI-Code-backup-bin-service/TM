@@ -1,0 +1,1 @@
+DROP procedure IF EXISTS `get_tid_change_history`;

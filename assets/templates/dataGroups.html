@@ -1,0 +1,15 @@
+{{define "dataGroups"}}
+<div id="data-groups" class="add-site-data-groups input-group">
+{{ range .PageModel.DataGroups}}
+    <div class="row col-sm-4 no-margin mt-1">
+        <label for="dg.{{.Group.DataGroup}}" class="col-sm-7">{{.Group.DisplayName}}</label>
+        <input id="dg.{{.Group.DataGroup}}" name="dg.{{.Group.DataGroupID}}"
+        {{if or (eq .PreSelected true) (eq .Selected true) }}
+               checked
+        {{end}}
+        {{if (eq .PreSelected true)}} disabled {{end}}type="checkbox" class="form-checkbox form-checkbox-sm col-sm-1" name="cbv" value=true />
+        {{if (eq .PreSelected true)}}<input type="hidden" name="dg.{{.Group.DataGroupID}}" value="true"/> {{end}}
+    </div>
+{{end}}
+</div>
+{{end}}

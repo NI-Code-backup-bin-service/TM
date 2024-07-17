@@ -1,0 +1,1 @@
+UPDATE data_element SET export_display_index=57 WHERE name='onScreenReceipt';

@@ -1,0 +1,204 @@
+/* ALIPAY ELEMENTS - 4 TOTAL */
+UPDATE data_element SET tooltip = 'The Alipay MCC the PED will use for Alipay transactions. 4 chars.' WHERE name = 'alipayMcc' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'alipay');
+UPDATE data_element SET tooltip = 'The Alipay MID the PED will use for Alipay transactions. 12 chars.' WHERE name = 'alipayMid' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'alipay');
+UPDATE data_element SET tooltip = 'The Alipay Partner the PED will use for Alipay transactions. Max 16 chars.' WHERE name = 'alipayPartner' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'alipay');
+UPDATE data_element SET tooltip = 'The Alipay private key the PED will use for Alipay transactions.' WHERE name = 'alipayPrivateKey' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'alipay');
+/* BALANCE INQUIRY ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'The bin ranges that you can do a balance inquiry for.' WHERE name = 'binRanges' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'balanceInquiry');
+/* CASH BACK ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'Defines the minimum purchase amount, maximum cashback amount and check type for a given BIN range.' WHERE name = 'definitions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'cashback');
+/* CONNECTIVITY ELEMENTS - 2 TOTAL */
+UPDATE data_element SET tooltip = 'The time in seconds a PED will wait for before closing an idle connection.' WHERE name = 'channelTimeout' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'connectivity');
+UPDATE data_element SET tooltip = 'Enables XMPP communications.' WHERE name = 'enableXMPP' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'connectivity');
+/* CORE ELEMENTS - 29 TOTAL */
+UPDATE data_element SET tooltip = 'Acquirer logo. Use JPG or PNG.' WHERE name = 'acquirerLogo' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables Partial Auth payments.' WHERE name = 'allowPartialAuth' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Maximum length (in characters) for the amount entry.This is the maximum length of digits you can enter on the terminal.' WHERE name = 'amountEntryMax' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Warning! This field uses a JSON format to connect a mobile PED to its server.' WHERE name = 'apns' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Application footer image. Use JPG or PNG.' WHERE name = 'applicationFooterImg' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Application header image. Use JPG or PNG.' WHERE name = 'applicationHeaderImg' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Denotes the time at which the PED resets velocity limits.' WHERE name = 'dailyTxnCleanseTime' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Sets the default currency for transactions.' WHERE name = 'defaultCurrency' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables/Disables the PEDs ability to fallback to swipe after failed payment attempts' WHERE name = 'disableFallback' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables/Disables the magstripe card reader on the PED.' WHERE name = 'disableMagstripe' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Determines which schemes should have magstripe contactless disabled.' WHERE name = 'disableMagstripeCtlsSchemes' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables/Disables the PEDs ability to prompt for the last 4 digits of a PAN during a swipe/ fallback transaction.' WHERE name = 'disableMagSwipeDigitEntry' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'The physical power key is disabled if checked.' WHERE name = 'disablePowerKey' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Disables signature verification.' WHERE name = 'disableSignatureVerification' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'The application footer is displayed if checked.' WHERE name = 'displayAppFooterImage' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'The application header is displayed if checked.' WHERE name = 'displayAppHeaderImage' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'When enabled the PED will check card expiry dates.' WHERE name = 'enableExpiryCheck' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables velocity limits on the PED.' WHERE name = 'fraudEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Displayed in general enquiries on the help page. Max 50 chars.' WHERE name = 'helpGeneralEnquiries' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Displayed in learn more on the help page. Max 50 chars.' WHERE name = 'helpLearnMore' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Displayed help support number on the help page. Max 50 chars.' WHERE name = 'helpSupportNumber' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Sets the language the NextGen app displays its text in.' WHERE name = 'language' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Online refunds are allowed if checked.' WHERE name = 'onlineRefund' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Determines which characters are masked in the PAN. Defaults to 6,4.' WHERE name = 'panMask' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Selects languages the receipt will print in.' WHERE name = 'receiptLanguages' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Sets the minimum software version the PED must have.' WHERE name = 'RequiredSoftwareVersion' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Time taken for the display to switch off when inactive in seconds. Defaults to 30.' WHERE name = 'screenTimeout' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables/Disables the PEDs ability to show the refund approval screen.' WHERE name = 'skipRefundApprovalCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+UPDATE data_element SET tooltip = 'Enables/disables the WIFI on the device.' WHERE name = 'wifiEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'core');
+/* DUAL CURRENCY ELEMENTS - 18 TOTAL */
+UPDATE data_element SET tooltip = 'Determines which payment modules have dual currency enabled.' WHERE name = 'activeModules' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Determines which payment schemes have dual currency enabled.' WHERE name = 'activeSchemes' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'The definition of all card schemes supported including Bin Ranges and EMV Tags. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'cardDefinitions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contact schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contactless schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Determines the CVM limit for contactless transactions. Must be numeric with no decimal points.' WHERE name = 'ctlsCvmLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Determines the transaction limit for contactless transactions. Must be numeric with no decimal points.' WHERE name = 'ctlsTxnLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Enables/Disables DCC when paying using contactless.' WHERE name = 'dccCtls' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Enables/Disables DCC.' WHERE name = 'dccEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Specifies the Binranges that DCC is active for. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'dccLocalBins' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Maximum valid value for DCC to be active.' WHERE name = 'dccMaxValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Minimum valid value for DCC to be active.' WHERE name = 'dccMinValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Dictates the DCC provider.' WHERE name = 'dccProvider' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Enables/disables Dual Currency.' WHERE name = 'enabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Determines the secondary currency for transactions.' WHERE name = 'secondaryCurrency' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'The secondary MID of the merchant site for use with dual currency transactions. Must be 12 digits.' WHERE name = 'secondaryMid' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'The secondary TID of the PED for use with dual currency transactions.' WHERE name = 'secondaryTid' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+UPDATE data_element SET tooltip = 'Specifies the terminal country code. Defaults to 0784 for UAE. 4 characters.' WHERE name = 'terminalCountryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dualCurrency');
+/* EMV DATA ELEMENTS - 15 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/Disables whether the PED beeps for card insertion. This is for EPOS mode when a small beep sound comes alerting the cashier & customer to enter or remove the card from the terminal.' WHERE name = 'beepForInsertion' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Enables/Disables whether the PED beeps for card removal.This is for EPOS mode when a small beep sound comes alerting the cashier & customer to enter or remove the card from the terminal.' WHERE name = 'beepForRemoval' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'The definition of all card schemes supported including Bin Ranges and EMV Tags. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'cardDefinitions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library when reading individual contact card schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contact schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library contact profile. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactIcsConfig' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the list of contact cards that can be recognised by the EMV library. Contains live card information. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactKeyConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library when reading individual contactless card schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contactless schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the contactless card capabilities of each scheme. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsKernelConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Changes the list of contactless cards that can be recognised by the EMV library. Contains live card information. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsKeyConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'The number of times the PED will perform a transaction before falling back to a different media type.' WHERE name = 'retries' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Combination of Transaction Currency Code, Transaction Currency Exponent, and Terminal Country Code.' WHERE name = 'terminalConfig' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Specifies the terminal country code. Defaults to 0784 for UAE. 4 characters.' WHERE name = 'terminalCountryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+UPDATE data_element SET tooltip = 'Specifies the transaction currency code. Defaults to 0784 for UAE. 4 characters.' WHERE name = 'transactionCurrencyCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'emv');
+/* END OF DAY ELEMENTS - 9 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/Disables automatic End Of Day reports.' WHERE name = 'auto' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The number of days after which the PED will force the user to complete an End Of Day.' WHERE name = 'hardLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The number of days after which a pre-auth transaction can be cancelled. Value can be between 1 and 30.' WHERE name = 'preAuthCancelDayLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The number of days after which the PED will prompt the user to complete an End Of Day.' WHERE name = 'softLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The time an automatic End Of Day report occurs. Defaults to 00:00. 24 hour clock.' WHERE name = 'time' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The maximum allowed number of X read prints.' WHERE name = 'xReadMaxPrints' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The title of an X report. Max 12 characters.' WHERE name = 'xReportNameOverride' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The maximum allowed number of Z read prints' WHERE name = 'zReadMaxPrints' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+UPDATE data_element SET tooltip = 'The title of a Z report. Max 12 characters.' WHERE name = 'zReportNameOverride' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'endOfDay');
+/* INSTALLMENTS ELEMENTS - 3 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/disables EPP offers for eligible transactions.' WHERE name = 'EPPAAIB' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'instalments');
+UPDATE data_element SET tooltip = 'Determines the card BIN ranges eligible for EPP transactions. Must be of .dat filetype.' WHERE name = 'EPPBINRanges' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'instalments');
+UPDATE data_element SET tooltip = 'Determines the payment offers that will be made for Compass+ EPP transactions. These are entered as comma separated values for example an entry of 0,3 will result in an offer of 3 months repayment with 0 fee.' WHERE name = 'EPPTenor' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'instalments');
+/* LOGGING ELEMENTS - 4 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/disables uploading of PED logs.' WHERE name = 'enableLogUpload' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'logging');
+UPDATE data_element SET tooltip = 'Specifies the total number of logs to be uploaded. Defaults to 100. Integer value.' WHERE name = 'maxUploadSize' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'logging');
+UPDATE data_element SET tooltip = 'Specifies the minimum log level. Defaults to Warning (5). Integer Value. Lower values will log more. Higher values will log less.' WHERE name = 'minLocalLevel' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'logging');
+UPDATE data_element SET tooltip = 'Specifies the minimum upload level. Defaults to Error (6). Integer Value. Lower values will log more. Higher values will log less.' WHERE name = 'minUploadLevel' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'logging');
+/* MASTERCARD QR ELEMENTS - 2 TOTAL */
+UPDATE data_element SET tooltip = 'Type of goods or services provided.' WHERE name = 'categoryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'mastercardQr');
+UPDATE data_element SET tooltip = 'Merchant PAN for payment.' WHERE name = 'mpan' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'mastercardQr');
+/* MEEZA QR ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'Determines the timeout in seconds for Meeza QR transactions.' WHERE name = 'timeoutDuration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'meezaQR');
+/* MODULES ELEMENTS - 24 TOTAL */
+UPDATE data_element SET tooltip = 'Selects the modules that will be activated on the PED.' WHERE name = 'active' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/Disables printing of receipts on the PED for EPOS and OPI mode.' WHERE name = 'automaticReceipt' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Determines which schemes should have PIN entry bypass enabled.' WHERE name = 'bypassPIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/Disables DCC when paying using contactless.' WHERE name = 'dccContactless' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/disables the ECO Flow options for DCC enabled Pre-Auth transactions.' WHERE name = 'dccECOflow' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/Disables DCC.' WHERE name = 'dccEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'How long (in milliseconds) the handover is given.' WHERE name = 'dccHandoverTimer' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Specifies the Binranges that DCC is active for. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'dccLocalBins' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Maximum valid value for DCC to be active.' WHERE name = 'dccMaxValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Minimum valid value for DCC to be active.' WHERE name = 'dccMinValue' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates the DCC provider.' WHERE name = 'dccProvider' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/Disables EPP functionality.' WHERE name = 'eppEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates the maximum allowed TIP percentage. Integer. 100=100%.' WHERE name = 'gratuityMax' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates whether, tier1 sales, tier2 sales or none of the aforementioned are allowed.' WHERE name = 'gratuityTier' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Allow manual entry of card details.' WHERE name = 'manualEntryEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Mode the PED will be in, e.g. Standalone.' WHERE name = 'mode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates which modules are subject to password restrictions as part of Hotels functionality.' WHERE name = 'PINRestrictedModules' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates the maximum allowed Pre-Auth completion percentage.' WHERE name = 'preAuthActions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates the maximum allowed Pre-Auth completion percentage.' WHERE name = 'preAuthMax' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/disables the option to print the PAN value of Pre-Auth transaction with RRN.' WHERE name = 'preAuthWithRRNPrintPAN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Asks for a reference number during sales if set.' WHERE name = 'referenceNumber' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Dictates what functions require supervisor sign in.' WHERE name = 'supervisorOnly' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Enables/disables Taxi EPOS mode for an EPOS enabled PED, requiring user logon before transactions can be processed.' WHERE name = 'taxiEpos' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+UPDATE data_element SET tooltip = 'Specifies the third party package to use as the main user interface. Must be a full packagename, do not include the apk. e.g. com.demoname.application. This is again for a future functionality when we do App to App integration and can be ignored till then.' WHERE name = 'thirdPartyPackageName' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');
+/* MULTIDEVICE EMV ELEMENTS - 5 TOTAL */
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library when reading individual contact card schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contact schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET tooltip = 'Changes the list of contact cards that can be recognised by the EMV library. Contains live card information. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'contactKeyConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library when reading individual contactless card schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsApplicationConfigs' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+UPDATE data_element SET tooltip = 'Changes the behaviour of the EMV Library between multiple contactless schemes. WARNING: Should generally only be updated by feature scripts.' WHERE name = 'ctlsApplicationConfigShared' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'multiDeviceEmv');
+/* NOL ELEMENTS - 11 TOTAL */
+UPDATE data_element SET tooltip = 'Application ID for Nol transactions. Generally set to 784000. Value must be numeric.' WHERE name = 'AID' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Business Entity ID for Nol transactions. Value must be numeric.' WHERE name = 'businessEntityId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Legacy data element. Now set dynamically when a driver logs onto a Taxi EPOS enabled PED.' WHERE name = 'driverId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'The equivalent of a MID for Nol transactions. Value must be a unique numeric value no greater than 9 digits.' WHERE name = 'locationId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Maximum permitted card balance for Type 1 cards. Generally set to 500000. Value must be numeric.' WHERE name = 'maxCardBalLimitType1' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Maximum permitted card balance for Type 2 cards. Generally set to 100000. Value must be numeric.' WHERE name = 'maxCardBalLimitType2' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Maximum permitted card balance for Type 4 cards. Generally set to 500000. Value must be numeric.' WHERE name = 'maxCardBalLimitType4' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'The equivalent of a TID for Nol transactions. Value must be a unique hexadecimal value no greater than 6 characters.' WHERE name = 'nolDeviceId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Enables/disables Nol transactions.' WHERE name = 'nolEnabled' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Mercury Bin is used to route the NOL Advice message in the host services. Currently needs to be set to 978432.' WHERE name = 'nolMerBin' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+UPDATE data_element SET tooltip = 'Taxi Bin is used to route the NOL Block Verification message in the host services. Currently needs to be set to 978432.' WHERE name = 'nolTaxiBin' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'nol');
+/* OFFLINE ELEMENTS - 5 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/Disables offline functionality. (EPOS only).' WHERE name = 'available' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'offline');
+UPDATE data_element SET tooltip = 'Max number of hours an EPOS can be offline for.' WHERE name = 'offlineDuration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'offline');
+UPDATE data_element SET tooltip = 'Sets what schemes are allowed to transact offline; can also be used to set scheme specific restricions for offline transactions.' WHERE name = 'schemes' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'offline');
+UPDATE data_element SET tooltip = 'Sets the total amount limit for offline transactions.' WHERE name = 'totalLimit' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'offline');
+UPDATE data_element SET tooltip = 'Sets the number of offline transactions uploaded per minute when the PED re-establishes connection.' WHERE name = 'uploadFrequency' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'offline');
+/* OPI ELEMENTS - 3 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/Disables permission for the user to access the allowGetPan OPI functionality.' WHERE name = 'allowGetPAN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'opi');
+UPDATE data_element SET tooltip = 'Sets the OPI site ID for the PED.' WHERE name = 'propertyId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'opi');
+UPDATE data_element SET tooltip = 'Sets the OPI workstation number for the PED.' WHERE name = 'workstationNumber' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'opi');
+/* PINSET ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'Forces confirmation code entry.' WHERE name = 'useConfirmationCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'pinset');
+/* RECEIPT ELEMENTS - 3 TOTAL */
+UPDATE data_element SET tooltip = 'No longer used. Use core/screenTimeout instead.' WHERE name = 'displayFor' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'receipt');
+UPDATE data_element SET tooltip = 'The ICC data fields are printed on the receipt if checked. These are the TVR,TSI,AC,CID,Appln version fields.' WHERE name = 'printIccData' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'receipt');
+UPDATE data_element SET tooltip = 'The logo is printed on the receipt if checked.' WHERE name = 'printLogo' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'receipt');
+/* REVERSAL ELEMENTS - 2 TOTAL */
+UPDATE data_element SET tooltip = 'Amount of tries that each reversal will attempt before failing. Defaults to 3.' WHERE name = 'retries' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'reversal');
+UPDATE data_element SET tooltip = 'Time in between reversal attempts in ms. 3000 is default.' WHERE name = 'retryTime' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'reversal');
+/* SOFTUI ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'Determines which main menu configuration file should be used to populate the PEDs main menu.' WHERE name = 'mainMenuConfiguration' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'softUi');
+/* STORE ELEMENTS - 15 TOTAL */
+UPDATE data_element SET tooltip = 'The stores Acquiring Institute ID.' WHERE name = 'acquiringInstituteId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The first address line of the store. Appears on the receipt. Max 25 chars.' WHERE name = 'addressLine1' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The second address line of the store. Appears on the receipt. Max 25 chars.' WHERE name = 'addressLine2' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The AMEX Merchant ID. Appears as Merchant No on the receipt. Max 10 chars.' WHERE name = 'amexMid' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'Enables/Disables automatic updates on the PED.' WHERE name = 'disableAutomaticUpdates' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'Line 2 of the text displayed on the PED in EPOS mode.' WHERE name = 'eposBottomText' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The image display on the PED when in EPOS mode.' WHERE name = 'eposImage' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The top line of the text displayed on the PED in EPOS mode.' WHERE name = 'eposTopText' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'Enables/ disables checking for updates upon a Z report in EPOS mode.' WHERE name = 'eposUpdateOnZ' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The MID of the merchant site. Appears on receipt. Must be 12 digits.' WHERE name = 'merchantNo' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The name of the merchant site. Appears on receipt. Max 23 chars.' WHERE name = 'name' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The receiptFooter line 1 text. Appears on receipt.' WHERE name = 'receiptFooterLine1' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The second receiptFooter line text. Appears on receipt.' WHERE name = 'receiptFooterLine2' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'Enables/Disables the sonic branding functionality.' WHERE name = 'sonicBranding' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+UPDATE data_element SET tooltip = 'The PEDs timezone.' WHERE name = 'timezoneName' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'store');
+/* TOUCH POINTS ELEMENTS - 1 TOTAL */
+UPDATE data_element SET tooltip = 'The minimum transaction value to qualify for Touchpoints redemption.' WHERE name = 'minimumRedemptionAmount' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'touchPoints');
+/* UPI QR ELEMENTS - 4 TOTAL */
+UPDATE data_element SET tooltip = 'The UPI Acquirer IIN the PED will use for UPI transactions. 8 letters/digits.' WHERE name = 'acquirerIIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'upiQr');
+UPDATE data_element SET tooltip = 'The UPI CategoryCode the PED will use for UPI transactions. This is the UPI MCC code. 4 digits.' WHERE name = 'categoryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'upiQr');
+UPDATE data_element SET tooltip = 'The UPI CountryCode the PED will use for UPI transactions. Defaults to AE. 2 letters.' WHERE name = 'countryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'upiQr');
+UPDATE data_element SET tooltip = 'The UPI Forwarding IIN the PED will use for UPI transactions. 8 letter/digits.' WHERE name = 'forwardingIIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'upiQr');
+/* USER MANAGEMENTS ELEMENTS - 5 TOTAL */
+UPDATE data_element SET tooltip = 'Enables/Disables whether user management functionality is present on the PED.' WHERE name = 'available' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'userMgmt');
+UPDATE data_element SET tooltip = 'Sets the mode change PIN. This is used to switch a PED between modes. E.g. Standalone to EPOS.' WHERE name = 'modeChangePIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'userMgmt');
+UPDATE data_element SET tooltip = 'Sets the supervisor PIN. This is used to access the supervisor menu. 5 characters or more.' WHERE name = 'superPIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'userMgmt');
+UPDATE data_element SET tooltip = 'Enables/Disables TMS users Hotels functionality.' WHERE name = 'tmsUsers' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'userMgmt');
+UPDATE data_element SET tooltip = 'Set the PIN to allow access to the wifi settings menu on the PED.' WHERE name = 'wifiPIN' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'userMgmt');
+/* VISA QR ELEMENTS - 2 TOTAL */
+UPDATE data_element SET tooltip = 'Type of goods or services provided.' WHERE name = 'categoryCode' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'visaQr');
+UPDATE data_element SET tooltip = 'Merchant PAN for payment.' WHERE name = 'mpan' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'visaQr');
+/* WECHATPAY ELEMENTS - 6 TOTAL */
+UPDATE data_element SET tooltip = 'The Business Category Code for WeChatPay transactions.' WHERE name = 'wcpBcc' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');
+UPDATE data_element SET tooltip = 'Email address of WeChatPay contact point.' WHERE name = 'wcpContactEmail' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');
+UPDATE data_element SET tooltip = 'Name of WeChatPay contact point.' WHERE name = 'wcpContactName' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');
+UPDATE data_element SET tooltip = 'Phone number of WeChatPay contact point.' WHERE name = 'wcpContactPhone' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');
+UPDATE data_element SET tooltip = 'The Merchant Category Code for WeChatPay transactions.' WHERE name = 'wcpMcc' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');
+UPDATE data_element SET tooltip = 'Sub-merchant ID for WeChatPay transactions.' WHERE name = 'wcpSubMerchantId' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'weChatPay');

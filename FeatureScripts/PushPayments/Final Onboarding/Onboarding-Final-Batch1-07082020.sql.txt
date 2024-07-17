@@ -1,0 +1,1 @@
+﻿The file Onboarding-Final-Batch1-07082020.sql contains clear cardholder data in violation of PCI and has been quarantined by discovery scan. Please contact NI Information Security team

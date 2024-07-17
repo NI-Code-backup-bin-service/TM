@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS discard_change;

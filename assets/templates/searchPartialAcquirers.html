@@ -1,0 +1,17 @@
+{{define "searchPartialAcquirers"}}
+    {{ $u := .CurrentUser }}
+    <div class="container tiny-gutter full-resize width-max-content">
+        {{template "warning"}}
+        <table id="acquirersTable" class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th id="acquirers-id" scope="col">Id</th>
+                <th id="acquirers-name" scope="col">Acquirer</th>
+                <th id="acquirers-manage" scope="col" class="col-single-button"></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{{end}}

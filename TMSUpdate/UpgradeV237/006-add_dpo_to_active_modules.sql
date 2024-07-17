@@ -1,0 +1,2 @@
+UPDATE data_element SET validation_expression = '^[^\s].{0,34}[^\s]$' WHERE name = 'companyToken' and data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'dpoMomo');
+UPDATE data_element SET options = CONCAT(options,'|dpo') WHERE name = 'active' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

@@ -1,0 +1,1 @@
+call update_softui_key_with_value('TerraPay', 'authorization', 'ba65d994a1a1aaf765b42779fcf88291ad00f44bb58e1a45daaf8368c0d88225');

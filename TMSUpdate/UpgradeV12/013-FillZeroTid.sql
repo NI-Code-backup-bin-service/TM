@@ -1,0 +1,6 @@
+ALTER TABLE `tid_site` DROP FOREIGN KEY `tid_FK`;
+ALTER TABLE `tid_site` DROP INDEX `tid_FK_idx`;
+ALTER TABLE `tid` CHANGE COLUMN `tid_id` `tid_id` INT(8) ZEROFILL NOT NULL ;
+ALTER TABLE `tid_site` CHANGE COLUMN `tid_id` `tid_id` INT(8) ZEROFILL NOT NULL ;
+ALTER TABLE `tid_site` ADD INDEX `tid_FK_idx` (`tid_id` ASC);
+ALTER TABLE `tid_site` ADD CONSTRAINT `tid_FK` FOREIGN KEY (`tid_id`) REFERENCES `tid` (`tid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

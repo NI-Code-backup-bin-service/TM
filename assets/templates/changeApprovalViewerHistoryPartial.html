@@ -1,0 +1,187 @@
+{{define "changeApprovalViewerHistoryPartial"}}
+{{ $u := .CurrentUser }}
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.datetimepicker.min.css" />
+<script src="/assets/js/jquery.datetimepicker.full.js"></script>
+<script src="/assets/js/profileFields.js"></script>
+{{$resultCount := len $.PageModel.HistoryTab.History}}
+<div class="container tiny-gutter full-resize">
+    <div class="row no-padding">
+        <label for="after" class="col-md-2 col-sm-5 mt-2">After: </label>
+        <input id="after" type="text" readonly class="form-control changes-history sm-text" onkeydown="checkKey()"/>
+
+        <label for="name" class="col-md-2 col-sm-5 mt-2">Filter By Name: </label>
+        <input id="name" type="text" class="form-control changes-history sm-text" onkeydown="checkKey()"/>
+
+        <label for="user" class="col-md-2 col-sm-5 mt-2">Filter By User: </label>
+        <input id="user" type="text" class="form-control changes-history sm-text" onkeydown="checkKey()"/>
+
+    </div>
+
+    <div class="row no-padding">
+
+        <label for="before" class="col-md-2 col-sm-5 mt-2">Before:</label>
+        <input id="before" type="text" readonly class="form-control changes-history sm-text" onkeydown="checkKey()"/>
+
+        <label for="field" class="col-md-2 col-sm-5 mt-2" >Filter By Field: </label>
+        <input id="field" type="text" class="form-control changes-history sm-text" onkeydown="checkKey()"/>
+
+        <div class="col-md-3 col-sm-4 no-padding">
+            <button id="export" type="button" onClick="exportHistory()"
+                class="btn btn-secondary float-end left-spaced">Export
+            </button>
+            <button id="clear-filters" type="button" class="btn btn-secondary float-end left-spaced">Clear Filters
+            </button>
+            <button id="filter" type="button"
+                onClick="filterHistoryRequest({{.PageModel.HistoryTab.IdentifierColumn}}, 0)"
+                class="btn btn-primary float-end" data-type='filter-cah-details'>Filter
+            </button>
+        </div>
+    </div>
+</div>
+<div>
+    <span id="prev-results-{{$.PageModel.HistoryTab.IdentifierColumn}}"
+        class="fas fa-angle-left fa-2x fa-pull-left opacity"
+        onclick="pageResults(-50, {{$.PageModel.HistoryTab.IdentifierColumn}})"></span>
+    <label id="shown-results-{{$.PageModel.HistoryTab.IdentifierColumn}}">Showing Results 0 to 50</label>
+    <span id="next-results-{{$.PageModel.HistoryTab.IdentifierColumn}}"
+        class='fas fa-angle-right fa-2x fa-pull-right {{if eq $resultCount 50}}clickable{{else}} opacity {{end}}' {{if
+        eq $resultCount 50}} onclick="pageResults(50, {{$.PageModel.HistoryTab.IdentifierColumn}})" {{end}}>
+    </span>
+</div>
+<div class="container no-padding tiny-gutter full-resize">
+    <table class="changeApprovalTable table table-hover table-sm col-wrap">
+        <thead>
+            <tr>
+                <th scope="col">{{$.PageModel.HistoryTab.IdentifierColumn}}</th>
+                <th scope="col">Field</th>
+                <th scope="col">Original Value</th>
+                <th scope="col">Update Value</th>
+                <th scope="col">Updated By</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Reviewed By</th>
+                <th scope="col">Reviewed At</th>
+            </tr>
+        </thead>
+        <tbody id="{{$.PageModel.HistoryTab.TabType}}-history-table">
+            {{ range $i, $t := $.PageModel.HistoryTab.History }}
+            <tr id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}"
+                class="{{ $.PageModel.GetTableRowStyle .Approved }}">
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-0" name="identifier">
+                    {{if or (eq .ChangeType 9) (eq .ChangeType 11) }}
+                    {{.ChangeValue}}
+                    {{else}}
+                    {{.Identifier}}
+                    {{end}}
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-1" name="field">
+                    {{ if and (and  ( ne .ChangeType 12) (ne .TidId "")) (and (ne .ChangeType 1) (ne .ChangeType 2)) }}
+                    TID {{.TidId}}
+                    {{ if eq .ChangeType 6 }} Serial Number {{ end }}
+                    {{else if ne .MID ""}}
+                    MID {{.MID}}
+                    {{else if eq .ChangeType 7 }}
+                    {{.OriginalValue}}
+                    {{else if eq .ChangeType 8 }}
+                    {{.OriginalValue}}
+                    {{else if eq .ChangeType 9 }}
+                    {{.OriginalValue}}
+                    {{else if eq .ChangeType 10 }}
+                    {{.ChangeValue}}
+                    {{else if eq .ChangeType 11 }}
+                    {{.OriginalValue}}
+                    {{else}}
+                    {{.Field}}
+                    {{end}}
+                </td>
+
+                {{ if and (eq .IsPassword true) (eq $u.UserPermissions.EditPasswords true) }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value">
+                    <span class="col-wrap" id="original-value-{{.ProfileDataID}}_hidden" hidden>{{ .OriginalValue
+                        }}</span>
+                    <span class="col-wrap" id="original-value-{{.ProfileDataID}}_show">*******</span>
+                    <img id="Row{{$i}}-orig-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png"
+                        class="togglePIN"
+                        onclick="togglePasswordDiv('original-value-{{ .ProfileDataID }}_show','original-value-{{ .ProfileDataID }}_hidden')">
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    <span class="col-wrap" id="change-value-{{.ProfileDataID}}_hidden" hidden>{{ .ChangeValue }}</span>
+                    <span class="col-wrap" id="change-value-{{.ProfileDataID}}_show">*******</span>
+                    <img id="Row{{$i}}-chng-showPwdBtn" name="-1" src="/assets/images/show-password-icon.png"
+                        class="togglePIN"
+                        onclick="togglePasswordDiv('change-value-{{ .ProfileDataID }}_show','change-value-{{ .ProfileDataID }}_hidden')">
+                </td>
+                {{ else if (eq .IsPassword true) }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value">*******
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">*******
+                </td>
+                {{ else if eq .ChangeType 7 }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value"></td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    {{.ChangeValue}}
+                </td>
+                {{ else if eq .ChangeType 8 }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value"></td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    Payment service group created
+                </td>
+                {{ else if eq .ChangeType 9 }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value"></td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    Payment service created
+                </td>
+                {{ else if eq .ChangeType 10 }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value"></td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    Payment service group deleted
+                </td>
+                {{ else if eq .ChangeType 11 }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value"></td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    Payment service deleted
+                </td>
+                {{ else }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-2" name="original-value">
+                    {{.OriginalValue}}
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-3" name="change-value">
+                    {{ if and (eq .Field "core/flagStatus") (eq (slice .ChangeValue 0 3) "fil")}}
+                    {{slice .ChangeValue 22 }}
+                    <button name="download_flagging_file" type="button"
+                        class="btn btn-secondary btn-sm float-end button-margin"
+                        onclick="downloadFlaggingFile({{.ChangeValue}})">View
+                    </button>
+                    {{else}}
+                    {{.ChangeValue}}
+                    {{ end }}
+                </td>
+                {{ end }}
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-4" name="changed-by">
+                    {{.ChangedBy}}
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-5" name="changed-at">
+                    {{.ChangedAt}}
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-6" name="reviewed-by">
+                    {{.ReviewedBy}}
+                </td>
+                <td id="{{$.PageModel.HistoryTab.TabType}}-history-row-{{ $i }}-field-7" name="reviewed-at">
+                    {{.ReviewedAt}}
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+
+<div id="preparing-file-modal" title="Preparing report..." style="display: none;">
+    We are preparing your report, please wait...
+    <div class="ui-progressbar-value ui-corner-left ui-corner-right"
+        style="width: 100%; height:22px; margin-top: 20px;"></div>
+</div>
+
+<div id="error-modal" title="Error" style="display: none;">
+    There was a problem generating your report, please try again.
+</div>
+
+{{end}}

@@ -1,0 +1,49 @@
+{{define "bulkChangeApprovalHistory"}}
+
+<div class="container no-padding tiny-gutter full-resize">
+  <table class="changeApprovalTable table table-hover table-sm col-wrap">
+    <thead>
+      <tr>
+        <th scope="col">File Name</th>
+        <th scope="col">Uploaded file</th>
+        <th scope="col">Report file</th>
+        <th scope="col">Type</th>
+        <th scope="col">Change Type</th>
+        <th scope="col">Created By</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Reviewed By</th>
+        <th scope="col">Reviewed At</th>
+      </tr>
+    </thead>
+    <tbody id="bulk-change-approval-history-table">
+      {{ range $i, $t := .PageModel }}
+      <tr id="bulk-change-approval-history-row-{{ $i }}"
+        class="{{ if eq .Approved 1 }} table-approved {{ else }} table-disapproved {{ end }}">
+
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-1" name="field">{{ if or ( and (eq .FileType "FileManagement") (eq .ChangeType "Delete" )) (le (len .Filename) 15 ) }}{{
+          .Filename }}{{ else }}{{ slice .Filename 15 }}{{ end }}</td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-2" name="field">
+          {{ if and (ne .FileType "FileManagement") (ne .FileType "LogoManagement")}}
+          <button name="download_file" type="button" class="btn btn-secondary btn-sm button-margin"
+            onclick="downloadFile({{.Filename}},{{.FileType}},false)">View</button>
+          {{ end }}
+        </td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-3" name="field">
+          {{ if and (.Approved) (eq .FileType "TerminalFlagging") }}
+          <button name="download_file" type="button" class="btn btn-secondary btn-sm button-margin"
+            onclick="downloadFile({{.Filename}},{{.FileType}},true)">View</button>
+          {{ end }}
+        </td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-4" name="created-by">{{.FileType}} </td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-5" name="created-by">{{.ChangeType}} </td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-6" name="created-by">{{.CreatedBy}} </td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-7" name="created-at">{{.CreatedAt}}</td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-8" name="reviewed-by">{{.ApprovedBy}}</td>
+        <td id="bulk-change-approval-history-row-{{ $i }}-field-9" name="reviewed-at">{{.ApprovedAt}}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+</div>
+
+{{end}}

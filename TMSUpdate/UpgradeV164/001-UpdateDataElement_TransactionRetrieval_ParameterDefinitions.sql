@@ -1,0 +1,1 @@
+UPDATE data_element SET datatype = 'FILE' WHERE name = 'parameterDefinitions' AND data_group_id = (SELECT data_group_id FROM data_group WHERE data_group.name = 'transactionRetrieval');

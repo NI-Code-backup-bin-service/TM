@@ -1,0 +1,13 @@
+drop procedure if exists site_list_fetch;
+drop procedure if exists user_fetch;
+drop procedure if exists country_list_fetch;
+drop procedure if exists chain_list_fetch;
+drop procedure if exists tid_list_fetch;
+drop procedure if exists profile_list_fetch_by_type_name;
+drop procedure if exists get_pending_change_approvals;
+drop procedure if exists get_pending_profile_change_approvals;
+drop procedure if exists get_change_approval_history;
+drop procedure if exists fetch_data_element_metadata;
+drop procedure if exists save_pending_element_change;
+drop procedure if exists save_pending_profile_change;
+drop procedure if exists record_site_to_history;

@@ -1,0 +1,1 @@
+UPDATE profile_data SET datavalue = 4 WHERE data_element_id = 8 or data_element_id = 9;

@@ -1,0 +1,1 @@
+DROP procedure IF EXISTS `get_configured_data_elements_for_tid`;

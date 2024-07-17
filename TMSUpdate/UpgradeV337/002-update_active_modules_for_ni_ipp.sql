@@ -1,0 +1,1 @@
+UPDATE data_element SET options = REPLACE(options,'|IPP', '|ippSale|ippRefund|ippReversal') WHERE name = 'active' AND options not like '%|ippSale|ippRefund|ippReversal%' AND data_group_id = (SELECT data_group_id FROM data_group WHERE name = 'modules');

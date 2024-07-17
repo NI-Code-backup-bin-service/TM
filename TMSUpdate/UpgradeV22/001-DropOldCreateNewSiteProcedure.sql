@@ -1,0 +1,1 @@
+drop procedure if exists create_new_site;

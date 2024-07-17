@@ -1,0 +1,29 @@
+{{ define "bulkSiteUploadPartial" }}
+<script src="/assets/js/bulkSiteImport.js"></script>
+
+<div>
+    <div>
+        <h4>Bulk Site Import</h4>
+        <form id="site-import-upload">
+            <div class="row spaced-bottom indent">
+                <input id="site-import-upload-file" name="file" type="file" class="form-control-file"/>
+            </div>
+            <h6>Template MID</h6>
+            <div>
+                <input id="site-import-template-MID" name="mid" type="text">
+            </div>
+            <div class="mt-2 spaced-bottom indent">
+                <button id="site-import-upload-file-button" class="btn btn-primary my-2 my-sm-0">Upload</button>
+            </div>
+            {{ .CSRFField }}
+        </form>
+    </div>
+    <div id="site-upload-spinner" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5)">
+        <div class="loader" style="position: absolute; top: 50%; left: 50%;"></div>
+    </div>
+    <div id="site-upload-results">
+
+    </div>
+</div>
+
+{{ end }}

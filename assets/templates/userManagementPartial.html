@@ -1,0 +1,103 @@
+{{ define "userManagementPartial" }}
+<div>
+    <div>
+        <fieldset>
+            <legend>Add User</legend>
+
+            <input id="um-username">
+            {{.CSRFField}}
+
+            <select id="um-user-groups" multiple="multiple">
+                {{ range .PageModel.PermissionGroups }}
+                <option id="um-user-group-{{ .Name }}"
+                        {{ if eq .Name "NI User" }}selected="selected"{{ end }}>{{ .Name }}</option>
+                {{ end }}
+            </select>
+
+            <button id="um-add-user" class="btn btn-primary" onclick="addUser()">Add User</button>
+        </fieldset>
+    </div>
+
+    <div class="um-spaced-group">
+        <fieldset>
+            <legend>Delete User</legend>
+
+            <select id="um-users">
+                {{ range .PageModel.Users }}
+                <option id="um-username-{{ .Username }}"{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Username }}</option>
+                {{ end }}
+            </select>
+            {{.CSRFField}}
+
+            <button id="um-delete-user" class="btn btn-primary" onclick="deleteUser()">Delete User</button>
+        </fieldset>
+    </div>
+
+    <div class="um-spaced-group">
+        <fieldset>
+            <legend>Assign User Groups</legend>
+
+            <select id="user" onchange="Select()">
+                {{ range .PageModel.Users }}
+                <option id="user-name-{{ .Username }}"{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Username }}</option>
+                {{ end }}
+            </select>
+
+            <select id="groups" multiple="multiple">
+                {{ range .PageModel.PermissionGroups }}
+                <option id="user-group-{{ .Name }}"{{ if eq .UserGroupSelected true }} selected="selected"{{ end }}
+                        {{ if eq .Editable false }} class="hidden" disabled="disabled"{{ end }}>{{ .Name }}</option>
+                {{ end }}
+            </select>
+
+            <div class="um-spaced-element">
+                <button id="user-apply" class="btn btn-primary" onclick="SaveUserGroup()">Apply</button>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="um-spaced-group">
+        <fieldset>
+            <legend>Assign Group Permissions</legend>
+
+            <select id="group" onchange="Select()">
+            {{ range .PageModel.PermissionGroups }}
+                <option id="group-name-{{ .Name }}"{{ if eq .GroupPermissionsSelected true }} selected="selected"{{ end }}
+                        {{ if eq .Editable false }} class="hidden" disabled="disabled"{{ end }}>{{ .Name }}</option>
+            {{ end }}
+            </select>
+
+            {{ $currentUserRole := .CurrentUser.RoleID }}
+            {{ $globalAdmin := 3 }}
+
+            <select id="permissions" onchange="applyMultiSelects()" multiple="multiple" {{ if ne $currentUserRole $globalAdmin }} disabled="disabled"{{ end }}>
+            {{ range .PageModel.Permissions }}
+                <option id="group-permission-{{ .Name }}"{{ if eq .Selected true }} selected="selected"{{ end }}>{{ .Name }}</option>
+            {{ end }}
+            </select>
+
+            <select id="acquirers" onchange="applyMultiSelects()" multiple="multiple" {{ if ne $currentUserRole $globalAdmin }} disabled="disabled"{{ end }}>
+                {{ range .PageModel.Acquirers }}
+                    <option id="group-acquirer-{{ .ProfileId }}"{{ if eq .Selected true }} selected="selected"{{ end }} value={{ .ProfileId }}>{{ .Name }}</option>
+                {{ end }}
+            </select>
+
+
+            <button id="group-delete" class="btn btn-primary" onclick="DeleteGroup()" {{ if (eq .PageModel.EditableGroup false) }} disabled="disabled"{{ end }}>Delete Group</button>
+
+            <div class="um-spaced-element">
+                <input id="alterGroup">
+                {{.CSRFField}}
+
+                <button id="group-add" class="btn btn-primary" onclick="AddGroup()">Add Group</button>
+                <button id="group-rename" class="btn btn-primary" onclick="RenameGroup()" {{ if (eq .PageModel.EditableGroup false) }} disabled="disabled"{{ end }}>Rename Group</button>
+            </div>
+
+
+            <div class="um-spaced-element">
+                <button id="group-apply" class="btn btn-primary" onclick="SaveGroupPermissions()">Apply</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+{{ end }}
